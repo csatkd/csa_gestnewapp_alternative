@@ -2,11 +2,11 @@ import { Member, AttendanceRecord, GradingSession, GradingResult, Payment, Compe
 
 export const mockMembers: Member[] = [
   {
-    id: 'M001', firstName: 'Kouamé', lastName: 'Aya', dateOfBirth: '2010-03-15', gender: 'F',
-    licenseNumber: 'FITKD-2024-001', beltColor: 'blue', beltRank: 2,
+    id: 'M001', firstName: 'Kouassi', lastName: 'Aya Marie', dateOfBirth: '2010-03-15', gender: 'F',
+    licenseNumber: 'FITKD-CI-2024-001', beltColor: 'blue', beltRank: 2,
     phone: '+225 07 12 34 56 78', parentPhone: '+225 05 98 76 54 32',
-    address: 'Abidjan, Cocody', medicalCertificateDate: '2024-09-01', medicalCertificateValidUntil: '2025-09-01',
-    insuranceValidUntil: '2025-06-30', emergencyContact: 'Kouamé Jean (Père)', emergencyPhone: '+225 05 98 76 54 32',
+    address: 'Cocody, Abidjan', medicalCertificateDate: '2024-09-01', medicalCertificateValidUntil: '2025-09-01',
+    insuranceValidUntil: '2025-06-30', emergencyContact: 'Kouassi Jean-Baptiste (Père)', emergencyPhone: '+225 05 98 76 54 32',
     registrationDate: '2022-01-15', weight: 42, height: 148,
     weightHistory: [
       { date: '2024-01', weight: 38 }, { date: '2024-02', weight: 38.5 }, { date: '2024-03', weight: 39 },
@@ -24,9 +24,9 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M002', firstName: 'Traoré', lastName: 'Moussa', dateOfBirth: '2008-07-22', gender: 'M',
-    licenseNumber: 'FITKD-2024-002', beltColor: 'red', beltRank: 1,
-    phone: '+225 07 23 45 67 89', address: 'Abidjan, Yopougon',
-    medicalCertificateDate: '2024-06-15', medicalCertificateValidUntil: '2025-06-15',
+    licenseNumber: 'FITKD-CI-2024-002', beltColor: 'red', beltRank: 1,
+    phone: '+225 07 23 45 67 89', parentPhone: '+225 01 23 45 67 89',
+    address: 'Yopougon, Abidjan', medicalCertificateDate: '2024-06-15', medicalCertificateValidUntil: '2025-06-15',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Traoré Fatou (Mère)', emergencyPhone: '+225 01 23 45 67 89',
     registrationDate: '2020-09-01', weight: 65, height: 172,
     weightHistory: [
@@ -44,10 +44,10 @@ export const mockMembers: Member[] = [
     status: 'active'
   },
   {
-    id: 'M003', firstName: 'Bamba', lastName: 'Fatou', dateOfBirth: '2012-11-08', gender: 'F',
-    licenseNumber: 'FITKD-2024-003', beltColor: 'yellow', beltRank: 3,
+    id: 'M003', firstName: 'Bamba', lastName: 'Fatoumata', dateOfBirth: '2012-11-08', gender: 'F',
+    licenseNumber: 'FITKD-CI-2024-003', beltColor: 'yellow', beltRank: 3,
     phone: '+225 07 34 56 78 90', parentPhone: '+225 05 34 56 78 90',
-    address: 'Abidjan, Abobo', medicalCertificateDate: '2024-10-01', medicalCertificateValidUntil: '2025-10-01',
+    address: 'Abobo, Abidjan', medicalCertificateDate: '2024-10-01', medicalCertificateValidUntil: '2025-10-01',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Bamba Ibrahim (Père)', emergencyPhone: '+225 05 34 56 78 90',
     registrationDate: '2023-03-10', weight: 35, height: 138,
     weightHistory: [
@@ -66,9 +66,9 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M004', firstName: 'Koné', lastName: 'Ibrahim', dateOfBirth: '2005-01-30', gender: 'M',
-    licenseNumber: 'FITKD-2024-004', beltColor: 'black', beltRank: 0, dan: 1,
-    phone: '+225 07 45 67 89 01', address: 'Abidjan, Plateau',
-    medicalCertificateDate: '2024-08-20', medicalCertificateValidUntil: '2025-08-20',
+    licenseNumber: 'FITKD-CI-2024-004', beltColor: 'black', beltRank: 0, dan: 1,
+    phone: '+225 07 45 67 89 01', parentPhone: '+225 01 45 67 89 01',
+    address: 'Plateau, Abidjan', medicalCertificateDate: '2024-08-20', medicalCertificateValidUntil: '2025-08-20',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Koné Awa (Mère)', emergencyPhone: '+225 01 45 67 89 01',
     registrationDate: '2018-09-01', weight: 72, height: 178,
     weightHistory: [
@@ -87,9 +87,9 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M005', firstName: 'Diallo', lastName: 'Aminata', dateOfBirth: '2011-05-18', gender: 'F',
-    licenseNumber: 'FITKD-2024-005', beltColor: 'green', beltRank: 1,
+    licenseNumber: 'FITKD-CI-2024-005', beltColor: 'green', beltRank: 1,
     phone: '+225 07 56 78 90 12', parentPhone: '+225 05 56 78 90 12',
-    address: 'Abidjan, Treichville', medicalCertificateDate: '2024-07-10', medicalCertificateValidUntil: '2025-07-10',
+    address: 'Treichville, Abidjan', medicalCertificateDate: '2024-07-10', medicalCertificateValidUntil: '2025-07-10',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Diallo Mamadou (Père)', emergencyPhone: '+225 01 56 78 90 12',
     registrationDate: '2022-09-15', weight: 38, height: 145,
     weightHistory: [
@@ -108,9 +108,9 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M006', firstName: 'Ouattara', lastName: 'Seydou', dateOfBirth: '2009-09-12', gender: 'M',
-    licenseNumber: 'FITKD-2024-006', beltColor: 'orange', beltRank: 2,
+    licenseNumber: 'FITKD-CI-2024-006', beltColor: 'orange', beltRank: 2,
     phone: '+225 07 67 89 01 23', parentPhone: '+225 05 67 89 01 23',
-    address: 'Abidjan, Marcory', medicalCertificateDate: '2024-05-20', medicalCertificateValidUntil: '2025-05-20',
+    address: 'Marcory, Abidjan', medicalCertificateDate: '2024-05-20', medicalCertificateValidUntil: '2025-05-20',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Ouattara Mariam (Mère)', emergencyPhone: '+225 01 67 89 01 23',
     registrationDate: '2021-09-01', weight: 48, height: 155,
     weightHistory: [
@@ -126,6 +126,48 @@ export const mockMembers: Member[] = [
       { month: 'Oct', rate: 82 }, { month: 'Nov', rate: 85 }, { month: 'Déc', rate: 80 }
     ],
     status: 'active'
+  },
+  {
+    id: 'M007', firstName: 'Yao', lastName: 'Koffi', dateOfBirth: '2007-04-25', gender: 'M',
+    licenseNumber: 'FITKD-CI-2024-007', beltColor: 'purple', beltRank: 1,
+    phone: '+225 07 78 90 12 34', parentPhone: '+225 05 78 90 12 34',
+    address: 'Plateau, Abidjan', medicalCertificateDate: '2024-11-01', medicalCertificateValidUntil: '2025-11-01',
+    insuranceValidUntil: '2025-06-30', emergencyContact: 'Yao Akissi (Mère)', emergencyPhone: '+225 01 78 90 12 34',
+    registrationDate: '2021-01-10', weight: 58, height: 168,
+    weightHistory: [
+      { date: '2024-01', weight: 55 }, { date: '2024-02', weight: 55.5 }, { date: '2024-03', weight: 56 },
+      { date: '2024-04', weight: 56.5 }, { date: '2024-05', weight: 57 }, { date: '2024-06', weight: 57.3 },
+      { date: '2024-07', weight: 57.5 }, { date: '2024-08', weight: 57.8 }, { date: '2024-09', weight: 58 },
+      { date: '2024-10', weight: 58 }, { date: '2024-11', weight: 58 }, { date: '2024-12', weight: 58 }
+    ],
+    attendanceHistory: [
+      { month: 'Jan', rate: 91 }, { month: 'Fév', rate: 89 }, { month: 'Mar', rate: 92 },
+      { month: 'Avr', rate: 88 }, { month: 'Mai', rate: 90 }, { month: 'Jun', rate: 93 },
+      { month: 'Jul', rate: 85 }, { month: 'Aoû', rate: 87 }, { month: 'Sep', rate: 91 },
+      { month: 'Oct', rate: 94 }, { month: 'Nov', rate: 92 }, { month: 'Déc', rate: 90 }
+    ],
+    status: 'active'
+  },
+  {
+    id: 'M008', firstName: 'Coulibaly', lastName: 'Salimata', dateOfBirth: '2013-08-14', gender: 'F',
+    licenseNumber: 'FITKD-CI-2024-008', beltColor: 'white', beltRank: 2,
+    phone: '+225 07 89 01 23 45', parentPhone: '+225 05 89 01 23 45',
+    address: 'Cocody, Abidjan', medicalCertificateDate: '2024-09-15', medicalCertificateValidUntil: '2025-09-15',
+    insuranceValidUntil: '2025-06-30', emergencyContact: 'Coulibaly Drissa (Père)', emergencyPhone: '+225 01 89 01 23 45',
+    registrationDate: '2024-01-05', weight: 32, height: 135,
+    weightHistory: [
+      { date: '2024-01', weight: 30 }, { date: '2024-02', weight: 30.3 }, { date: '2024-03', weight: 30.5 },
+      { date: '2024-04', weight: 30.8 }, { date: '2024-05', weight: 31 }, { date: '2024-06', weight: 31.2 },
+      { date: '2024-07', weight: 31.5 }, { date: '2024-08', weight: 31.7 }, { date: '2024-09', weight: 31.8 },
+      { date: '2024-10', weight: 32 }, { date: '2024-11', weight: 32 }, { date: '2024-12', weight: 32 }
+    ],
+    attendanceHistory: [
+      { month: 'Jan', rate: 75 }, { month: 'Fév', rate: 78 }, { month: 'Mar', rate: 80 },
+      { month: 'Avr', rate: 82 }, { month: 'Mai', rate: 85 }, { month: 'Jun', rate: 83 },
+      { month: 'Jul', rate: 70 }, { month: 'Aoû', rate: 72 }, { month: 'Sep', rate: 76 },
+      { month: 'Oct', rate: 80 }, { month: 'Nov', rate: 82 }, { month: 'Déc', rate: 78 }
+    ],
+    status: 'active'
   }
 ];
 
@@ -136,16 +178,18 @@ export const mockAttendanceRecords: AttendanceRecord[] = [
   { id: 'A004', memberId: 'M004', date: '2024-12-15', time: '15:50', status: 'present', method: 'qr', sessionType: 'training' },
   { id: 'A005', memberId: 'M005', date: '2024-12-15', time: '00:00', status: 'absent', method: 'manual', sessionType: 'training' },
   { id: 'A006', memberId: 'M006', date: '2024-12-15', time: '16:05', status: 'present', method: 'qr', sessionType: 'training' },
-  { id: 'A007', memberId: 'M001', date: '2024-12-14', time: '16:00', status: 'present', method: 'qr', sessionType: 'training' },
-  { id: 'A008', memberId: 'M002', date: '2024-12-14', time: '16:10', status: 'late', method: 'nfc', lateMinutes: 10, sessionType: 'training' },
-  { id: 'A009', memberId: 'M003', date: '2024-12-14', time: '16:00', status: 'present', method: 'manual', sessionType: 'training' },
-  { id: 'A010', memberId: 'M004', date: '2024-12-14', time: '15:58', status: 'present', method: 'qr', sessionType: 'training' },
+  { id: 'A007', memberId: 'M007', date: '2024-12-15', time: '16:02', status: 'present', method: 'nfc', sessionType: 'training' },
+  { id: 'A008', memberId: 'M008', date: '2024-12-15', time: '16:20', status: 'late', method: 'manual', lateMinutes: 20, sessionType: 'training' },
+  { id: 'A009', memberId: 'M001', date: '2024-12-14', time: '16:00', status: 'present', method: 'qr', sessionType: 'training' },
+  { id: 'A010', memberId: 'M002', date: '2024-12-14', time: '16:10', status: 'late', method: 'nfc', lateMinutes: 10, sessionType: 'training' },
+  { id: 'A011', memberId: 'M003', date: '2024-12-14', time: '16:00', status: 'present', method: 'manual', sessionType: 'training' },
+  { id: 'A012', memberId: 'M004', date: '2024-12-14', time: '15:58', status: 'present', method: 'qr', sessionType: 'training' },
 ];
 
 export const mockGradingSessions: GradingSession[] = [
-  { id: 'G001', date: '2025-01-20', time: '09:00', location: 'Dojang CSA - Cocody', maxCandidates: 20, registeredCandidates: ['M001', 'M002', 'M003', 'M005', 'M006'], status: 'upcoming' },
-  { id: 'G002', date: '2025-04-15', time: '09:00', location: 'Dojang CSA - Cocody', maxCandidates: 25, registeredCandidates: [], status: 'upcoming' },
-  { id: 'G003', date: '2024-10-10', time: '09:00', location: 'Dojang CSA - Cocody', maxCandidates: 15, registeredCandidates: ['M001', 'M004'], status: 'completed', examiner: 'Maître Koné' },
+  { id: 'G001', date: '2025-01-20', time: '09:00', location: 'Dojang CSA - Cocody, Abidjan', maxCandidates: 20, registeredCandidates: ['M001', 'M002', 'M003', 'M005', 'M006'], status: 'upcoming' },
+  { id: 'G002', date: '2025-04-15', time: '09:00', location: 'Dojang CSA - Cocody, Abidjan', maxCandidates: 25, registeredCandidates: [], status: 'upcoming' },
+  { id: 'G003', date: '2024-10-10', time: '09:00', location: 'Dojang CSA - Cocody, Abidjan', maxCandidates: 15, registeredCandidates: ['M001', 'M004'], status: 'completed', examiner: 'Maître Koné' },
 ];
 
 export const mockGradingResults: GradingResult[] = [
@@ -208,7 +252,7 @@ export const mockPayments: Payment[] = [
 ];
 
 export const mockCompetitions: Competition[] = [
-  { id: 'C001', name: 'Championnat National FITKD 2025', date: '2025-03-15', location: 'Palais des Sports, Abidjan', type: 'national', registeredAthletes: ['M001', 'M002', 'M004'], medals: { gold: 3, silver: 2, bronze: 4 } },
+  { id: 'C001', name: 'Championnat National FITKD 2025', date: '2025-03-15', location: 'Palais des Sports, Treichville, Abidjan', type: 'national', registeredAthletes: ['M001', 'M002', 'M004'], medals: { gold: 3, silver: 2, bronze: 4 } },
   { id: 'C002', name: 'Open International de Taekwondo', date: '2025-05-20', location: 'Dakar, Sénégal', type: 'international', registeredAthletes: ['M002', 'M004'], medals: { gold: 1, silver: 1, bronze: 2 } },
   { id: 'C003', name: 'Coupe Régionale Zone Sud', date: '2025-02-08', location: 'San-Pédro', type: 'regional', registeredAthletes: ['M001', 'M003', 'M005', 'M006'], medals: { gold: 2, silver: 3, bronze: 1 } },
 ];

@@ -30,6 +30,23 @@ export default function PaymentsView() {
     return labels[type] || type;
   };
 
+  const getPaymentMethodLabel = (method: string) => {
+    const labels: Record<string, string> = {
+      cash: '💵 Espèces',
+      mobile_money: '📱 Mobile Money',
+      bank: '🏦 Virement Bancaire'
+    };
+    return labels[method] || method;
+  };
+
+  const getMobileMoneyOperator = (receipt: string) => {
+    if (receipt.startsWith('OM-')) return '🟠 Orange Money';
+    if (receipt.startsWith('MTN-')) return '🟡 MTN MoMo';
+    if (receipt.startsWith('WAVE-')) return '🔵 Wave';
+    if (receipt.startsWith('MOOV-')) return '🔷 Moov Money';
+    return '📱 Mobile Money';
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -240,7 +257,7 @@ export default function PaymentsView() {
                       <div className="flex-1">
                         <p className="text-white text-sm">{inst.amount.toLocaleString()} FCFA</p>
                         <p className="text-slate-400 text-xs">
-                          {new Date(inst.date).toLocaleDateString('fr-FR')} • {inst.method === 'cash' ? '💵 Espèces' : inst.method === 'mobile_money' ? '📱 Mobile Money' : '🏦 Virement'} • Reçu: {inst.receipt}
+                          {new Date(inst.date).toLocaleDateString('fr-FR')} • {getPaymentMethodLabel(inst.method)} {inst.method === 'mobile_money' && `(${getMobileMoneyOperator(inst.receipt)})`} • Reçu: {inst.receipt}
                         </p>
                       </div>
                       <CheckCircle className="w-5 h-5 text-emerald-400" />

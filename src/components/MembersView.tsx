@@ -31,6 +31,10 @@ function getAgeCategory(dob: string): string {
   return 'Vétérans';
 }
 
+function getAge(dob: string): number {
+  return Math.floor((Date.now() - new Date(dob).getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+}
+
 function getBMI(weight: number, height: number): number {
   const heightM = height / 100;
   return parseFloat((weight / (heightM * heightM)).toFixed(1));

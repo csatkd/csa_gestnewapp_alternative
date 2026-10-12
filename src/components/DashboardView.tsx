@@ -42,6 +42,17 @@ export default function DashboardView() {
     return `${days}j`;
   };
 
+  const exportAttendanceCSV = () => {
+    const csvData = attendance30DaysData.map(d => ({
+      date: d.fullDate,
+      taux: `${d.rate}%`,
+      presents: d.present,
+      retards: d.late,
+      absents: d.absent
+    }));
+    exportToCSV(csvData, 'assiduite_30jours');
+  };
+
   return (
     <div className="space-y-6">
       {/* KPI Cards */}

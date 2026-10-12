@@ -161,14 +161,18 @@ export function generateAttendanceSheetPDF(date: string, records: { member: Memb
   // Header
   doc.setFillColor(30, 41, 59);
   doc.rect(0, 0, 210, 30, 'F');
-  doc.setFontSize(16);
+  doc.setFontSize(14);
   doc.setTextColor(255, 255, 255);
-  doc.text('CONFIDENCE SPORTS ACADEMY', 105, 12, { align: 'center' });
-  doc.setFontSize(9);
-  doc.setTextColor(16, 185, 129);
-  doc.text('FICHE OFFICIELLE D\'ÉMARGEMENT', 105, 20, { align: 'center' });
+  doc.text('CONFIDENCE SPORTS ACADEMY', 105, 10, { align: 'center' });
+  doc.setFontSize(8);
   doc.setTextColor(200, 200, 200);
-  doc.text('FITKD • Kukkiwon • World Taekwondo', 105, 26, { align: 'center' });
+  doc.text('Dojang de Cocody - Abidjan, Côte d\'Ivoire', 105, 16, { align: 'center' });
+  doc.setFontSize(10);
+  doc.setTextColor(16, 185, 129);
+  doc.text('FICHE OFFICIELLE D\'ÉMARGEMENT', 105, 22, { align: 'center' });
+  doc.setFontSize(7);
+  doc.setTextColor(150, 150, 150);
+  doc.text('Affiliée FITKD • Homologuée Kukkiwon • Membre World Taekwondo', 105, 27, { align: 'center' });
 
   // Session info
   doc.setFontSize(10);
@@ -273,15 +277,18 @@ export function generatePaymentStatementPDF(memberId: string, payments: { descri
   // Header
   doc.setFillColor(30, 41, 59);
   doc.rect(0, 0, 210, 35, 'F');
-  doc.setFontSize(16);
+  doc.setFontSize(14);
   doc.setTextColor(255, 255, 255);
-  doc.text('CONFIDENCE SPORTS ACADEMY', 105, 14, { align: 'center' });
-  doc.setFontSize(10);
-  doc.setTextColor(16, 185, 129);
-  doc.text('RELEVÉ DE COMPTE LICENCIÉ', 105, 22, { align: 'center' });
+  doc.text('CONFIDENCE SPORTS ACADEMY', 105, 12, { align: 'center' });
   doc.setFontSize(8);
   doc.setTextColor(200, 200, 200);
-  doc.text('Document comptable officiel', 105, 29, { align: 'center' });
+  doc.text('Dojang de Cocody - Abidjan, Côte d\'Ivoire', 105, 18, { align: 'center' });
+  doc.setFontSize(11);
+  doc.setTextColor(16, 185, 129);
+  doc.text('RELEVÉ DE COMPTE LICENCIÉ', 105, 25, { align: 'center' });
+  doc.setFontSize(7);
+  doc.setTextColor(150, 150, 150);
+  doc.text('Document comptable officiel - Affiliée FITKD • Homologuée Kukkiwon', 105, 31, { align: 'center' });
 
   // Member info
   let y = 45;

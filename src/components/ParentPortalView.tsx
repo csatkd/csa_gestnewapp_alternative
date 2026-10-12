@@ -149,7 +149,7 @@ export default function ParentPortalView() {
                   <CreditCard className="w-5 h-5 text-amber-400" />
                   <div className="text-left">
                     <p className="text-white text-sm">Payer par Mobile Money</p>
-                    <p className="text-slate-500 text-xs">Orange Money / MTN / Wave</p>
+                    <p className="text-slate-500 text-xs">Orange Money / MTN MoMo / Wave / Moov</p>
                   </div>
                 </button>
               </div>
