@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { Users, TrendingUp, DollarSign, Award, AlertTriangle, Calendar, Activity } from 'lucide-react';
+import { Users, TrendingUp, DollarSign, Award, AlertTriangle, Calendar, Activity, Download } from 'lucide-react';
 import { mockMembers, mockPayments, mockCompetitions, mockInventory, attendance30DaysData } from '../data/mockData';
+import CompetitionCountdown from './CompetitionCountdown';
+import { exportToCSV } from '../utils/helpers';
 
 const COLORS = ['#10b981', '#f59e0b', '#ef4444', '#6366f1'];
 
@@ -179,24 +181,28 @@ export default function DashboardView() {
 
       {/* Bottom Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Upcoming Competitions */}
+        {/* Upcoming Competitions with Live Countdown */}
         <div className="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
-          <div className="flex items-center gap-2 mb-4">
-            <Calendar className="w-5 h-5 text-amber-400" />
-            <h3 className="text-white font-semibold">Compétitions à Venir</h3>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-amber-400" />
+              <h3 className="text-white font-semibold">Compétitions à Venir</h3>
+            </div>
+            <button
+              onClick={() => exportToCSV(mockCompetitions.map(c => ({
+                nom: c.name, date: c.date, lieu: c.location, type: c.type,
+                athletes: c.registeredAthletes.length,
+                or: c.medals.gold, argent: c.medals.silver, bronze: c.medals.bronze
+              })), 'competitions')}
+              className="text-slate-400 hover:text-emerald-400 transition-colors"
+              title="Exporter en CSV"
+            >
+              <Download className="w-4 h-4" />
+            </button>
           </div>
-          <div className="space-y-3">
-            {mockCompetitions.map(comp => (
-              <div key={comp.id} className="bg-slate-700/50 rounded-lg p-3 border border-slate-600">
-                <div className="flex items-center justify-between">
-                  <span className="text-white text-sm font-medium">{comp.name}</span>
-                  <span className="bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded text-xs font-bold">
-                    {getCountdown(comp.date)}
-                  </span>
-                </div>
-                <p className="text-slate-400 text-xs mt-1">{comp.location} • {new Date(comp.date).toLocaleDateString('fr-FR')}</p>
-                <p className="text-slate-500 text-xs mt-1">{comp.registeredAthletes.length} athlète(s) engagé(s)</p>
-              </div>
+          <div className="space-y-4">
+            {mockCompetitions.slice(0, 2).map(comp => (
+              <CompetitionCountdown key={comp.id} competition={comp} />
             ))}
           </div>
         </div>

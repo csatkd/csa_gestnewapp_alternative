@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { DollarSign, AlertTriangle, CheckCircle, Clock, Download, CreditCard } from 'lucide-react';
 import { mockMembers, mockPayments } from '../data/mockData';
 import { Payment } from '../types';
+import { generatePaymentStatementPDF } from '../utils/pdfGenerators';
+import { exportToCSV } from '../utils/helpers';
 
 export default function PaymentsView() {
   const [filterStatus, setFilterStatus] = useState<string>('all');
@@ -97,7 +99,7 @@ export default function PaymentsView() {
       )}
 
       {/* Filters */}
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap items-center">
         {['all', 'paid', 'partial', 'overdue', 'pending'].map(status => (
           <button
             key={status}
@@ -107,6 +109,28 @@ export default function PaymentsView() {
             {status === 'all' ? 'Tous' : status === 'paid' ? 'Payés' : status === 'partial' ? 'Partiels' : status === 'overdue' ? 'En Retard' : 'En Attente'}
           </button>
         ))}
+        <div className="ml-auto">
+          <button
+            onClick={() => {
+              exportToCSV(filteredPayments.map(p => {
+                const member = mockMembers.find(m => m.id === p.memberId);
+                return {
+                  licencié: `${member?.firstName} ${member?.lastName}`,
+                  type: p.type,
+                  description: p.description,
+                  montant: p.amount,
+                  payé: p.paidAmount,
+                  reste: p.amount - p.paidAmount,
+                  échéance: p.dueDate,
+                  statut: p.status,
+                };
+              }), 'paiements');
+            }}
+            className="flex items-center gap-1 px-3 py-1.5 bg-slate-700 text-slate-300 rounded-lg text-sm hover:bg-slate-600 transition-colors"
+          >
+            <Download className="w-3 h-3" /> Export CSV
+          </button>
+        </div>
       </div>
 
       {/* Payments Table */}
@@ -227,11 +251,28 @@ export default function PaymentsView() {
 
               {/* Actions */}
               <div className="flex gap-3 pt-4 border-t border-slate-700">
-                <button className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                <button
+                  onClick={() => {
+                    if (selectedPayment) {
+                      generatePaymentStatementPDF(selectedPayment.memberId, [selectedPayment]);
+                    }
+                  }}
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                >
                   <Download className="w-4 h-4" /> Exporter Relevé PDF
                 </button>
-                <button className="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-2 rounded-lg text-sm font-medium transition-colors">
-                  Envoyer Relance WhatsApp
+                <button
+                  onClick={() => {
+                    const member = mockMembers.find(m => m.id === selectedPayment?.memberId);
+                    if (member?.parentPhone) {
+                      const remaining = selectedPayment!.amount - selectedPayment!.paidAmount;
+                      const message = encodeURIComponent(`Bonjour, nous vous rappelons que le solde restant de ${remaining.toLocaleString()} FCFA pour ${selectedPayment?.description} est en attente. Merci de régulariser la situation. — CSA Taekwondo`);
+                      window.open(`https://wa.me/${member.parentPhone.replace(/\s/g, '')}?text=${message}`, '_blank');
+                    }
+                  }}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                >
+                  💬 Relance WhatsApp
                 </button>
               </div>
             </div>

@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { QrCode, Clock, CheckCircle, XCircle, AlertCircle, UserCheck } from 'lucide-react';
+import { QrCode, Clock, CheckCircle, XCircle, AlertCircle, UserCheck, FileText, Download, Monitor } from 'lucide-react';
 import { mockMembers, mockAttendanceRecords } from '../data/mockData';
 import { AttendanceStatus } from '../types';
+import { generateAttendanceSheetPDF } from '../utils/pdfGenerators';
+import { exportToCSV } from '../utils/helpers';
+import KioskMode from './KioskMode';
 
 export default function AttendanceView() {
   const [selectedDate, setSelectedDate] = useState('2024-12-15');
   const [sessionType, setSessionType] = useState('training');
   const [pointingMethod, setPointingMethod] = useState<'qr' | 'nfc' | 'manual'>('manual');
+  const [showKiosk, setShowKiosk] = useState(false);
 
   const todayRecords = mockAttendanceRecords.filter(r => r.date === selectedDate);
   
@@ -41,6 +45,10 @@ export default function AttendanceView() {
     return <span className={`px-2 py-1 rounded-full text-xs font-medium border ${styles[status]}`}>{labels[status]}</span>;
   };
 
+  if (showKiosk) {
+    return <KioskMode />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -66,6 +74,14 @@ export default function AttendanceView() {
             <option value="competition">Compétition</option>
             <option value="special">Séance Spéciale</option>
           </select>
+          <button
+            onClick={() => setShowKiosk(true)}
+            className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
+            title="Mode Borne de Pointage"
+          >
+            <Monitor className="w-4 h-4" />
+            <span className="hidden md:inline">Mode Kiosk</span>
+          </button>
         </div>
       </div>
 
@@ -232,14 +248,63 @@ export default function AttendanceView() {
                 <p className="text-slate-500 text-xs">Ouvrir la caméra pour scanner les badges</p>
               </div>
             </button>
-            <button className="w-full text-left px-4 py-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-3">
-              <CheckCircle className="w-5 h-5 text-blue-400" />
+            <button
+              onClick={() => {
+                const records = mockMembers.map(m => {
+                  const record = todayRecords.find(r => r.memberId === m.id);
+                  return {
+                    member: m,
+                    status: record?.status || 'absent',
+                    time: record?.time || '--:--',
+                    method: record?.method === 'qr' ? 'QR Code' : record?.method === 'nfc' ? 'NFC' : 'Manuel',
+                  };
+                });
+                generateAttendanceSheetPDF(selectedDate, records);
+              }}
+              className="w-full text-left px-4 py-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-3"
+            >
+              <FileText className="w-5 h-5 text-purple-400" />
               <div>
-                <p className="text-white text-sm">Valider la Séance</p>
-                <p className="text-slate-500 text-xs">Clôturer le pointage et générer le PV</p>
+                <p className="text-white text-sm">Générer Feuille d'Émargement PDF</p>
+                <p className="text-slate-500 text-xs">Document officiel A4 pour archivage</p>
               </div>
             </button>
-            <button className="w-full text-left px-4 py-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-3">
+            <button
+              onClick={() => {
+                exportToCSV(mockMembers.map(m => {
+                  const record = todayRecords.find(r => r.memberId === m.id);
+                  return {
+                    licence: m.licenseNumber,
+                    nom: `${m.firstName} ${m.lastName}`,
+                    heure: record?.time || '--',
+                    statut: record?.status || 'absent',
+                    methode: record?.method || 'manuel',
+                  };
+                }), `pointage_${selectedDate}`);
+              }}
+              className="w-full text-left px-4 py-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-3"
+            >
+              <Download className="w-5 h-5 text-blue-400" />
+              <div>
+                <p className="text-white text-sm">Exporter en CSV</p>
+                <p className="text-slate-500 text-xs">Données brutes pour traitement</p>
+              </div>
+            </button>
+            <button
+              onClick={() => {
+                const absentMembers = mockMembers.filter(m => {
+                  const record = todayRecords.find(r => r.memberId === m.id);
+                  return !record || record.status === 'absent';
+                });
+                if (absentMembers.length > 0) {
+                  const names = absentMembers.map(m => `${m.firstName} ${m.lastName}`).join(', ');
+                  alert(`Notification envoyée aux parents de:\n${names}\n\nMessage: "Votre enfant est absent(e) de la séance d'aujourd'hui. Merci de contacter le Dojang."`);
+                } else {
+                  alert('Tous les licenciés sont présents !');
+                }
+              }}
+              className="w-full text-left px-4 py-3 bg-slate-700/50 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-3"
+            >
               <AlertCircle className="w-5 h-5 text-amber-400" />
               <div>
                 <p className="text-white text-sm">Notifier les Absents</p>

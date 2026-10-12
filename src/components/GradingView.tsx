@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Calendar, Award, CheckCircle, XCircle, Users, Star } from 'lucide-react';
+import { Calendar, Award, CheckCircle, XCircle, Users, Star, FileText } from 'lucide-react';
 import { mockMembers, mockGradingSessions, mockGradingResults } from '../data/mockData';
+import { triggerConfetti } from '../utils/helpers';
+import { generateDiplomaPDF } from '../utils/pdfGenerators';
 
 export default function GradingView() {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'results'>('upcoming');
@@ -250,10 +252,26 @@ export default function GradingView() {
               {/* Actions */}
               <div className="flex gap-3">
                 <button
-                  onClick={() => setShowExamModal(false)}
+                  onClick={() => {
+                    if (passed) {
+                      triggerConfetti();
+                    }
+                    setShowExamModal(false);
+                  }}
                   className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-medium transition-colors"
                 >
                   {passed ? '🎉 Valider & Célébrer' : 'Enregistrer le Résultat'}
+                </button>
+                <button
+                  onClick={() => {
+                    const result = mockGradingResults[0];
+                    if (result) generateDiplomaPDF(result);
+                  }}
+                  className="px-4 bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  title="Générer le Diplôme PDF"
+                >
+                  <FileText className="w-4 h-4" />
+                  Diplôme
                 </button>
                 <button
                   onClick={() => setShowExamModal(false)}

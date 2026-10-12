@@ -1,13 +1,17 @@
-import { useState } from 'react';
-import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search } from 'lucide-react';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import AttendanceView from './components/AttendanceView';
 import GradingView from './components/GradingView';
 import PaymentsView from './components/PaymentsView';
 import ParentPortalView from './components/ParentPortalView';
+import InventoryView from './components/InventoryView';
+import NotificationsPanel from './components/NotificationsPanel';
+import { exportToCSV } from './utils/helpers';
+import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -15,12 +19,79 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'attendance', label: 'Assiduité', icon: ClipboardCheck },
   { key: 'grading', label: 'Grades', icon: Award },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
+  { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'parents', label: 'Portail Famille', icon: Home },
 ];
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewType>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<{ type: string; label: string; sublabel: string; action: ViewType }[]>([]);
+
+  // Update time every second
+  useEffect(() => {
+    const interval = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Global search
+  useEffect(() => {
+    if (searchQuery.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+    const q = searchQuery.toLowerCase();
+    const results: { type: string; label: string; sublabel: string; action: ViewType }[] = [];
+
+    // Search members
+    mockMembers.filter(m =>
+      `${m.firstName} ${m.lastName} ${m.licenseNumber}`.toLowerCase().includes(q)
+    ).forEach(m => {
+      results.push({
+        type: 'Licencié',
+        label: `${m.firstName} ${m.lastName}`,
+        sublabel: m.licenseNumber,
+        action: 'members'
+      });
+    });
+
+    // Search payments
+    mockPayments.filter(p => {
+      const member = mockMembers.find(m => m.id === p.memberId);
+      return member && `${member.firstName} ${member.lastName} ${p.description}`.toLowerCase().includes(q);
+    }).forEach(p => {
+      const member = mockMembers.find(m => m.id === p.memberId);
+      results.push({
+        type: 'Paiement',
+        label: `${member?.firstName} ${member?.lastName}`,
+        sublabel: `${p.amount.toLocaleString()} FCFA — ${p.description}`,
+        action: 'payments'
+      });
+    });
+
+    setSearchResults(results.slice(0, 8));
+  }, [searchQuery]);
+
+  const handleExportCSV = () => {
+    if (currentView === 'attendance') {
+      exportToCSV(attendance30DaysData, 'assiduite_30jours');
+    } else if (currentView === 'members') {
+      exportToCSV(mockMembers.map(m => ({
+        id: m.id,
+        nom: m.lastName,
+        prenom: m.firstName,
+        licence: m.licenseNumber,
+        ceinture: m.beltColor,
+        statut: m.status,
+      })), 'licencies');
+    } else {
+      alert('Export CSV disponible pour les vues Assiduité et Licenciés');
+    }
+  };
 
   const renderView = () => {
     switch (currentView) {
@@ -29,6 +100,7 @@ export default function App() {
       case 'attendance': return <AttendanceView />;
       case 'grading': return <GradingView />;
       case 'payments': return <PaymentsView />;
+      case 'inventory': return <InventoryView />;
       case 'parents': return <ParentPortalView />;
     }
   };
@@ -41,7 +113,7 @@ export default function App() {
           {/* Logo */}
           <div className="p-5 border-b border-slate-700">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/20">
                 <span className="text-white font-bold text-lg">🥋</span>
               </div>
               <div>
@@ -49,10 +121,10 @@ export default function App() {
                 <p className="text-slate-400 text-xs">Academy — Taekwondo</p>
               </div>
             </div>
-            <div className="mt-3 flex items-center gap-2">
+            <div className="mt-3 flex items-center gap-2 flex-wrap">
               <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-xs font-medium">FITKD</span>
               <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 rounded text-xs font-medium">Kukkiwon</span>
-              <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">World Taekwondo</span>
+              <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">WT</span>
             </div>
           </div>
 
@@ -73,6 +145,17 @@ export default function App() {
               </button>
             ))}
           </nav>
+
+          {/* Quick Actions */}
+          <div className="p-3 border-t border-slate-700">
+            <button
+              onClick={handleExportCSV}
+              className="w-full flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Exporter CSV
+            </button>
+          </div>
 
           {/* Footer */}
           <div className="p-4 border-t border-slate-700">
@@ -122,12 +205,79 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="hidden md:flex items-center gap-2 bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-700">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="text-slate-400 text-xs">Dojang Ouvert</span>
+              {/* Global Search */}
+              <div className="relative hidden md:block">
+                <button
+                  onClick={() => setShowSearch(!showSearch)}
+                  className="flex items-center gap-2 bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-700 hover:border-slate-500 transition-colors"
+                >
+                  <Search className="w-4 h-4 text-slate-400" />
+                  <span className="text-slate-400 text-xs">Rechercher...</span>
+                  <kbd className="text-slate-500 text-[10px] bg-slate-700 px-1.5 py-0.5 rounded">⌘K</kbd>
+                </button>
+
+                {showSearch && (
+                  <div className="absolute top-full mt-2 right-0 w-96 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden">
+                    <div className="p-3 border-b border-slate-700">
+                      <input
+                        type="text"
+                        autoFocus
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Rechercher un licencié, paiement, grade..."
+                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                      />
+                    </div>
+                    {searchResults.length > 0 && (
+                      <div className="max-h-80 overflow-y-auto">
+                        {searchResults.map((result, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setCurrentView(result.action);
+                              setShowSearch(false);
+                              setSearchQuery('');
+                            }}
+                            className="w-full text-left px-4 py-3 hover:bg-slate-700/50 transition-colors border-b border-slate-700/50"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="px-1.5 py-0.5 bg-slate-700 rounded text-[10px] text-slate-400">{result.type}</span>
+                              <span className="text-white text-sm">{result.label}</span>
+                            </div>
+                            <p className="text-slate-500 text-xs mt-0.5 ml-0.5">{result.sublabel}</p>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {searchQuery.length >= 2 && searchResults.length === 0 && (
+                      <div className="p-4 text-center text-slate-500 text-sm">
+                        Aucun résultat pour "{searchQuery}"
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
+
+              {/* Live Clock */}
+              <div className="hidden lg:flex items-center gap-2 bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="text-slate-400 text-xs font-mono">
+                  {currentTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                </span>
+              </div>
+
+              {/* Notifications Bell */}
+              <button
+                onClick={() => setShowNotifications(true)}
+                className="relative p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+              >
+                <Bell className="w-5 h-5" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              </button>
+
+              {/* Date */}
               <div className="text-right hidden sm:block">
-                <p className="text-white text-xs font-medium">{new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+                <p className="text-white text-xs font-medium">{currentTime.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })}</p>
                 <p className="text-slate-500 text-[10px]">Saison 2024-2025</p>
               </div>
             </div>
@@ -139,6 +289,34 @@ export default function App() {
           {renderView()}
         </div>
       </main>
+
+      {/* Notifications Panel */}
+      {showNotifications && <NotificationsPanel onClose={() => setShowNotifications(false)} />}
+
+      {/* Global Search Overlay */}
+      {showSearch && (
+        <div className="fixed inset-0 bg-black/30 z-40 md:hidden" onClick={() => setShowSearch(false)}></div>
+      )}
+
+      {/* Keyboard shortcut listener */}
+      <KeyboardShortcut onOpenSearch={() => setShowSearch(true)} />
     </div>
   );
+}
+
+function KeyboardShortcut({ onOpenSearch }: { onOpenSearch: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        onOpenSearch();
+      }
+      if (e.key === 'Escape') {
+        // Close any open modal
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onOpenSearch]);
+  return null;
 }
