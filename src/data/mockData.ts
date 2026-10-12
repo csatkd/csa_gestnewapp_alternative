@@ -3,7 +3,7 @@ import { Member, AttendanceRecord, GradingSession, GradingResult, Payment, Compe
 export const mockMembers: Member[] = [
   {
     id: 'M001', firstName: 'Kouassi', lastName: 'Aya Marie', dateOfBirth: '2010-03-15', gender: 'F',
-    licenseNumber: 'FITKD-CI-2024-001', beltColor: 'blue', beltRank: 2,
+    licenseNumber: 'CSA-2024-001', beltColor: 'blue', beltRank: 2,
     phone: '+225 07 12 34 56 78', parentPhone: '+225 05 98 76 54 32',
     address: 'Cocody, Abidjan', medicalCertificateDate: '2024-09-01', medicalCertificateValidUntil: '2025-09-01',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Kouassi Jean-Baptiste (Père)', emergencyPhone: '+225 05 98 76 54 32',
@@ -24,7 +24,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M002', firstName: 'Traoré', lastName: 'Moussa', dateOfBirth: '2008-07-22', gender: 'M',
-    licenseNumber: 'FITKD-CI-2024-002', beltColor: 'red', beltRank: 1,
+    licenseNumber: 'CSA-2024-002', beltColor: 'red', beltRank: 1,
     phone: '+225 07 23 45 67 89', parentPhone: '+225 01 23 45 67 89',
     address: 'Yopougon, Abidjan', medicalCertificateDate: '2024-06-15', medicalCertificateValidUntil: '2025-06-15',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Traoré Fatou (Mère)', emergencyPhone: '+225 01 23 45 67 89',
@@ -45,7 +45,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M003', firstName: 'Bamba', lastName: 'Fatoumata', dateOfBirth: '2012-11-08', gender: 'F',
-    licenseNumber: 'FITKD-CI-2024-003', beltColor: 'yellow', beltRank: 3,
+    licenseNumber: 'CSA-2024-003', beltColor: 'yellow', beltRank: 3,
     phone: '+225 07 34 56 78 90', parentPhone: '+225 05 34 56 78 90',
     address: 'Abobo, Abidjan', medicalCertificateDate: '2024-10-01', medicalCertificateValidUntil: '2025-10-01',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Bamba Ibrahim (Père)', emergencyPhone: '+225 05 34 56 78 90',
@@ -66,7 +66,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M004', firstName: 'Koné', lastName: 'Ibrahim', dateOfBirth: '2005-01-30', gender: 'M',
-    licenseNumber: 'FITKD-CI-2024-004', beltColor: 'black', beltRank: 0, dan: 1,
+    licenseNumber: 'CSA-2024-004', beltColor: 'black', beltRank: 0, dan: 1,
     phone: '+225 07 45 67 89 01', parentPhone: '+225 01 45 67 89 01',
     address: 'Plateau, Abidjan', medicalCertificateDate: '2024-08-20', medicalCertificateValidUntil: '2025-08-20',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Koné Awa (Mère)', emergencyPhone: '+225 01 45 67 89 01',
@@ -87,7 +87,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M005', firstName: 'Diallo', lastName: 'Aminata', dateOfBirth: '2011-05-18', gender: 'F',
-    licenseNumber: 'FITKD-CI-2024-005', beltColor: 'green', beltRank: 1,
+    licenseNumber: 'CSA-2024-005', beltColor: 'green', beltRank: 1,
     phone: '+225 07 56 78 90 12', parentPhone: '+225 05 56 78 90 12',
     address: 'Treichville, Abidjan', medicalCertificateDate: '2024-07-10', medicalCertificateValidUntil: '2025-07-10',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Diallo Mamadou (Père)', emergencyPhone: '+225 01 56 78 90 12',
@@ -108,7 +108,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M006', firstName: 'Ouattara', lastName: 'Seydou', dateOfBirth: '2009-09-12', gender: 'M',
-    licenseNumber: 'FITKD-CI-2024-006', beltColor: 'orange', beltRank: 2,
+    licenseNumber: 'CSA-2024-006', beltColor: 'orange', beltRank: 2,
     phone: '+225 07 67 89 01 23', parentPhone: '+225 05 67 89 01 23',
     address: 'Marcory, Abidjan', medicalCertificateDate: '2024-05-20', medicalCertificateValidUntil: '2025-05-20',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Ouattara Mariam (Mère)', emergencyPhone: '+225 01 67 89 01 23',
@@ -129,7 +129,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M007', firstName: 'Yao', lastName: 'Koffi', dateOfBirth: '2007-04-25', gender: 'M',
-    licenseNumber: 'FITKD-CI-2024-007', beltColor: 'purple', beltRank: 1,
+    licenseNumber: 'CSA-2024-007', beltColor: 'purple', beltRank: 1,
     phone: '+225 07 78 90 12 34', parentPhone: '+225 05 78 90 12 34',
     address: 'Plateau, Abidjan', medicalCertificateDate: '2024-11-01', medicalCertificateValidUntil: '2025-11-01',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Yao Akissi (Mère)', emergencyPhone: '+225 01 78 90 12 34',
@@ -150,7 +150,7 @@ export const mockMembers: Member[] = [
   },
   {
     id: 'M008', firstName: 'Coulibaly', lastName: 'Salimata', dateOfBirth: '2013-08-14', gender: 'F',
-    licenseNumber: 'FITKD-CI-2024-008', beltColor: 'white', beltRank: 2,
+    licenseNumber: 'CSA-2024-008', beltColor: 'white', beltRank: 2,
     phone: '+225 07 89 01 23 45', parentPhone: '+225 05 89 01 23 45',
     address: 'Cocody, Abidjan', medicalCertificateDate: '2024-09-15', medicalCertificateValidUntil: '2025-09-15',
     insuranceValidUntil: '2025-06-30', emergencyContact: 'Coulibaly Drissa (Père)', emergencyPhone: '+225 01 89 01 23 45',
