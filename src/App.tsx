@@ -6,6 +6,8 @@ import AttendanceView from './components/AttendanceView';
 import GradingView from './components/GradingView';
 import PaymentsView from './components/PaymentsView';
 import ParentPortalView from './components/ParentPortalView';
+import ParentLogin from './components/ParentLogin';
+import { ParentAuthProvider, useParentAuth } from './components/ParentAuthContext';
 import InventoryView from './components/InventoryView';
 import NotificationsPanel from './components/NotificationsPanel';
 import AdvancedStats from './components/AdvancedStats';
@@ -31,8 +33,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'parents', label: 'Portail Famille', icon: Home },
 ];
 
-export default function App() {
-  const [currentView, setCurrentView] = useState<ViewType>('dashboard');
+function AppContent({ currentView, setCurrentView }: { currentView: ViewType; setCurrentView: (view: ViewType) => void }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -40,6 +41,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{ type: string; label: string; sublabel: string; action: ViewType }[]>([]);
   const { toasts, addToast, removeToast } = useToast();
+  const { isAuthenticated } = useParentAuth();
 
   // Update time every second
   useEffect(() => {
@@ -319,6 +321,26 @@ export default function App() {
     </div>
     </ErrorBoundary>
   );
+}
+
+export default function App() {
+  return (
+    <ParentAuthProvider>
+      <AppWrapper />
+    </ParentAuthProvider>
+  );
+}
+
+function AppWrapper() {
+  const { isAuthenticated } = useParentAuth();
+  const [currentView, setCurrentView] = useState<ViewType>('dashboard');
+
+  // If viewing parents portal and not authenticated, show login
+  if (currentView === 'parents' && !isAuthenticated) {
+    return <ParentLogin />;
+  }
+
+  return <AppContent currentView={currentView} setCurrentView={setCurrentView} />;
 }
 
 function KeyboardShortcut({ onOpenSearch }: { onOpenSearch: () => void }) {

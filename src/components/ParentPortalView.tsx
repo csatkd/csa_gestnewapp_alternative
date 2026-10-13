@@ -1,14 +1,24 @@
 import { useState } from 'react';
-import { Bell, Calendar, CreditCard, User, Shield, Activity, MessageCircle } from 'lucide-react';
+import { Bell, Calendar, CreditCard, User, Shield, Activity, MessageCircle, LogOut } from 'lucide-react';
 import { mockMembers, mockPayments, mockCompetitions, mockAttendanceRecords } from '../data/mockData';
+import { useParentAuth } from './ParentAuthContext';
 
 export default function ParentPortalView() {
-  const [selectedChild, setSelectedChild] = useState(mockMembers[0]);
+  const { isAuthenticated, childrenIds, logout } = useParentAuth();
   const [activeSection, setActiveSection] = useState<'overview' | 'attendance' | 'payments' | 'events'>('overview');
+
+  // Get children of the authenticated parent
+  const myChildren = mockMembers.filter(m => childrenIds.includes(m.id));
+  const [selectedChild, setSelectedChild] = useState(myChildren[0] || mockMembers[0]);
 
   const childPayments = mockPayments.filter(p => p.memberId === selectedChild.id);
   const childAttendance = mockAttendanceRecords.filter(r => r.memberId === selectedChild.id);
   const totalDue = childPayments.reduce((s, p) => s + (p.amount - p.paidAmount), 0);
+
+  // If not authenticated, show login
+  if (!isAuthenticated) {
+    return null; // Will be handled by App.tsx
+  }
 
   const getRecentNotifications = () => {
     return [
@@ -28,15 +38,24 @@ export default function ParentPortalView() {
           <p className="text-slate-400 text-sm">Suivi de l'évolution de vos enfants</p>
         </div>
         <div className="flex items-center gap-3">
-          <select
-            value={selectedChild.id}
-            onChange={(e) => setSelectedChild(mockMembers.find(m => m.id === e.target.value) || mockMembers[0])}
-            className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-emerald-500"
+          {myChildren.length > 1 && (
+            <select
+              value={selectedChild.id}
+              onChange={(e) => setSelectedChild(myChildren.find(m => m.id === e.target.value) || myChildren[0])}
+              className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-emerald-500"
+            >
+              {myChildren.map(m => (
+                <option key={m.id} value={m.id}>{m.firstName} {m.lastName}</option>
+              ))}
+            </select>
+          )}
+          <button
+            onClick={logout}
+            className="flex items-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 border border-red-600/30 text-red-400 rounded-lg transition-colors"
           >
-            {mockMembers.filter(m => m.parentPhone).map(m => (
-              <option key={m.id} value={m.id}>{m.firstName} {m.lastName}</option>
-            ))}
-          </select>
+            <LogOut className="w-4 h-4" />
+            <span className="hidden md:inline">Déconnexion</span>
+          </button>
         </div>
       </div>
 
