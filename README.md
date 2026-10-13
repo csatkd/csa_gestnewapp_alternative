@@ -32,6 +32,16 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Calcul automatique des revenus
 - Filtrage par type et par statut
 
+### 🎯 Cours d'Essai
+- Planification de séances d'essai gratuites
+- Inscription des prospects avec informations complètes
+- Suivi du parcours : inscrit → présent → intéressé → adhérent
+- Statistiques de conversion (taux de transformation prospects/adhérents)
+- Gestion des contacts parents pour les mineurs
+- Vue d'ensemble des prochains cours d'essai
+- Actions rapides pour mettre à jour le statut des participants
+- Filtrage par cours et par statut
+
 ### 👥 Gestion des Licenciés
 - Fiches détaillées avec calcul automatique IMC et catégorie d'âge
 - Suivi biométrique complet (poids, taille, évolution 12 mois)
@@ -172,6 +182,7 @@ src/
 │   ├── TechnicalProgress.tsx          # Progression technique
 │   ├── GradingView.tsx                # Passages de grade
 │   ├── BookingSystem.tsx              # Système de réservation
+│   ├── TrialClasses.tsx               # Gestion des cours d'essai
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
