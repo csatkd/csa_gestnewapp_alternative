@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen } from 'lucide-react';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import AttendanceView from './components/AttendanceView';
@@ -13,23 +13,37 @@ import NotificationsPanel from './components/NotificationsPanel';
 import AdvancedStats from './components/AdvancedStats';
 import DataManagement from './components/DataManagement';
 import PerformanceReport from './components/PerformanceReport';
+import TrainingSchedule from './components/TrainingSchedule';
+import Communication from './components/Communication';
+import IncidentTracker from './components/IncidentTracker';
+import RewardsProgram from './components/RewardsProgram';
+import AcademySettings from './components/AcademySettings';
+import TechnicalProgress from './components/TechnicalProgress';
+import BookingSystem from './components/BookingSystem';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
   { key: 'members', label: 'Licenciés', icon: Users },
   { key: 'attendance', label: 'Assiduité', icon: ClipboardCheck },
+  { key: 'schedule', label: 'Planning', icon: Calendar },
+  { key: 'progress', label: 'Progression', icon: Target },
   { key: 'grading', label: 'Grades', icon: Award },
+  { key: 'booking', label: 'Réservations', icon: BookOpen },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'inventory', label: 'Stocks', icon: Package },
+  { key: 'incidents', label: 'Incidents', icon: Activity },
+  { key: 'rewards', label: 'Récompenses', icon: Trophy },
+  { key: 'communication', label: 'Communication', icon: MessageSquare },
   { key: 'stats', label: 'Statistiques', icon: BarChart3 },
   { key: 'report', label: 'Rapports', icon: FileText },
   { key: 'data', label: 'Données', icon: Database },
+  { key: 'settings', label: 'Paramètres', icon: Settings },
   { key: 'parents', label: 'Portail Famille', icon: Home },
 ];
 
@@ -109,12 +123,19 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'dashboard': return <DashboardView />;
       case 'members': return <MembersView />;
       case 'attendance': return <AttendanceView />;
+      case 'schedule': return <TrainingSchedule />;
+      case 'progress': return <TechnicalProgress />;
       case 'grading': return <GradingView />;
+      case 'booking': return <BookingSystem />;
       case 'payments': return <PaymentsView />;
       case 'inventory': return <InventoryView />;
+      case 'incidents': return <IncidentTracker />;
+      case 'rewards': return <RewardsProgram />;
+      case 'communication': return <Communication />;
       case 'stats': return <AdvancedStats />;
       case 'report': return <PerformanceReport />;
       case 'data': return <DataManagement />;
+      case 'settings': return <AcademySettings />;
       case 'parents': return <ParentPortalView />;
     }
   };

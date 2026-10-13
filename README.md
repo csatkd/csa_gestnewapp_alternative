@@ -11,6 +11,27 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Comptes à rebours pour les compétitions à venir
 - Export CSV des données
 
+### 📅 Planning des Entraînements
+- Calendrier hebdomadaire interactif
+- Gestion des séances par catégorie d'âge
+- Suivi du taux d'occupation en temps réel
+- Filtrage par jour et par instructeur
+- Statistiques d'utilisation des créneaux
+
+### 🎯 Progression Technique
+- Suivi détaillé des compétences par membre
+- 5 catégories : Poomsae, Kyorugi, Kyokpa, Hosinsul, Théorie
+- Visualisation graphique de la progression
+- Calcul automatique du niveau global
+- Historique des mises à jour
+
+### 📚 Système de Réservation
+- Gestion des cours particuliers et stages
+- Réservation en ligne avec confirmation
+- Suivi des statuts (confirmée, en attente, annulée, terminée)
+- Calcul automatique des revenus
+- Filtrage par type et par statut
+
 ### 👥 Gestion des Licenciés
 - Fiches détaillées avec calcul automatique IMC et catégorie d'âge
 - Suivi biométrique complet (poids, taille, évolution 12 mois)
@@ -93,6 +114,34 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Marquage comme lu / suppression
 - Types : assiduité, paiement, grade, événement, médical, stock, système
 
+### 💬 Module de Communication
+- Système d'annonces avec priorités (haute, moyenne, basse)
+- Ciblage par audience (tous, parents, coaches, élèves)
+- Messagerie interne entre membres
+- Suivi des messages lus/non lus
+- Historique complet des communications
+
+### 🏥 Suivi des Incidents
+- Déclaration et suivi des blessures
+- Classification par gravité (légère, modérée, grave)
+- Suivi du traitement et de la guérison
+- Statistiques des incidents actifs
+- Historique médical complet par membre
+
+### 🏆 Programme de Récompenses (Gamification)
+- Système d'achievements avec 5 catégories
+- Classement général avec leaderboard
+- Niveaux et rangs (Bronze, Argent, Or, Diamant, Légende, Mythique)
+- Points de récompense pour chaque achievement
+- Suivi de la progression individuelle
+
+### ⚙️ Paramètres de l'Académie
+- Configuration des informations générales
+- Gestion des coordonnées et horaires
+- Affiliations officielles (FITKD, Kukkiwon, World Taekwondo)
+- Intégration réseaux sociaux
+- Sauvegarde persistante des paramètres
+
 ### 🔍 Recherche Globale
 - Recherche unifiée dans toute l'application
 - Raccourci clavier (⌘K / Ctrl+K)
@@ -119,16 +168,26 @@ src/
 │   ├── AddMemberModal.tsx             # Formulaire d'ajout de membre
 │   ├── AttendanceView.tsx             # Pointage dojang
 │   ├── KioskMode.tsx                  # Mode borne de pointage
+│   ├── TrainingSchedule.tsx           # Planning des entraînements
+│   ├── TechnicalProgress.tsx          # Progression technique
 │   ├── GradingView.tsx                # Passages de grade
+│   ├── BookingSystem.tsx              # Système de réservation
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
+│   ├── IncidentTracker.tsx            # Suivi des incidents
+│   ├── RewardsProgram.tsx             # Programme de récompenses
+│   ├── Communication.tsx              # Module de communication
 │   ├── AdvancedStats.tsx              # Statistiques avancées
 │   ├── PerformanceReport.tsx          # Rapports de performance
 │   ├── DataManagement.tsx             # Gestion des données
+│   ├── AcademySettings.tsx            # Paramètres de l'académie
 │   ├── ParentPortalView.tsx           # Portail famille
+│   ├── ParentLogin.tsx                # Connexion parent
+│   ├── ParentAuthContext.tsx          # Contexte d'authentification
 │   ├── NotificationsPanel.tsx         # Panneau de notifications
 │   ├── CompetitionCountdown.tsx       # Compte à rebours compétitions
+│   ├── ErrorBoundary.tsx              # Gestion des erreurs
 │   └── Toast.tsx                      # Système de notifications toast
 ├── utils/
 │   ├── helpers.ts                     # Fonctions utilitaires
