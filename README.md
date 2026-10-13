@@ -153,7 +153,7 @@ src/
 - **Noms et prénoms** ivoiriens (Kouassi, Traoré, Bamba, Koné, Diallo, etc.)
 - **Numéros de téléphone** au format +225 avec préfixes opérateurs (07, 05, 01)
 - **Adresses** : communes d'Abidjan (Cocody, Yopougon, Abobo, Plateau, etc.)
-- **Licences** : format CSA-2024-XXX spécifique à l'académie
+- **Licences** : format CSA-XXXXXXX (7 chiffres) spécifique à l'académie
 - **Opérateurs Mobile Money** : Orange Money, MTN MoMo, Wave, Moov Money
 - **Devise** : FCFA (Franc CFA)
 - **Format de date** : français (JJ/MM/AAAA)

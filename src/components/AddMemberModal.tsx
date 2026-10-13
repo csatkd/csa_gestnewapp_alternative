@@ -39,7 +39,7 @@ export default function AddMemberModal({ isOpen, onClose, onAdd }: AddMemberModa
 
     const newMember: Member = {
       id: generateId('M'),
-      licenseNumber: `CSA-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`,
+      licenseNumber: `CSA-${Math.floor(1000000 + Math.random() * 9000000)}`,
       firstName: formData.firstName || '',
       lastName: formData.lastName || '',
       dateOfBirth: formData.dateOfBirth || '',

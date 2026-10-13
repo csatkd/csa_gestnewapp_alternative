@@ -7,7 +7,7 @@ Le système de connexion parent permet aux parents d'accéder au portail familia
 ## 🎯 Comment Ça Marche ?
 
 ### 1. **Identifiant Unique**
-- Le numéro de licence de l'enfant (ex: `CSA-2024-001`) sert de **login unique**
+- Le numéro de licence de l'enfant (ex: `CSA-1000001`) sert de **login unique**
 - Ce même numéro sert de **mot de passe**
 - Simple, sécurisé et facile à retenir pour les parents
 
@@ -29,14 +29,14 @@ Voici les numéros de licence disponibles pour tester le système :
 
 | Numéro de Licence | Nom de l'Enfant | Parent (Téléphone) |
 |-------------------|-----------------|-------------------|
-| `CSA-2024-001` | Kouassi Aya Marie | +225 05 98 76 54 32 |
-| `CSA-2024-002` | Traoré Moussa | +225 01 23 45 67 89 |
-| `CSA-2024-003` | Bamba Fatoumata | +225 05 34 56 78 90 |
-| `CSA-2024-004` | Koné Ibrahim | +225 01 45 67 89 01 |
-| `CSA-2024-005` | Diallo Aminata | +225 05 56 78 90 12 |
-| `CSA-2024-006` | Ouattara Seydou | +225 05 67 89 01 23 |
-| `CSA-2024-007` | Yao Koffi | +225 05 78 90 12 34 |
-| `CSA-2024-008` | Coulibaly Salimata | +225 05 89 01 23 45 |
+| `CSA-1000001` | Kouassi Aya Marie | +225 05 98 76 54 32 |
+| `CSA-1000002` | Traoré Moussa | +225 01 23 45 67 89 |
+| `CSA-1000003` | Bamba Fatoumata | +225 05 34 56 78 90 |
+| `CSA-1000004` | Koné Ibrahim | +225 01 45 67 89 01 |
+| `CSA-1000005` | Diallo Aminata | +225 05 56 78 90 12 |
+| `CSA-1000006` | Ouattara Seydou | +225 05 67 89 01 23 |
+| `CSA-1000007` | Yao Koffi | +225 05 78 90 12 34 |
+| `CSA-1000008` | Coulibaly Salimata | +225 05 89 01 23 45 |
 
 ## 📱 Fonctionnalités du Portail Parent
 

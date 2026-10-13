@@ -57,7 +57,7 @@ export default function ParentLogin() {
                   type="text"
                   value={licenseNumber}
                   onChange={(e) => setLicenseNumber(e.target.value)}
-                  placeholder="Ex: CSA-2024-001"
+                  placeholder="Ex: CSA-1000001"
                   className="w-full pl-10 pr-3 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                   required
                   disabled={isLoading}
@@ -102,11 +102,11 @@ export default function ParentLogin() {
           <div className="mt-4 p-4 bg-slate-700/30 rounded-lg">
             <p className="text-xs text-slate-400 mb-2 font-medium">Numéros de licence de test:</p>
             <div className="space-y-1 text-xs text-slate-500">
-              <p>• CSA-2024-001 (Kouassi Aya Marie)</p>
-              <p>• CSA-2024-002 (Traoré Moussa)</p>
-              <p>• CSA-2024-003 (Bamba Fatoumata)</p>
-              <p>• CSA-2024-004 (Koné Ibrahim)</p>
-              <p>• CSA-2024-005 (Diallo Aminata)</p>
+              <p>• CSA-1000001 (Kouassi Aya Marie)</p>
+              <p>• CSA-1000002 (Traoré Moussa)</p>
+              <p>• CSA-1000003 (Bamba Fatoumata)</p>
+              <p>• CSA-1000004 (Koné Ibrahim)</p>
+              <p>• CSA-1000005 (Diallo Aminata)</p>
             </div>
           </div>
         </div>
