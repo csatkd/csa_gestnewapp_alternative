@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen, UserPlus } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen, UserPlus, ShoppingBag } from 'lucide-react';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import AttendanceView from './components/AttendanceView';
@@ -21,12 +21,15 @@ import AcademySettings from './components/AcademySettings';
 import TechnicalProgress from './components/TechnicalProgress';
 import BookingSystem from './components/BookingSystem';
 import TrialClasses from './components/TrialClasses';
+import CoachesManagement from './components/CoachesManagement';
+import ShopManagement from './components/ShopManagement';
+import CompetitionManagement from './components/CompetitionManagement';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'shop' | 'competitions';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -37,6 +40,9 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'grading', label: 'Grades', icon: Award },
   { key: 'booking', label: 'Réservations', icon: BookOpen },
   { key: 'trial', label: 'Cours d\'Essai', icon: UserPlus },
+  { key: 'coaches', label: 'Coachs', icon: Users },
+  { key: 'shop', label: 'Boutique', icon: ShoppingBag },
+  { key: 'competitions', label: 'Compétitions', icon: Trophy },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'incidents', label: 'Incidents', icon: Activity },
@@ -130,6 +136,9 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'grading': return <GradingView />;
       case 'booking': return <BookingSystem />;
       case 'trial': return <TrialClasses />;
+      case 'coaches': return <CoachesManagement />;
+      case 'shop': return <ShopManagement />;
+      case 'competitions': return <CompetitionManagement />;
       case 'payments': return <PaymentsView />;
       case 'inventory': return <InventoryView />;
       case 'incidents': return <IncidentTracker />;

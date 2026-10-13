@@ -42,6 +42,36 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Actions rapides pour mettre à jour le statut des participants
 - Filtrage par cours et par statut
 
+### 👨‍🏫 Gestion des Coachs
+- Profils détaillés des entraîneurs avec biographie et réalisations
+- Suivi des certifications et qualifications (Kukkiwon, FITKD, WT)
+- Gestion des spécialisations (Poomsae, Kyorugi, Self-Défense, etc.)
+- Statistiques individuelles (nombre d'élèves, cours/semaine, note moyenne)
+- Suivi de la masse salariale
+- Filtrage par statut (actif, en congé, inactif)
+- Vue d'ensemble de l'équipe technique
+- Évaluations et feedback des élèves
+
+### 🛒 Boutique en Ligne
+- Catalogue de produits (doboks, protections, accessoires, équipements)
+- Gestion des stocks en temps réel avec alertes
+- Suivi des commandes avec statuts (en attente, confirmée, expédiée, livrée)
+- Gestion des tailles et couleurs disponibles
+- Produits vedettes et mise en avant
+- Calcul automatique du chiffre d'affaires
+- Historique complet des commandes
+- Intégration avec les membres pour suivi des achats
+
+### 🏆 Gestion des Compétitions
+- Suivi des compétitions (nationales, internationales, régionales, locales)
+- Inscription des athlètes aux compétitions
+- Enregistrement des résultats et médailles (or, argent, bronze)
+- Statistiques individuelles par athlète (taux de réussite, meilleur rang)
+- Classement général des athlètes
+- Historique complet des performances
+- Préparation et suivi des athlètes
+- Analyse des résultats par discipline (Poomsae, Kyorugi)
+
 ### 👥 Gestion des Licenciés
 - Fiches détaillées avec calcul automatique IMC et catégorie d'âge
 - Suivi biométrique complet (poids, taille, évolution 12 mois)
@@ -183,6 +213,9 @@ src/
 │   ├── GradingView.tsx                # Passages de grade
 │   ├── BookingSystem.tsx              # Système de réservation
 │   ├── TrialClasses.tsx               # Gestion des cours d'essai
+│   ├── CoachesManagement.tsx          # Gestion des coachs
+│   ├── ShopManagement.tsx             # Boutique en ligne
+│   ├── CompetitionManagement.tsx      # Gestion des compétitions
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
