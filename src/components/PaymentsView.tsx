@@ -4,10 +4,12 @@ import { mockMembers, mockPayments } from '../data/mockData';
 import { Payment } from '../types';
 import { generatePaymentStatementPDF } from '../utils/pdfGenerators';
 import { exportToCSV } from '../utils/helpers';
+import AddPaymentModal from './AddPaymentModal';
 
 export default function PaymentsView() {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
+  const [showAddPayment, setShowAddPayment] = useState(false);
 
   const filteredPayments = mockPayments.filter(p => filterStatus === 'all' || p.status === filterStatus);
 
@@ -55,7 +57,10 @@ export default function PaymentsView() {
           <h2 className="text-2xl font-bold text-white">Trésorerie & Paiements</h2>
           <p className="text-slate-400 text-sm">Suivi des cotisations, acomptes et créances</p>
         </div>
-        <button className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-colors">
+        <button
+          onClick={() => setShowAddPayment(true)}
+          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-colors"
+        >
           <CreditCard className="w-4 h-4" />
           Encaisser un Paiement
         </button>
@@ -296,6 +301,18 @@ export default function PaymentsView() {
           </div>
         </div>
       )}
+
+      {/* Add Payment Modal */}
+      <AddPaymentModal
+        isOpen={showAddPayment}
+        onClose={() => setShowAddPayment(false)}
+        onAdd={(payment) => {
+          console.log('New payment added:', payment);
+          // Ici, on ajouterait le paiement à la liste
+          // Pour l'instant, on affiche juste un message
+          alert(`Paiement de ${payment.paidAmount.toLocaleString()} FCFA enregistré avec succès!`);
+        }}
+      />
     </div>
   );
 }

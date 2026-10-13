@@ -1,0 +1,230 @@
+# 🥋 Confidence Sports Academy (CSA) - Application de Gestion Taekwondo
+
+Application web professionnelle complète pour la gestion d'une académie de Taekwondo en Côte d'Ivoire, affiliée à la **Fédération Ivoirienne de Taekwondo (FITKD)** et homologuée **World Taekwondo (Kukkiwon)**.
+
+## 📋 Fonctionnalités Principales
+
+### 🎯 Tableau de Bord Exécutif
+- Vue d'ensemble des KPI (licenciés actifs, assiduité, revenus, médailles)
+- Graphiques interactifs Recharts (assiduité 30 jours, répartition par grade)
+- Alertes en temps réel (stocks critiques, échéances dépassées)
+- Comptes à rebours pour les compétitions à venir
+- Export CSV des données
+
+### 👥 Gestion des Licenciés
+- Fiches détaillées avec calcul automatique IMC et catégorie d'âge
+- Suivi biométrique complet (poids, taille, évolution 12 mois)
+- Historique d'assiduité avec code couleur (vert ≥80%, amber 75-79%, rouge <75%)
+- Validation des certificats médicaux et assurances
+- Recherche et filtres avancés (par ceinture, catégorie d'âge)
+- Formulaire d'ajout avec validation complète
+
+### 📊 Pointage Dojang
+- Système multi-méthodes : QR Code, NFC, Manuel
+- Mode Kiosk immersif pour borne de pointage
+- Effets sonores et animations visuelles
+- Export PDF de la feuille d'émargement officielle
+- Export CSV des données de pointage
+- Statistiques en temps réel (présents, retards, absents)
+
+### 🥋 Passages de Grade
+- Gestion des sessions d'examen Kukkiwon/FITKD
+- Notation officielle sur 100 points (5 ateliers /20) :
+  - Poomsae (Formes)
+  - Kyorugi (Combat)
+  - Kyokpa (Casse)
+  - Hosinsul (Self-Défense)
+  - Attitude & Terminologie coréenne
+- Analyseur d'éligibilité automatique (seuil 75% assiduité)
+- Génération de diplômes PDF officiels A4 paysage
+- Confettis de célébration lors de la réussite
+
+### 💰 Trésorerie & Paiements
+- Suivi des cotisations, acomptes et créances
+- Identification automatique des opérateurs Mobile Money ivoiriens :
+  - 🟠 Orange Money
+  - 🟡 MTN MoMo
+  - 🔵 Wave
+  - 🔷 Moov Money
+- Alertes visuelles pour échéances dépassées (pastille rouge animée)
+- Intégration WhatsApp pour relances automatiques
+- Export PDF des relevés de compte
+- Export CSV des paiements
+- Formulaire d'ajout de paiement avec validation
+
+### 📦 Gestion des Stocks
+- Inventaire des équipements de combat et d'entraînement
+- Alertes visuelles pour stocks critiques
+- Simulation de commande fournisseur
+- Calcul automatique de la valeur totale du stock
+- Édition en ligne des seuils min/max
+- Historique des mouvements de stock
+
+### 📈 Statistiques Avancées
+- Analyse détaillée des performances de l'académie
+- KPI financiers (revenus, taux de recouvrement, impayés)
+- Analyse d'assiduité (excellente, bonne, à risque)
+- Répartition par ceinture et par âge
+- Évolution mensuelle (assiduité, nouveaux membres, revenus)
+- Export de rapports personnalisés
+
+### 📄 Rapports de Performance
+- Génération de rapports détaillés (général, assiduité, financier, grades)
+- Aperçu en temps réel avant export
+- Export PDF/CSV des rapports complets
+- Périodes personnalisables (mois, trimestre, année)
+
+### 💾 Gestion des Données
+- Export de toutes les données en JSON (sauvegarde)
+- Import de données depuis un fichier JSON (restauration)
+- Réinitialisation complète des données locales
+- Persistance localStorage automatique
+
+### 👨‍👩‍👧 Portail Famille
+- Notifications push en temps réel
+- Suivi assiduité/paiements/événements
+- Support Mobile Money (Orange Money, MTN, Wave, Moov)
+- Comptes à rebours pour compétitions
+- Autorisations parentales numériques
+
+### 🔔 Système de Notifications
+- Notifications avec système de priorités (low, medium, high)
+- Filtres (toutes, non lues, prioritaires)
+- Marquage comme lu / suppression
+- Types : assiduité, paiement, grade, événement, médical, stock, système
+
+### 🔍 Recherche Globale
+- Recherche unifiée dans toute l'application
+- Raccourci clavier (⌘K / Ctrl+K)
+- Résultats en temps réel (licenciés, paiements, grades)
+- Navigation rapide vers les résultats
+
+## 🛠️ Technologies Utilisées
+
+- **React 18** avec TypeScript
+- **Tailwind CSS** pour le design responsive
+- **Recharts** pour les graphiques interactifs
+- **jsPDF** + **jspdf-autotable** pour la génération de documents PDF
+- **Lucide React** pour les icônes
+- **LocalStorage** pour la persistance des données
+- **Canvas Confetti** pour les animations de célébration
+
+## 📁 Structure du Projet
+
+```
+src/
+├── components/
+│   ├── DashboardView.tsx              # Tableau de bord principal
+│   ├── MembersView.tsx                # Gestion des licenciés
+│   ├── AddMemberModal.tsx             # Formulaire d'ajout de membre
+│   ├── AttendanceView.tsx             # Pointage dojang
+│   ├── KioskMode.tsx                  # Mode borne de pointage
+│   ├── GradingView.tsx                # Passages de grade
+│   ├── PaymentsView.tsx               # Trésorerie
+│   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
+│   ├── InventoryView.tsx              # Gestion des stocks
+│   ├── AdvancedStats.tsx              # Statistiques avancées
+│   ├── PerformanceReport.tsx          # Rapports de performance
+│   ├── DataManagement.tsx             # Gestion des données
+│   ├── ParentPortalView.tsx           # Portail famille
+│   ├── NotificationsPanel.tsx         # Panneau de notifications
+│   ├── CompetitionCountdown.tsx       # Compte à rebours compétitions
+│   └── Toast.tsx                      # Système de notifications toast
+├── utils/
+│   ├── helpers.ts                     # Fonctions utilitaires
+│   ├── storage.ts                     # Gestion localStorage & validation
+│   └── pdfGenerators.ts               # Générateurs PDF officiels
+├── data/
+│   └── mockData.ts                    # Données de démonstration
+├── types.ts                           # Interfaces TypeScript
+└── App.tsx                            # Composant principal
+```
+
+## 🎨 Design & UX
+
+- **Thème martial élégant** : ardoise foncé, rouge taekwondo, or impérial, émeraude
+- **Responsive design** : adapté mobile, tablette et desktop
+- **Animations fluides** : transitions, confettis, pulse glow
+- **Accessibilité** : contrastes élevés, navigation au clavier
+- **Performance** : optimisation des rendus, lazy loading
+
+## 🇨🇮 Adaptation au Contexte Ivoirien
+
+- **Noms et prénoms** ivoiriens (Kouassi, Traoré, Bamba, Koné, Diallo, etc.)
+- **Numéros de téléphone** au format +225 avec préfixes opérateurs (07, 05, 01)
+- **Adresses** : communes d'Abidjan (Cocody, Yopougon, Abobo, Plateau, etc.)
+- **Licences** : format CSA-2024-XXX spécifique à l'académie
+- **Opérateurs Mobile Money** : Orange Money, MTN MoMo, Wave, Moov Money
+- **Devise** : FCFA (Franc CFA)
+- **Format de date** : français (JJ/MM/AAAA)
+
+## 📄 Documents Officiels Générés
+
+1. **Diplômes de grade** (A4 paysage)
+   - Cadre cérémonial or et bordeaux
+   - Filigrane 태권도 (Taekwondo en coréen)
+   - Notes techniques détaillées
+   - Sceau officiel CSA
+
+2. **Feuilles d'émargement** (A4 portrait)
+   - En-tête officiel CSA
+   - Statistiques de la séance
+   - Tableau détaillé des présences
+   - Cases de signature
+
+3. **Relevés de compte** (A4 portrait)
+   - Historique complet des transactions
+   - Détail des acomptes
+   - Solde restant
+   - Certification officielle
+
+## 🚀 Installation & Démarrage
+
+```bash
+# Installation des dépendances
+npm install
+
+# Lancement en mode développement
+npm run dev
+
+# Build pour production
+npm run build
+
+# Vérification des types
+npm run typecheck
+```
+
+## 🔒 Sécurité & Validation
+
+- Validation des formulaires (téléphone, âge, poids, taille)
+- Format de téléphone ivoirien vérifié (+225 XX XX XX XX)
+- Contrôle des âges (4-80 ans)
+- Validation des poids (20-200 kg) et tailles (80-220 cm)
+- Génération automatique de numéros de licence et reçus
+
+## 📊 Fonctionnalités Avancées
+
+- **Export CSV** de toutes les données
+- **Export PDF** de documents officiels
+- **Import/Export JSON** pour sauvegarde/restauration
+- **Recherche globale** avec raccourci clavier
+- **Notifications toast** pour feedback utilisateur
+- **Comptes à rebours** en temps réel pour compétitions
+- **Mode Kiosk** pour borne de pointage automatique
+- **Confettis** de célébration pour réussites
+
+## 🎯 Standards FITKD & Kukkiwon
+
+- Seuil d'assiduité fédéral : **75% minimum**
+- Objectif club : **85%**
+- Catégories d'âge réglementaires : Poussins, Benjamins, Minimes, Cadets, Juniors, Seniors, Vétérans
+- Barème de notation officiel WT sur 100 points
+- Temps minimum de pratique requis entre les grades
+
+## 📝 Licence
+
+Application développée pour la **Confidence Sports Academy** - Dojang de Cocody, Abidjan, Côte d'Ivoire.
+
+---
+
+**Développé avec ❤️ pour le Taekwondo ivoirien**

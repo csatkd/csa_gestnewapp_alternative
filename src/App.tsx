@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText } from 'lucide-react';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import AttendanceView from './components/AttendanceView';
@@ -8,10 +8,15 @@ import PaymentsView from './components/PaymentsView';
 import ParentPortalView from './components/ParentPortalView';
 import InventoryView from './components/InventoryView';
 import NotificationsPanel from './components/NotificationsPanel';
+import AdvancedStats from './components/AdvancedStats';
+import DataManagement from './components/DataManagement';
+import PerformanceReport from './components/PerformanceReport';
+import { ToastContainer, useToast } from './components/Toast';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -20,6 +25,9 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'grading', label: 'Grades', icon: Award },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'inventory', label: 'Stocks', icon: Package },
+  { key: 'stats', label: 'Statistiques', icon: BarChart3 },
+  { key: 'report', label: 'Rapports', icon: FileText },
+  { key: 'data', label: 'Données', icon: Database },
   { key: 'parents', label: 'Portail Famille', icon: Home },
 ];
 
@@ -31,6 +39,7 @@ export default function App() {
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{ type: string; label: string; sublabel: string; action: ViewType }[]>([]);
+  const { toasts, addToast, removeToast } = useToast();
 
   // Update time every second
   useEffect(() => {
@@ -101,11 +110,15 @@ export default function App() {
       case 'grading': return <GradingView />;
       case 'payments': return <PaymentsView />;
       case 'inventory': return <InventoryView />;
+      case 'stats': return <AdvancedStats />;
+      case 'report': return <PerformanceReport />;
+      case 'data': return <DataManagement />;
       case 'parents': return <ParentPortalView />;
     }
   };
 
   return (
+    <ErrorBoundary>
     <div className="min-h-screen bg-slate-900 flex">
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-800 border-r border-slate-700 transform transition-transform duration-300 lg:translate-x-0 lg:static ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -293,6 +306,9 @@ export default function App() {
       {/* Notifications Panel */}
       {showNotifications && <NotificationsPanel onClose={() => setShowNotifications(false)} />}
 
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
+
       {/* Global Search Overlay */}
       {showSearch && (
         <div className="fixed inset-0 bg-black/30 z-40 md:hidden" onClick={() => setShowSearch(false)}></div>
@@ -301,6 +317,7 @@ export default function App() {
       {/* Keyboard shortcut listener */}
       <KeyboardShortcut onOpenSearch={() => setShowSearch(true)} />
     </div>
+    </ErrorBoundary>
   );
 }
 
