@@ -512,6 +512,47 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
   - Code couleur par statut
   - Alertes visuelles pour impayés
 
+### 📖 Carnet de Suivi Annuel des Paiements
+- **Carnet numérique et imprimable** au format A6 livret (105 × 148 mm)
+- **4 pages complètes** :
+  - **Page 1 - Couverture** :
+    - Informations du licencié (nom, licence, grade)
+    - Période de validité (année)
+    - Résumé financier (mensualité, total annuel)
+    - Design professionnel aux couleurs de l'académie
+  - **Page 2 - Calendrier des mensualités** :
+    - Tableau des 12 mois avec colonnes : Mois, Montant, Échéance, Paiement, Cachet/Signature
+    - Cases vides pour cachet et signature du secrétariat
+    - Suivi visuel des paiements effectués
+  - **Page 3 - Historique des paiements** :
+    - Récapitulatif financier (total dû, payé, restant)
+    - Taux de recouvrement
+    - Détail de toutes les transactions avec date, montant, méthode, numéro de reçu
+  - **Page 4 - Conditions et validation** :
+    - Modalités de paiement (échéance, frais de retard, méthodes acceptées)
+    - Informations de contact complètes
+    - Zone de validation avec date d'émission, signature et cachet
+- **Fonctionnalités** :
+  - Visualisation numérique des 4 pages dans l'application
+  - Navigation page par page avec aperçu
+  - Sélection du licencié et de l'année
+  - Téléchargement PDF format A6 livret
+  - Impression directe
+  - Génération automatique des données de paiement
+- **Usage** :
+  - Présenté à chaque paiement au secrétariat
+  - Cacheté et signé par le responsable
+  - Conservé par le licencié comme preuve de paiement
+  - Permet un suivi en ligne (numérique) et hors ligne (papier)
+  - Accessible par le club, le licencié et les parents
+- **Avantages** :
+  - ✅ Traçabilité complète des paiements
+  - ✅ Preuve officielle de paiement
+  - ✅ Format pratique (A6) facile à transporter
+  - ✅ Double suivi : numérique et papier
+  - ✅ Validation par cachet à chaque paiement
+  - ✅ Historique complet sur une année
+
 ### 📦 Gestion des Stocks
 - Inventaire des équipements de combat et d'entraînement
 - Alertes visuelles pour stocks critiques
@@ -626,6 +667,7 @@ src/
 │   ├── ReceiptPrinter.tsx             # Impression de reçus
 │   ├── InscriptionManagement.tsx      # Gestion des inscriptions
 │   ├── MonthlyPaymentsView.tsx        # Gestion des mensualités
+│   ├── PaymentBookletView.tsx         # Carnet de suivi annuel
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
@@ -648,7 +690,8 @@ src/
 │   ├── storage.ts                     # Gestion localStorage & validation
 │   ├── pdfGenerators.ts               # Générateurs PDF officiels
 │   ├── receiptGenerator.ts            # Générateurs de reçus multi-format
-│   └── cardGenerator.ts               # Générateurs de cartes de membre
+│   ├── cardGenerator.ts               # Générateurs de cartes de membre
+│   └── paymentBookletGenerator.ts     # Générateurs de carnets de paiement
 ├── data/
 │   └── mockData.ts                    # Données de démonstration
 ├── types.ts                           # Interfaces TypeScript

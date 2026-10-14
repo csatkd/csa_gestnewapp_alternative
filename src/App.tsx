@@ -35,12 +35,13 @@ import InscriptionManagement from './components/InscriptionManagement';
 import MonthlyPaymentsView from './components/MonthlyPaymentsView';
 import SecretariatAttendanceView from './components/SecretariatAttendanceView';
 import MemberCardManagement from './components/MemberCardManagement';
+import PaymentBookletView from './components/PaymentBookletView';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'cards';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'booklet' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'cards';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -66,6 +67,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'inscriptions', label: 'Inscriptions', icon: UserPlus },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'monthly-payments', label: 'Mensualités', icon: Calendar },
+  { key: 'booklet', label: 'Carnet de Paiement', icon: BookOpen },
   { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'incidents', label: 'Incidents', icon: Activity },
   { key: 'rewards', label: 'Récompenses', icon: Trophy },
@@ -173,6 +175,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'inscriptions': return <InscriptionManagement />;
       case 'payments': return <PaymentsView />;
       case 'monthly-payments': return <MonthlyPaymentsView />;
+      case 'booklet': return <PaymentBookletView />;
       case 'inventory': return <InventoryView />;
       case 'incidents': return <IncidentTracker />;
       case 'rewards': return <RewardsProgram />;
