@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen, UserPlus, ShoppingBag, Printer } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen, UserPlus, ShoppingBag, Printer, CreditCard } from 'lucide-react';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import AttendanceView from './components/AttendanceView';
@@ -34,16 +34,18 @@ import ReceiptPrinter from './components/ReceiptPrinter';
 import InscriptionManagement from './components/InscriptionManagement';
 import MonthlyPaymentsView from './components/MonthlyPaymentsView';
 import SecretariatAttendanceView from './components/SecretariatAttendanceView';
+import MemberCardManagement from './components/MemberCardManagement';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'cards';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
   { key: 'members', label: 'Licenciés', icon: Users },
+  { key: 'cards', label: 'Cartes de Membre', icon: CreditCard },
   { key: 'attendance', label: 'Assiduité', icon: ClipboardCheck },
   { key: 'secretariat', label: 'Pointage Secrétariat', icon: ClipboardCheck },
   { key: 'schedule', label: 'Planning', icon: Calendar },
@@ -150,6 +152,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
     switch (currentView) {
       case 'dashboard': return <DashboardView />;
       case 'members': return <MembersView />;
+      case 'cards': return <MemberCardManagement />;
       case 'attendance': return <AttendanceView />;
       case 'secretariat': return <SecretariatAttendanceView />;
       case 'schedule': return <TrainingSchedule />;

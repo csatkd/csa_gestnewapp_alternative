@@ -366,6 +366,48 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Recherche et filtres avancés (par ceinture, catégorie d'âge)
 - Formulaire d'ajout avec validation complète
 
+### 💳 Gestion des Cartes de Membre
+- **Système complet de génération de cartes d'identité** pour les licenciés
+- **Format carte de crédit** (85.60 × 53.98 mm) professionnel
+- **Design personnalisé** avec :
+  - Logo CSA et affiliations (FITKD, Kukkiwon, World Taekwondo)
+  - Photo du membre (placeholder ou upload)
+  - Nom complet en majuscules
+  - Numéro de licence
+  - Grade avec ceinture de couleur visuelle
+  - Dates d'émission et d'expiration
+  - Numéro de carte unique
+  - QR code pour vérification en ligne
+  - Signature du Directeur Technique
+- **Gestion des statuts** :
+  - 🟢 Active : Carte valide et utilisable
+  - 🔴 Expirée : Carte ayant dépassé sa date d'expiration
+  - 🟡 Perdue : Carte signalée comme perdue
+  - 🔵 Renouvelée : Carte remplacée par une nouvelle
+- **Fonctionnalités avancées** :
+  - Génération individuelle de cartes en PDF
+  - Génération en masse (toutes les cartes actives)
+  - Aperçu visuel de la carte avant impression
+  - Marquage comme perdue
+  - Renouvellement automatique (nouvelle date d'expiration)
+  - Recherche par nom, licence ou numéro de carte
+  - Filtrage par statut
+- **Statistiques** :
+  - Total des cartes émises
+  - Nombre de cartes actives
+  - Nombre de cartes expirées
+  - Nombre de cartes perdues
+- **Sécurité et vérification** :
+  - QR code unique par carte
+  - Lien de vérification en ligne
+  - Numéro de carte traçable
+  - Historique des renouvellements
+- **Export PDF** :
+  - Format carte individuelle
+  - Format planche A4 (8 cartes par page)
+  - Impression recto-verso possible
+  - Qualité professionnelle pour impression plastique
+
 ### 📊 Pointage Dojang (Licenciés)
 - **Suivi complet des arrivées ET départs** avec calcul automatique du temps de présence
 - Système multi-méthodes : QR Code, NFC, Manuel
@@ -553,6 +595,7 @@ src/
 ├── components/
 │   ├── DashboardView.tsx              # Tableau de bord principal
 │   ├── MembersView.tsx                # Gestion des licenciés
+│   ├── MemberCardManagement.tsx       # Gestion des cartes de membre
 │   ├── AddMemberModal.tsx             # Formulaire d'ajout de membre
 │   ├── AttendanceView.tsx             # Pointage dojang
 │   ├── SecretariatAttendanceView.tsx  # Pointage au secrétariat
@@ -595,7 +638,8 @@ src/
 │   ├── helpers.ts                     # Fonctions utilitaires
 │   ├── storage.ts                     # Gestion localStorage & validation
 │   ├── pdfGenerators.ts               # Générateurs PDF officiels
-│   └── receiptGenerator.ts            # Générateurs de reçus multi-format
+│   ├── receiptGenerator.ts            # Générateurs de reçus multi-format
+│   └── cardGenerator.ts               # Générateurs de cartes de membre
 ├── data/
 │   └── mockData.ts                    # Données de démonstration
 ├── types.ts                           # Interfaces TypeScript
