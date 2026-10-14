@@ -1,18 +1,40 @@
 import { useState } from 'react';
-import { QrCode, Clock, CheckCircle, XCircle, AlertCircle, UserCheck, FileText, Download, Monitor } from 'lucide-react';
+import { QrCode, Clock, CheckCircle, XCircle, AlertCircle, UserCheck, FileText, Download, Monitor, LogIn, LogOut, Timer, TrendingUp } from 'lucide-react';
 import { mockMembers, mockAttendanceRecords } from '../data/mockData';
 import { AttendanceStatus } from '../types';
 import { generateAttendanceSheetPDF } from '../utils/pdfGenerators';
 import { exportToCSV } from '../utils/helpers';
 import KioskMode from './KioskMode';
 
+interface AttendanceRecord {
+  id: string;
+  memberId: string;
+  date: string;
+  checkIn: string;
+  checkOut?: string;
+  status: AttendanceStatus;
+  method: 'qr' | 'nfc' | 'manual';
+  lateMinutes?: number;
+  excuseReason?: string;
+  sessionType: string;
+  totalHours?: number;
+}
+
 export default function AttendanceView() {
   const [selectedDate, setSelectedDate] = useState('2024-12-15');
   const [sessionType, setSessionType] = useState('training');
   const [pointingMethod, setPointingMethod] = useState<'qr' | 'nfc' | 'manual'>('manual');
   const [showKiosk, setShowKiosk] = useState(false);
+  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>(
+    mockAttendanceRecords.map(r => ({
+      ...r,
+      checkIn: r.time,
+      checkOut: r.status === 'present' ? '18:00' : undefined,
+      totalHours: r.status === 'present' ? 2 : 0
+    }))
+  );
 
-  const todayRecords = mockAttendanceRecords.filter(r => r.date === selectedDate);
+  const todayRecords = attendanceRecords.filter(r => r.date === selectedDate);
   
   const stats = {
     total: mockMembers.length,
@@ -44,6 +66,103 @@ export default function AttendanceView() {
     };
     return <span className={`px-2 py-1 rounded-full text-xs font-medium border ${styles[status]}`}>{labels[status]}</span>;
   };
+
+  // Fonctions de pointage
+  const handleCheckIn = (memberId: string, status: AttendanceStatus = 'present') => {
+    const now = new Date();
+    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    
+    const existingRecord = attendanceRecords.find(r => r.memberId === memberId && r.date === selectedDate);
+    
+    if (existingRecord) {
+      setAttendanceRecords(attendanceRecords.map(r => 
+        r.id === existingRecord.id 
+          ? { ...r, checkIn: timeStr, status, method: pointingMethod }
+          : r
+      ));
+    } else {
+      const newRecord: AttendanceRecord = {
+        id: `ATT-${Date.now()}-${memberId}`,
+        memberId,
+        date: selectedDate,
+        checkIn: timeStr,
+        status,
+        method: pointingMethod,
+        sessionType,
+        lateMinutes: status === 'late' ? 15 : 0,
+      };
+      setAttendanceRecords([...attendanceRecords, newRecord]);
+    }
+  };
+
+  const handleCheckOut = (memberId: string) => {
+    const now = new Date();
+    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    
+    const record = attendanceRecords.find(r => r.memberId === memberId && r.date === selectedDate);
+    if (record) {
+      const checkInTime = new Date(`${selectedDate}T${record.checkIn}`);
+      const checkOutTime = new Date(`${selectedDate}T${timeStr}`);
+      const hours = (checkOutTime.getTime() - checkInTime.getTime()) / (1000 * 60 * 60);
+      
+      setAttendanceRecords(attendanceRecords.map(r => 
+        r.id === record.id 
+          ? { ...r, checkOut: timeStr, totalHours: Math.round(hours * 10) / 10 }
+          : r
+      ));
+    }
+  };
+
+  const handleMarkAbsent = (memberId: string) => {
+    const existingRecord = attendanceRecords.find(r => r.memberId === memberId && r.date === selectedDate);
+    
+    if (existingRecord) {
+      setAttendanceRecords(attendanceRecords.map(r => 
+        r.id === existingRecord.id 
+          ? { ...r, status: 'absent' }
+          : r
+      ));
+    } else {
+      const newRecord: AttendanceRecord = {
+        id: `ATT-${Date.now()}-${memberId}`,
+        memberId,
+        date: selectedDate,
+        checkIn: '',
+        status: 'absent',
+        method: 'manual',
+        sessionType,
+      };
+      setAttendanceRecords([...attendanceRecords, newRecord]);
+    }
+  };
+
+  const handleMarkExcused = (memberId: string, reason: string) => {
+    const existingRecord = attendanceRecords.find(r => r.memberId === memberId && r.date === selectedDate);
+    
+    if (existingRecord) {
+      setAttendanceRecords(attendanceRecords.map(r => 
+        r.id === existingRecord.id 
+          ? { ...r, status: 'excused', excuseReason: reason }
+          : r
+      ));
+    } else {
+      const newRecord: AttendanceRecord = {
+        id: `ATT-${Date.now()}-${memberId}`,
+        memberId,
+        date: selectedDate,
+        checkIn: '',
+        status: 'excused',
+        method: 'manual',
+        sessionType,
+        excuseReason: reason,
+      };
+      setAttendanceRecords([...attendanceRecords, newRecord]);
+    }
+  };
+
+  // Statistiques avancées
+  const totalHoursToday = todayRecords.reduce((sum, r) => sum + (r.totalHours || 0), 0);
+  const avgHoursPerPerson = todayRecords.length > 0 ? (totalHoursToday / todayRecords.filter(r => r.totalHours).length).toFixed(1) : '0';
 
   if (showKiosk) {
     return <KioskMode />;
@@ -122,8 +241,71 @@ export default function AttendanceView() {
         </div>
       </div>
 
+      {/* Quick Actions Bar */}
+      <div className="bg-gradient-to-r from-emerald-500/10 to-blue-500/10 rounded-xl p-4 border border-emerald-500/20">
+        <h3 className="text-white font-semibold mb-3">Actions Rapides</h3>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <button
+            onClick={() => {
+              mockMembers.forEach(member => {
+                const hasRecord = todayRecords.find(r => r.memberId === member.id);
+                if (!hasRecord) {
+                  handleCheckIn(member.id, 'present');
+                }
+              });
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors"
+          >
+            <LogIn className="w-5 h-5" />
+            <span className="text-sm font-medium">Pointer Tous Présents</span>
+          </button>
+          <button
+            onClick={() => {
+              mockMembers.forEach(member => {
+                const hasRecord = todayRecords.find(r => r.memberId === member.id);
+                if (!hasRecord) {
+                  handleMarkAbsent(member.id);
+                }
+              });
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+          >
+            <XCircle className="w-5 h-5" />
+            <span className="text-sm font-medium">Marquer Absents</span>
+          </button>
+          <button
+            onClick={() => {
+              todayRecords.forEach(record => {
+                if (record.checkIn && !record.checkOut) {
+                  handleCheckOut(record.memberId);
+                }
+              });
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="text-sm font-medium">Pointer Tous Départs</span>
+          </button>
+          <button
+            onClick={() => {
+              const unpointed = mockMembers.filter(m => !todayRecords.find(r => r.memberId === m.id));
+              if (unpointed.length > 0) {
+                const names = unpointed.map(m => `${m.firstName} ${m.lastName}`).join(', ');
+                alert(`Licenciés non pointés:\n${names}\n\nEnvoyer une notification aux parents?`);
+              } else {
+                alert('Tous les licenciés ont été pointés!');
+              }
+            }}
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+          >
+            <AlertCircle className="w-5 h-5" />
+            <span className="text-sm font-medium">Notifier Absents</span>
+          </button>
+        </div>
+      </div>
+
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-7 gap-3">
         <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700 text-center">
           <p className="text-slate-400 text-xs">Convoqués</p>
           <p className="text-2xl font-bold text-white">{stats.total}</p>
@@ -144,12 +326,26 @@ export default function AttendanceView() {
           <p className="text-blue-400 text-xs">Taux Assiduité</p>
           <p className={`text-2xl font-bold ${stats.rate >= 80 ? 'text-emerald-400' : stats.rate >= 75 ? 'text-amber-400' : 'text-red-400'}`}>{stats.rate}%</p>
         </div>
+        <div className="bg-purple-500/10 rounded-xl p-4 border border-purple-500/30 text-center">
+          <div className="flex items-center justify-center gap-1 mb-1">
+            <Timer className="w-4 h-4 text-purple-400" />
+            <p className="text-purple-400 text-xs">Heures Totales</p>
+          </div>
+          <p className="text-2xl font-bold text-purple-400">{totalHoursToday.toFixed(1)}h</p>
+        </div>
+        <div className="bg-indigo-500/10 rounded-xl p-4 border border-indigo-500/30 text-center">
+          <div className="flex items-center justify-center gap-1 mb-1">
+            <TrendingUp className="w-4 h-4 text-indigo-400" />
+            <p className="text-indigo-400 text-xs">Moy. Par Personne</p>
+          </div>
+          <p className="text-2xl font-bold text-indigo-400">{avgHoursPerPerson}h</p>
+        </div>
       </div>
 
       {/* Attendance Table */}
       <div className="bg-slate-800/50 rounded-xl border border-slate-700 overflow-hidden">
         <div className="p-4 border-b border-slate-700 flex items-center justify-between">
-          <h3 className="text-white font-semibold">Feuille d'Émargement</h3>
+          <h3 className="text-white font-semibold">Feuille d'Émargement - Pointage en Temps Réel</h3>
           <span className="text-slate-400 text-sm">{todayRecords.length} pointage(s) enregistré(s)</span>
         </div>
         <div className="overflow-x-auto">
@@ -158,33 +354,97 @@ export default function AttendanceView() {
               <tr className="border-b border-slate-700">
                 <th className="text-left px-4 py-3 text-slate-400 text-xs font-medium uppercase">Licencié</th>
                 <th className="text-left px-4 py-3 text-slate-400 text-xs font-medium uppercase">N° Licence</th>
-                <th className="text-left px-4 py-3 text-slate-400 text-xs font-medium uppercase">Heure</th>
-                <th className="text-left px-4 py-3 text-slate-400 text-xs font-medium uppercase">Méthode</th>
-                <th className="text-left px-4 py-3 text-slate-400 text-xs font-medium uppercase">Statut</th>
-                <th className="text-left px-4 py-3 text-slate-400 text-xs font-medium uppercase">Détails</th>
+                <th className="text-center px-4 py-3 text-slate-400 text-xs font-medium uppercase">Arrivée</th>
+                <th className="text-center px-4 py-3 text-slate-400 text-xs font-medium uppercase">Départ</th>
+                <th className="text-center px-4 py-3 text-slate-400 text-xs font-medium uppercase">Durée</th>
+                <th className="text-center px-4 py-3 text-slate-400 text-xs font-medium uppercase">Statut</th>
+                <th className="text-center px-4 py-3 text-slate-400 text-xs font-medium uppercase">Actions</th>
               </tr>
             </thead>
             <tbody>
               {mockMembers.map(member => {
                 const record = todayRecords.find(r => r.memberId === member.id);
+                const hasCheckedIn = record?.checkIn && record.checkIn !== '';
+                const hasCheckedOut = record?.checkOut && record.checkOut !== '';
+                
                 return (
                   <tr key={member.id} className="border-b border-slate-700/50 hover:bg-slate-700/30">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(record?.status || 'absent')}
-                        <span className="text-white text-sm">{member.firstName} {member.lastName}</span>
+                        <span className="text-white text-sm font-medium">{member.firstName} {member.lastName}</span>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-slate-400 text-sm">{member.licenseNumber}</td>
-                    <td className="px-4 py-3 text-slate-400 text-sm">{record?.time || '--:--'}</td>
-                    <td className="px-4 py-3">
-                      <span className="text-slate-400 text-sm">
-                        {record?.method === 'qr' ? '📱 QR' : record?.method === 'nfc' ? '📡 NFC' : '✋ Manuel'}
-                      </span>
+                    <td className="px-4 py-3 text-center">
+                      {hasCheckedIn ? (
+                        <div className="flex items-center justify-center gap-1">
+                          <LogIn className="w-3 h-3 text-emerald-400" />
+                          <span className="text-emerald-400 text-sm font-mono">{record.checkIn}</span>
+                        </div>
+                      ) : (
+                        <span className="text-slate-500 text-sm">--:--</span>
+                      )}
                     </td>
-                    <td className="px-4 py-3">{record ? getStatusBadge(record.status) : getStatusBadge('absent')}</td>
-                    <td className="px-4 py-3 text-slate-400 text-sm">
-                      {record?.status === 'late' ? `${record.lateMinutes} min de retard` : record?.status === 'excused' ? record.excuseReason : '-'}
+                    <td className="px-4 py-3 text-center">
+                      {hasCheckedOut ? (
+                        <div className="flex items-center justify-center gap-1">
+                          <LogOut className="w-3 h-3 text-blue-400" />
+                          <span className="text-blue-400 text-sm font-mono">{record.checkOut}</span>
+                        </div>
+                      ) : (
+                        <span className="text-slate-500 text-sm">--:--</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {record?.totalHours ? (
+                        <span className="text-purple-400 text-sm font-bold">{record.totalHours}h</span>
+                      ) : (
+                        <span className="text-slate-500 text-sm">-</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {record ? getStatusBadge(record.status) : getStatusBadge('absent')}
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center justify-center gap-1">
+                        {!hasCheckedIn && (
+                          <button
+                            onClick={() => handleCheckIn(member.id, 'present')}
+                            className="p-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded transition-colors"
+                            title="Pointer l'arrivée"
+                          >
+                            <LogIn className="w-4 h-4" />
+                          </button>
+                        )}
+                        {hasCheckedIn && !hasCheckedOut && (
+                          <button
+                            onClick={() => handleCheckOut(member.id)}
+                            className="p-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded transition-colors"
+                            title="Pointer le départ"
+                          >
+                            <LogOut className="w-4 h-4" />
+                          </button>
+                        )}
+                        {!record && (
+                          <>
+                            <button
+                              onClick={() => handleMarkAbsent(member.id)}
+                              className="p-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded transition-colors"
+                              title="Marquer absent"
+                            >
+                              <XCircle className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleMarkExcused(member.id, 'Excusé')}
+                              className="p-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded transition-colors"
+                              title="Marquer excusé"
+                            >
+                              <AlertCircle className="w-4 h-4" />
+                            </button>
+                          </>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
@@ -255,7 +515,7 @@ export default function AttendanceView() {
                   return {
                     member: m,
                     status: record?.status || 'absent',
-                    time: record?.time || '--:--',
+                    time: record?.checkIn || '--:--',
                     method: record?.method === 'qr' ? 'QR Code' : record?.method === 'nfc' ? 'NFC' : 'Manuel',
                   };
                 });
@@ -276,9 +536,11 @@ export default function AttendanceView() {
                   return {
                     licence: m.licenseNumber,
                     nom: `${m.firstName} ${m.lastName}`,
-                    heure: record?.time || '--',
+                    arrivee: record?.checkIn || '--',
+                    depart: record?.checkOut || '--',
                     statut: record?.status || 'absent',
                     methode: record?.method || 'manuel',
+                    heures: record?.totalHours || 0,
                   };
                 }), `pointage_${selectedDate}`);
               }}

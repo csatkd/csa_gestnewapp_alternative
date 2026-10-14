@@ -92,12 +92,33 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Recherche et filtres avancés (par ceinture, catégorie d'âge)
 - Formulaire d'ajout avec validation complète
 
-### 📊 Pointage Dojang
+### 📊 Pointage Dojang (Licenciés)
+- **Suivi complet des arrivées ET départs** avec calcul automatique du temps de présence
 - Système multi-méthodes : QR Code, NFC, Manuel
 - Mode Kiosk immersif pour borne de pointage
 - Effets sonores et animations visuelles
+- **Tableau de bord en temps réel** avec 7 indicateurs clés :
+  - Convoqués, Présents, Retards, Absents
+  - Taux d'assiduité (%)
+  - Heures totales de présence
+  - Moyenne par personne
+- **Actions rapides** :
+  - Pointer tous les présents en un clic
+  - Marquer tous les absents
+  - Pointer tous les départs
+  - Notifier les absents (WhatsApp/SMS)
+- **Boutons d'action individuels** pour chaque licencié :
+  - Pointer l'arrivée (icône verte)
+  - Pointer le départ (icône bleue)
+  - Marquer absent (icône rouge)
+  - Marquer excusé (icône bleue)
+- **Interface de pointage améliorée** :
+  - Affichage des heures d'arrivée et de départ
+  - Calcul automatique de la durée de présence
+  - Code couleur intuitif pour chaque statut
+  - Méthode de pointage utilisée (QR/NFC/Manuel)
 - Export PDF de la feuille d'émargement officielle
-- Export CSV des données de pointage
+- Export CSV complet avec heures d'arrivée, départ et durée
 - Statistiques en temps réel (présents, retards, absents)
 
 ### 🥋 Passages de Grade
