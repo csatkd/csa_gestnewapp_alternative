@@ -329,94 +329,158 @@ export default function MemberCardManagement() {
               <h3 className="text-xl font-bold text-white">Aperçu de la Carte</h3>
               <button onClick={() => setShowPreview(false)} className="text-slate-400 hover:text-white text-2xl">&times;</button>
             </div>
-            <div className="p-6">
-              {/* Card Design */}
-              <div className="relative w-full aspect-[1.586/1] bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 rounded-xl p-6 border-2 border-emerald-500/30 shadow-2xl">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute top-10 right-10 text-9xl">🥋</div>
-                </div>
-
-                {/* Header */}
-                <div className="relative flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-3xl">🥋</span>
-                    </div>
-                    <div>
-                      <p className="text-white font-bold text-lg">CONFIDENCE SPORTS</p>
-                      <p className="text-emerald-400 text-sm">ACADEMY - TAEKWONDO</p>
-                      <p className="text-slate-400 text-xs mt-1">FITKD • Kukkiwon • World Taekwondo</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-slate-400 text-xs">N° Carte</p>
-                    <p className="text-white font-mono text-sm">{selectedCard.cardNumber}</p>
-                  </div>
-                </div>
-
-                {/* Member Info */}
-                <div className="relative grid grid-cols-3 gap-4 mb-6">
-                  {/* Photo Placeholder */}
-                  <div className="col-span-1">
-                    <div className="w-full aspect-square bg-slate-700 rounded-lg flex items-center justify-center border-2 border-emerald-500/30">
-                      <span className="text-6xl">👤</span>
-                    </div>
+            <div className="p-6 space-y-6">
+              {/* RECTO */}
+              <div>
+                <p className="text-emerald-400 text-xs font-bold mb-2">RECTO</p>
+                <div className="relative w-full aspect-[1.586/1] bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 rounded-xl p-6 border-2 border-emerald-500/30 shadow-2xl">
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute top-10 right-10 text-9xl">🥋</div>
                   </div>
 
-                  {/* Details */}
-                  <div className="col-span-2 space-y-2">
-                    <div>
-                      <p className="text-slate-400 text-xs">NOM COMPLET</p>
-                      <p className="text-white font-bold text-lg">{selectedCard.memberName}</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <p className="text-slate-400 text-xs">N° LICENCE</p>
-                        <p className="text-emerald-400 font-mono text-sm">{selectedCard.licenseNumber}</p>
+                  {/* Header */}
+                  <div className="relative flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-white font-bold text-3xl">🥋</span>
                       </div>
                       <div>
-                        <p className="text-slate-400 text-xs">GRADE</p>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-6 h-2 rounded"
-                            style={{ backgroundColor: getBeltColorHex(selectedCard.beltColor) }}
-                          ></div>
-                          <span className="text-white text-sm">{selectedCard.beltColor}</span>
+                        <p className="text-white font-bold text-lg">CONFIDENCE SPORTS</p>
+                        <p className="text-emerald-400 text-sm">ACADEMY - TAEKWONDO</p>
+                        <p className="text-slate-400 text-xs mt-1">FITKD • Kukkiwon • World Taekwondo</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-slate-400 text-xs">N° Carte</p>
+                      <p className="text-white font-mono text-sm">{selectedCard.cardNumber}</p>
+                    </div>
+                  </div>
+
+                  {/* Member Info */}
+                  <div className="relative grid grid-cols-3 gap-4 mb-6">
+                    {/* Photo Placeholder */}
+                    <div className="col-span-1">
+                      <div className="w-full aspect-square bg-slate-700 rounded-lg flex items-center justify-center border-2 border-emerald-500/30">
+                        <span className="text-6xl">👤</span>
+                      </div>
+                    </div>
+
+                    {/* Details */}
+                    <div className="col-span-2 space-y-2">
+                      <div>
+                        <p className="text-slate-400 text-xs">NOM COMPLET</p>
+                        <p className="text-white font-bold text-lg">{selectedCard.memberName}</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <p className="text-slate-400 text-xs">N° LICENCE</p>
+                          <p className="text-emerald-400 font-mono text-sm">{selectedCard.licenseNumber}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-400 text-xs">GRADE</p>
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-6 h-2 rounded"
+                              style={{ backgroundColor: getBeltColorHex(selectedCard.beltColor) }}
+                            ></div>
+                            <span className="text-white text-sm">{selectedCard.beltColor}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <p className="text-slate-400 text-xs">ÉMISSION</p>
+                          <p className="text-white text-sm">{new Date(selectedCard.issueDate).toLocaleDateString('fr-FR')}</p>
+                        </div>
+                        <div>
+                          <p className="text-slate-400 text-xs">EXPIRATION</p>
+                          <p className="text-white text-sm">{new Date(selectedCard.expiryDate).toLocaleDateString('fr-FR')}</p>
                         </div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <p className="text-slate-400 text-xs">ÉMISSION</p>
-                        <p className="text-white text-sm">{new Date(selectedCard.issueDate).toLocaleDateString('fr-FR')}</p>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="relative flex items-end justify-between">
+                    <div className="flex items-center gap-3">
+                      {/* QR Code */}
+                      <div className="w-16 h-16 bg-white rounded-lg p-1">
+                        <div className="w-full h-full bg-slate-900 rounded flex items-center justify-center">
+                          <QrCode className="w-12 h-12 text-white" />
+                        </div>
                       </div>
                       <div>
-                        <p className="text-slate-400 text-xs">EXPIRATION</p>
-                        <p className="text-white text-sm">{new Date(selectedCard.expiryDate).toLocaleDateString('fr-FR')}</p>
+                        <p className="text-slate-400 text-xs">Vérification</p>
+                        <p className="text-emerald-400 text-xs font-mono">csa-taekwondo.ci/verify</p>
                       </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-slate-400 text-xs">Directeur Technique</p>
+                      <p className="text-white text-sm italic">Maître Koné Ibrahim</p>
+                      <div className="mt-1 w-32 h-8 border-b-2 border-emerald-500/50"></div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Footer */}
-                <div className="relative flex items-end justify-between">
-                  <div className="flex items-center gap-3">
-                    {/* QR Code */}
-                    <div className="w-16 h-16 bg-white rounded-lg p-1">
+              {/* VERSO */}
+              <div>
+                <p className="text-emerald-400 text-xs font-bold mb-2">VERSO</p>
+                <div className="relative w-full aspect-[1.586/1] bg-slate-900 rounded-xl border-2 border-emerald-500/30 shadow-2xl overflow-hidden">
+                  {/* Bande décorative en haut */}
+                  <div className="absolute top-0 left-0 right-0 h-8 bg-emerald-500 flex items-center justify-center">
+                    <p className="text-slate-900 font-bold text-sm">INFORMATIONS IMPORTANTES</p>
+                  </div>
+
+                  {/* QR Code au centre */}
+                  <div className="flex flex-col items-center pt-12">
+                    <div className="w-32 h-32 bg-white rounded-lg p-2 mb-2">
                       <div className="w-full h-full bg-slate-900 rounded flex items-center justify-center">
-                        <QrCode className="w-12 h-12 text-white" />
+                        <QrCode className="w-24 h-24 text-white" />
                       </div>
                     </div>
+                    <p className="text-emerald-400 font-bold text-sm">SCANNEZ POUR VÉRIFICATION</p>
+                    <p className="text-white text-xs">csa-taekwondo.ci/verify</p>
+                  </div>
+
+                  {/* Informations en bas */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 grid grid-cols-2 gap-4">
+                    {/* Contact */}
                     <div>
-                      <p className="text-slate-400 text-xs">Vérification</p>
-                      <p className="text-emerald-400 text-xs font-mono">csa-taekwondo.ci/verify</p>
+                      <p className="text-emerald-400 font-bold text-xs mb-1">CONTACT</p>
+                      <div className="space-y-0.5 text-xs text-white">
+                        <p>📍 Cocody, Abidjan, Côte d'Ivoire</p>
+                        <p>📞 +225 27 22 44 55 66</p>
+                        <p>📧 contact@csa-taekwondo.ci</p>
+                        <p>🌐 www.csa-taekwondo.ci</p>
+                      </div>
+                      <p className="text-red-400 font-bold text-xs mt-2">⚠ URGENCE</p>
+                      <div className="space-y-0.5 text-xs text-white">
+                        <p>Secrétariat: +225 07 12 34 56 78</p>
+                        <p>Directeur: +225 07 98 76 54 32</p>
+                      </div>
+                    </div>
+
+                    {/* Conditions */}
+                    <div>
+                      <p className="text-emerald-400 font-bold text-xs mb-1">CONDITIONS</p>
+                      <div className="space-y-0.5 text-xs text-slate-300">
+                        <p>• Cette carte est strictement personnelle</p>
+                        <p>• Elle doit être présentée sur demande</p>
+                        <p>• En cas de perte, prévenir immédiatement</p>
+                        <p>• Le duplicata est payant (5 000 FCFA)</p>
+                        <p>• Carte non transférable</p>
+                        <p>• Validité: 1 an à compter de l'émission</p>
+                        <p>• Renouvellement annuel obligatoire</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-slate-400 text-xs">Directeur Technique</p>
-                    <p className="text-white text-sm italic">Maître Koné Ibrahim</p>
-                    <div className="mt-1 w-32 h-8 border-b-2 border-emerald-500/50"></div>
+
+                  {/* Bande décorative en bas */}
+                  <div className="absolute bottom-0 left-0 right-0 h-6 bg-emerald-500 flex flex-col items-center justify-center">
+                    <p className="text-slate-900 font-bold text-xs">CONFIDENCE SPORTS ACADEMY - EXCELLENCE MARTIALE</p>
+                    <p className="text-slate-900 text-[8px]">Affiliée FITKD • Homologuée Kukkiwon • Membre World Taekwondo</p>
                   </div>
                 </div>
               </div>
@@ -428,7 +492,7 @@ export default function MemberCardManagement() {
                   className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-medium transition-colors"
                 >
                   <Download className="w-5 h-5" />
-                  Télécharger PDF
+                  Télécharger PDF (Recto-Verso)
                 </button>
                 <button
                   onClick={() => handleMarkAsLost(selectedCard.id)}

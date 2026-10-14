@@ -369,16 +369,24 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 ### 💳 Gestion des Cartes de Membre
 - **Système complet de génération de cartes d'identité** pour les licenciés
 - **Format carte de crédit** (85.60 × 53.98 mm) professionnel
-- **Design personnalisé** avec :
-  - Logo CSA et affiliations (FITKD, Kukkiwon, World Taekwondo)
-  - Photo du membre (placeholder ou upload)
-  - Nom complet en majuscules
-  - Numéro de licence
-  - Grade avec ceinture de couleur visuelle
-  - Dates d'émission et d'expiration
-  - Numéro de carte unique
-  - QR code pour vérification en ligne
-  - Signature du Directeur Technique
+- **Carte RECTO-VERSO complète** :
+  - **RECTO** :
+    - Logo CSA et affiliations (FITKD, Kukkiwon, World Taekwondo)
+    - Photo du membre (placeholder ou upload)
+    - Nom complet en majuscules
+    - Numéro de licence
+    - Grade avec ceinture de couleur visuelle
+    - Dates d'émission et d'expiration
+    - Numéro de carte unique
+    - QR code pour vérification en ligne
+    - Signature du Directeur Technique
+  - **VERSO** :
+    - QR code de vérification agrandi
+    - Informations de contact complètes (adresse, téléphone, email, site web)
+    - Numéros d'urgence (secrétariat et directeur)
+    - Conditions d'utilisation de la carte
+    - Mentions légales et affiliations
+    - Design professionnel avec bandes décoratives
 - **Gestion des statuts** :
   - 🟢 Active : Carte valide et utilisable
   - 🔴 Expirée : Carte ayant dépassé sa date d'expiration
@@ -403,10 +411,11 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
   - Numéro de carte traçable
   - Historique des renouvellements
 - **Export PDF** :
-  - Format carte individuelle
-  - Format planche A4 (8 cartes par page)
-  - Impression recto-verso possible
+  - Format carte individuelle (recto-verso sur 2 pages)
+  - Format planche A4 (8 cartes recto + 8 cartes verso)
+  - Impression recto-verso automatique
   - Qualité professionnelle pour impression plastique
+  - Fichiers nommés automatiquement
 
 ### 📊 Pointage Dojang (Licenciés)
 - **Suivi complet des arrivées ET départs** avec calcul automatique du temps de présence
