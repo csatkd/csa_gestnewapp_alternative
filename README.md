@@ -64,6 +64,53 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Alertes pour absences non justifiées
 - Suivi des heures supplémentaires
 
+### 🚪 Pointage au Secrétariat
+- **Système de double pointage** (entrée/sortie) au secrétariat
+- **Pointage d'entrée** :
+  - Enregistrement à l'arrivée au club
+  - Avant d'entrer dans la salle d'entraînement
+  - Sélection du licencié dans la liste
+  - Horodatage automatique
+  - Vérification des doublons (empêche double pointage)
+- **Pointage de sortie** :
+  - Enregistrement au départ du club
+  - Après la séance d'entraînement
+  - Calcul automatique de la durée de présence
+  - Affichage en heures et minutes
+- **Affichage en temps réel** :
+  - Heure actuelle mise à jour chaque seconde
+  - Date complète en français
+  - Liste des licenciés actuellement au club
+  - Durée de présence en temps réel pour chaque licencié
+- **Statistiques du jour** :
+  - Nombre de licenciés actuellement au club
+  - Nombre de sorties enregistrées
+  - Durée moyenne de présence
+  - Total des pointages du jour
+- **Gestion des oublis** :
+  - Détection des pointages de sortie manquants
+  - Statut "Oubli" pour les sorties non enregistrées
+  - Possibilité de régularisation
+- **Interface intuitive** :
+  - Bouton "Pointage Entrée" bien visible
+  - Bouton "Pointage Sortie" sur chaque carte de licencié présent
+  - Modal de sélection pour l'entrée
+  - Tableau détaillé de l'historique du jour
+- **Fonctionnalités avancées** :
+  - Recherche par nom ou numéro de licence
+  - Filtrage par date
+  - Export CSV des pointages du jour
+  - Persistance des données dans localStorage
+  - Code couleur par statut (En cours, Terminé, Oubli)
+- **Workflow optimisé** :
+  1. Le licencié arrive au secrétariat
+  2. Le secrétaire sélectionne le licencié
+  3. Confirmation de l'entrée (horodatage automatique)
+  4. Le licencié va en salle d'entraînement
+  5. À la fin de la séance, retour au secrétariat
+  6. Le secrétaire enregistre la sortie
+  7. Calcul automatique de la durée
+
 ### 🛒 Boutique en Ligne
 - Catalogue de produits (doboks, protections, accessoires, équipements)
 - Gestion des stocks en temps réel avec alertes
@@ -508,6 +555,7 @@ src/
 │   ├── MembersView.tsx                # Gestion des licenciés
 │   ├── AddMemberModal.tsx             # Formulaire d'ajout de membre
 │   ├── AttendanceView.tsx             # Pointage dojang
+│   ├── SecretariatAttendanceView.tsx  # Pointage au secrétariat
 │   ├── KioskMode.tsx                  # Mode borne de pointage
 │   ├── TrainingSchedule.tsx           # Planning des entraînements
 │   ├── TechnicalProgress.tsx          # Progression technique

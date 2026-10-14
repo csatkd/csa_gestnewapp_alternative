@@ -33,17 +33,19 @@ import ReferralProgram from './components/ReferralProgram';
 import ReceiptPrinter from './components/ReceiptPrinter';
 import InscriptionManagement from './components/InscriptionManagement';
 import MonthlyPaymentsView from './components/MonthlyPaymentsView';
+import SecretariatAttendanceView from './components/SecretariatAttendanceView';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'monthly-payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
   { key: 'members', label: 'Licenciés', icon: Users },
   { key: 'attendance', label: 'Assiduité', icon: ClipboardCheck },
+  { key: 'secretariat', label: 'Pointage Secrétariat', icon: ClipboardCheck },
   { key: 'schedule', label: 'Planning', icon: Calendar },
   { key: 'progress', label: 'Progression', icon: Target },
   { key: 'grading', label: 'Grades', icon: Award },
@@ -149,6 +151,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'dashboard': return <DashboardView />;
       case 'members': return <MembersView />;
       case 'attendance': return <AttendanceView />;
+      case 'secretariat': return <SecretariatAttendanceView />;
       case 'schedule': return <TrainingSchedule />;
       case 'progress': return <TechnicalProgress />;
       case 'grading': return <GradingView />;
