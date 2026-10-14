@@ -24,7 +24,8 @@ const academyInfo = {
 export function generateAnnualPaymentBooklet(
   member: Member,
   payments: MonthlyPayment[],
-  year: number
+  year: number,
+  photoDataUrl?: string | null
 ): void {
   // Format A6: 105 × 148 mm (livret 4 pages)
   const pageWidth = 105;
@@ -56,26 +57,96 @@ export function generateAnnualPaymentBooklet(
   doc.text('CARNET DE SUIVI ANNUEL', pageWidth / 2, 15, { align: 'center' });
   doc.text(`DES PAIEMENTS - ${year}`, pageWidth / 2, 19, { align: 'center' });
   
-  // Informations du licencié
+  // Informations du licencié avec photo
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(9);
-  doc.text('LICENCIÉ(E)', pageWidth / 2, 35, { align: 'center' });
+  doc.text('LICENCIÉ(E)', pageWidth / 2, 32, { align: 'center' });
   
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(16, 185, 129);
-  doc.text(`${member.firstName} ${member.lastName}`, pageWidth / 2, 42, { align: 'center' });
-  
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(200, 200, 200);
-  doc.text(`N° Licence: ${member.licenseNumber}`, pageWidth / 2, 48, { align: 'center' });
-  doc.text(`Grade: Ceinture ${member.beltColor}${member.dan ? ` ${member.dan}ème Dan` : ''}`, pageWidth / 2, 52, { align: 'center' });
-  
-  // Période
-  doc.setFontSize(8);
-  doc.setTextColor(255, 255, 255);
-  doc.text(`Période: Janvier ${year} - Décembre ${year}`, pageWidth / 2, 62, { align: 'center' });
+  // Ajouter la photo si disponible
+  if (photoDataUrl) {
+    try {
+      // Position de la photo (centrée)
+      const photoWidth = 25;
+      const photoHeight = 30;
+      const photoX = (pageWidth - photoWidth) / 2;
+      const photoY = 35;
+      
+      // Bordure de la photo
+      doc.setDrawColor(16, 185, 129);
+      doc.setLineWidth(0.5);
+      doc.rect(photoX - 0.5, photoY - 0.5, photoWidth + 1, photoHeight + 1);
+      
+      // Ajouter l'image
+      doc.addImage(photoDataUrl, 'JPEG', photoX, photoY, photoWidth, photoHeight);
+      
+      // Décaler le texte vers le bas
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(16, 185, 129);
+      doc.text(`${member.firstName} ${member.lastName}`, pageWidth / 2, 70, { align: 'center' });
+      
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(200, 200, 200);
+      doc.text(`N° Licence: ${member.licenseNumber}`, pageWidth / 2, 75, { align: 'center' });
+      doc.text(`Grade: Ceinture ${member.beltColor}${member.dan ? ` ${member.dan}ème Dan` : ''}`, pageWidth / 2, 79, { align: 'center' });
+      
+      // Période
+      doc.setFontSize(8);
+      doc.setTextColor(255, 255, 255);
+      doc.text(`Période: Janvier ${year} - Décembre ${year}`, pageWidth / 2, 87, { align: 'center' });
+      
+      // Ligne décorative
+      doc.setDrawColor(16, 185, 129);
+      doc.setLineWidth(0.5);
+      doc.line(20, 92, pageWidth - 20, 92);
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout de la photo:', error);
+      // Fallback sans photo
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(16, 185, 129);
+      doc.text(`${member.firstName} ${member.lastName}`, pageWidth / 2, 42, { align: 'center' });
+      
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(200, 200, 200);
+      doc.text(`N° Licence: ${member.licenseNumber}`, pageWidth / 2, 48, { align: 'center' });
+      doc.text(`Grade: Ceinture ${member.beltColor}${member.dan ? ` ${member.dan}ème Dan` : ''}`, pageWidth / 2, 52, { align: 'center' });
+      
+      // Période
+      doc.setFontSize(8);
+      doc.setTextColor(255, 255, 255);
+      doc.text(`Période: Janvier ${year} - Décembre ${year}`, pageWidth / 2, 62, { align: 'center' });
+      
+      // Ligne décorative
+      doc.setDrawColor(16, 185, 129);
+      doc.setLineWidth(0.5);
+      doc.line(20, 68, pageWidth - 20, 68);
+    }
+  } else {
+    // Sans photo
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(16, 185, 129);
+    doc.text(`${member.firstName} ${member.lastName}`, pageWidth / 2, 42, { align: 'center' });
+    
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(200, 200, 200);
+    doc.text(`N° Licence: ${member.licenseNumber}`, pageWidth / 2, 48, { align: 'center' });
+    doc.text(`Grade: Ceinture ${member.beltColor}${member.dan ? ` ${member.dan}ème Dan` : ''}`, pageWidth / 2, 52, { align: 'center' });
+    
+    // Période
+    doc.setFontSize(8);
+    doc.setTextColor(255, 255, 255);
+    doc.text(`Période: Janvier ${year} - Décembre ${year}`, pageWidth / 2, 62, { align: 'center' });
+    
+    // Ligne décorative
+    doc.setDrawColor(16, 185, 129);
+    doc.setLineWidth(0.5);
+    doc.line(20, 68, pageWidth - 20, 68);
+  }
   
   // Ligne décorative
   doc.setDrawColor(16, 185, 129);

@@ -516,6 +516,7 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - **Carnet numérique et imprimable** au format A6 livret (105 × 148 mm)
 - **4 pages complètes** :
   - **Page 1 - Couverture** :
+    - **Photo du licencié** (uploadable, stockée dans localStorage)
     - Informations du licencié (nom, licence, grade)
     - Période de validité (année)
     - Résumé financier (mensualité, total annuel)
@@ -536,7 +537,13 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
   - Visualisation numérique des 4 pages dans l'application
   - Navigation page par page avec aperçu
   - Sélection du licencié et de l'année
-  - Téléchargement PDF format A6 livret
+  - **Gestion de la photo du licencié** :
+    - Upload de photo depuis l'appareil (JPG, PNG)
+    - Aperçu de la photo dans le carnet
+    - Modification ou suppression de la photo
+    - Persistance dans localStorage (photo conservée par licencié)
+    - Intégration automatique dans le PDF généré
+  - Téléchargement PDF format A6 livret avec photo
   - Impression directe
   - Génération automatique des données de paiement
 - **Usage** :
@@ -552,6 +559,8 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
   - ✅ Double suivi : numérique et papier
   - ✅ Validation par cachet à chaque paiement
   - ✅ Historique complet sur une année
+  - ✅ **Identification visuelle du licencié par photo**
+  - ✅ Personnalisation et professionnalisme du carnet
 
 ### 📦 Gestion des Stocks
 - Inventaire des équipements de combat et d'entraînement

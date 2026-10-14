@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { BookOpen, Download, Printer, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { BookOpen, Download, Printer, ChevronLeft, ChevronRight, Camera, Upload, X } from 'lucide-react';
 import { mockMembers } from '../data/mockData';
 import { generateAnnualPaymentBooklet } from '../utils/paymentBookletGenerator';
 
@@ -18,9 +18,40 @@ export default function PaymentBookletView() {
   const [selectedMemberId, setSelectedMemberId] = useState(mockMembers[0].id);
   const [selectedYear, setSelectedYear] = useState(2024);
   const [currentPage, setCurrentPage] = useState(1);
+  const [memberPhoto, setMemberPhoto] = useState<string | null>(null);
+  const [showPhotoModal, setShowPhotoModal] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const member = mockMembers.find(m => m.id === selectedMemberId);
   if (!member) return null;
+
+  // Charger la photo du membre depuis localStorage
+  useEffect(() => {
+    const savedPhoto = localStorage.getItem(`photo_${member.id}`);
+    setMemberPhoto(savedPhoto);
+  }, [member.id]);
+
+  // Gérer l'upload de photo
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const photoData = reader.result as string;
+        setMemberPhoto(photoData);
+        localStorage.setItem(`photo_${member.id}`, photoData);
+        setShowPhotoModal(false);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Supprimer la photo
+  const handlePhotoDelete = () => {
+    setMemberPhoto(null);
+    localStorage.removeItem(`photo_${member.id}`);
+    setShowPhotoModal(false);
+  };
 
   // Générer les données de paiement simulées
   const generatePayments = (): MonthlyPayment[] => {
@@ -83,7 +114,7 @@ export default function PaymentBookletView() {
   const totalPaid = payments.reduce((sum, p) => sum + p.paidAmount, 0);
 
   const handleDownloadPDF = () => {
-    generateAnnualPaymentBooklet(member, payments, selectedYear);
+    generateAnnualPaymentBooklet(member, payments, selectedYear, memberPhoto);
   };
 
   const handlePrint = () => {
@@ -136,7 +167,7 @@ export default function PaymentBookletView() {
 
       {/* Filters */}
       <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="text-slate-300 text-sm block mb-2">Licencié</label>
             <select
@@ -162,6 +193,16 @@ export default function PaymentBookletView() {
               <option value={2025}>2025</option>
               <option value={2026}>2026</option>
             </select>
+          </div>
+          <div>
+            <label className="text-slate-300 text-sm block mb-2">Photo du Licencié</label>
+            <button
+              onClick={() => setShowPhotoModal(true)}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+            >
+              <Camera className="w-4 h-4" />
+              {memberPhoto ? 'Modifier la Photo' : 'Ajouter une Photo'}
+            </button>
           </div>
         </div>
       </div>
@@ -207,17 +248,32 @@ export default function PaymentBookletView() {
                   <p className="text-slate-900 text-[6mm]">DES PAIEMENTS - {selectedYear}</p>
                 </div>
 
-                {/* Informations du licencié */}
-                <div className="flex flex-col items-center mt-[20mm]">
+                {/* Informations du licencié avec photo */}
+                <div className="flex flex-col items-center mt-[15mm]">
                   <p className="text-[6mm]">LICENCIÉ(E)</p>
+                  
+                  {/* Zone photo */}
+                  <div className="relative mt-[3mm] mb-[3mm]">
+                    <div className="w-[25mm] h-[30mm] bg-slate-700 border-2 border-emerald-500 rounded flex items-center justify-center overflow-hidden">
+                      {memberPhoto ? (
+                        <img src={memberPhoto} alt="Photo du licencié" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-center">
+                          <Camera className="w-[8mm] h-[8mm] text-slate-500 mx-auto mb-1" />
+                          <p className="text-[2mm] text-slate-500">Photo</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
                   <p className="text-[10mm] font-bold text-emerald-400">{member.firstName} {member.lastName}</p>
                   <p className="text-[5mm] text-slate-400">N° Licence: {member.licenseNumber}</p>
                   <p className="text-[5mm] text-slate-400">Grade: Ceinture {member.beltColor}{member.dan ? ` ${member.dan}ème Dan` : ''}</p>
                   
-                  <p className="text-[6mm] mt-[10mm]">Période: Janvier {selectedYear} - Décembre {selectedYear}</p>
+                  <p className="text-[6mm] mt-[8mm]">Période: Janvier {selectedYear} - Décembre {selectedYear}</p>
                   
                   {/* Ligne décorative */}
-                  <div className="w-[60mm] h-[1mm] bg-emerald-500 my-[5mm]"></div>
+                  <div className="w-[60mm] h-[1mm] bg-emerald-500 my-[4mm]"></div>
                   
                   {/* Résumé financier */}
                   <div className="text-left w-[70mm]">
@@ -433,6 +489,73 @@ export default function PaymentBookletView() {
           <p><strong>Impression :</strong> Format A6, impression recto simple, découpe en livret</p>
         </div>
       </div>
+
+      {/* Modal de gestion de photo */}
+      {showPhotoModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowPhotoModal(false)}>
+          <div className="bg-slate-800 rounded-2xl border border-slate-700 max-w-md w-full" onClick={e => e.stopPropagation()}>
+            <div className="p-6 border-b border-slate-700 flex items-center justify-between">
+              <h3 className="text-xl font-bold text-white">Photo du Licencié</h3>
+              <button onClick={() => setShowPhotoModal(false)} className="text-slate-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div className="p-6 space-y-4">
+              {/* Aperçu de la photo actuelle */}
+              <div className="flex justify-center">
+                <div className="w-[100px] h-[120px] bg-slate-700 border-2 border-emerald-500 rounded flex items-center justify-center overflow-hidden">
+                  {memberPhoto ? (
+                    <img src={memberPhoto} alt="Photo du licencié" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="text-center">
+                      <Camera className="w-12 h-12 text-slate-500 mx-auto mb-2" />
+                      <p className="text-slate-500 text-xs">Aucune photo</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Informations du licencié */}
+              <div className="text-center">
+                <p className="text-white font-semibold">{member.firstName} {member.lastName}</p>
+                <p className="text-slate-400 text-sm">{member.licenseNumber}</p>
+              </div>
+
+              {/* Actions */}
+              <div className="space-y-2">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handlePhotoUpload}
+                  accept="image/*"
+                  className="hidden"
+                />
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-medium transition-colors"
+                >
+                  <Upload className="w-5 h-5" />
+                  {memberPhoto ? 'Changer la Photo' : 'Ajouter une Photo'}
+                </button>
+                {memberPhoto && (
+                  <button
+                    onClick={handlePhotoDelete}
+                    className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-medium transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                    Supprimer la Photo
+                  </button>
+                )}
+              </div>
+
+              {/* Instructions */}
+              <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                <p className="text-blue-400 text-xs">
+                  💡 La photo sera affichée sur la couverture du carnet de paiement et incluse dans le PDF généré.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
