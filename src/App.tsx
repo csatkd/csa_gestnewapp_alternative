@@ -25,12 +25,17 @@ import CoachesManagement from './components/CoachesManagement';
 import ShopManagement from './components/ShopManagement';
 import CompetitionManagement from './components/CompetitionManagement';
 import CoachAttendance from './components/CoachAttendance';
+import WhatsAppIntegration from './components/WhatsAppIntegration';
+import InteractiveCalendar from './components/InteractiveCalendar';
+import FeedbackSystem from './components/FeedbackSystem';
+import VideoLibrary from './components/VideoLibrary';
+import ReferralProgram from './components/ReferralProgram';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -45,6 +50,11 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'coach-attendance', label: 'Assiduité Coachs', icon: ClipboardCheck },
   { key: 'shop', label: 'Boutique', icon: ShoppingBag },
   { key: 'competitions', label: 'Compétitions', icon: Trophy },
+  { key: 'whatsapp', label: 'WhatsApp', icon: MessageSquare },
+  { key: 'calendar', label: 'Calendrier', icon: Calendar },
+  { key: 'feedback', label: 'Feedback', icon: Award },
+  { key: 'videos', label: 'Vidéos', icon: BookOpen },
+  { key: 'referral', label: 'Parrainage', icon: Users },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'incidents', label: 'Incidents', icon: Activity },
@@ -142,6 +152,11 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'coach-attendance': return <CoachAttendance />;
       case 'shop': return <ShopManagement />;
       case 'competitions': return <CompetitionManagement />;
+      case 'whatsapp': return <WhatsAppIntegration />;
+      case 'calendar': return <InteractiveCalendar />;
+      case 'feedback': return <FeedbackSystem />;
+      case 'videos': return <VideoLibrary />;
+      case 'referral': return <ReferralProgram />;
       case 'payments': return <PaymentsView />;
       case 'inventory': return <InventoryView />;
       case 'incidents': return <IncidentTracker />;

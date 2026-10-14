@@ -84,6 +84,160 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Préparation et suivi des athlètes
 - Analyse des résultats par discipline (Poomsae, Kyorugi)
 
+### 💬 Intégration WhatsApp
+- **Système de messagerie intégré** pour communications professionnelles
+- **8 modèles de messages** prédéfinis avec variables dynamiques :
+  - 💰 Rappel de paiement
+  - 📋 Confirmation d'arrivée
+  - 📋 Notification d'absence
+  - 🥋 Rappel passage de grade
+  - 🥋 Félicitations réussite
+  - 🏆 Invitation compétition
+  - 📢 Cours d'essai gratuit
+  - 📢 Fermeture exceptionnelle
+- **3 onglets fonctionnels** :
+  - Modèles : Bibliothèque de templates avec recherche et filtres
+  - Composer : Envoi de messages personnalisés
+  - Historique : Suivi des messages envoyés avec statuts
+- **Canaux multiples** : WhatsApp et SMS
+- **Statistiques de communication** :
+  - Nombre de messages envoyés
+  - Taux de livraison (98%)
+  - Temps de réponse moyen
+- **Suivi des statuts** : Envoyé, Livré, Lu, Échoué
+- **Variables dynamiques** : {parent_name}, {student_name}, {amount}, {date}, etc.
+
+### 📅 Calendrier Interactif
+- **Vue calendrier complète** avec navigation mois/semaine/jour
+- **6 types d'événements** avec codes couleur :
+  - 🔵 Entraînement (bleu)
+  - 🔴 Compétition (rouge)
+  - 🟡 Passage de Grade (ambre)
+  - 🟣 Réunion (indigo)
+  - 🩷 Événement Spécial (rose)
+  - ⚫ Fermeture (gris)
+- **Fonctionnalités avancées** :
+  - Navigation entre mois avec boutons précédent/suivant
+  - Bouton "Aujourd'hui" pour retour rapide
+  - Affichage du nombre d'événements par jour
+  - Vue détaillée des événements du jour sélectionné
+  - Modal détaillé pour chaque événement
+- **Informations complètes** par événement :
+  - Date et heure
+  - Durée
+  - Lieu
+  - Nombre de participants
+  - Instructeur responsable
+  - Description détaillée
+- **Légende visuelle** avec tous les types d'événements
+- **Responsive design** adapté mobile/tablette/desktop
+
+### ⭐ Système de Feedback
+- **Évaluations bidirectionnelles** :
+  - Parents → Coachs
+  - Élèves → Coachs
+  - Coachs → Élèves
+- **Classement des coachs** avec notes détaillées :
+  - Note globale sur 5
+  - Pédagogie
+  - Ponctualité
+  - Communication
+  - Expertise technique
+- **3 onglets fonctionnels** :
+  - Classement Coachs : Top coachs avec statistiques
+  - Tous les Feedbacks : Historique complet avec filtres
+  - Soumettre : Formulaire d'évaluation
+- **Statistiques globales** :
+  - Note moyenne globale (4.6/5)
+  - Nombre total de feedbacks
+  - Nombre de coachs évalués
+  - Tendance de satisfaction (+12%)
+- **Filtres avancés** par type de feedback
+- **Système d'étoiles** visuel (1 à 5 étoiles)
+- **Option anonyme** pour feedbacks sensibles
+- **Modal détaillé** pour chaque coach avec :
+  - Notes par catégorie avec barres de progression
+  - Feedbacks récents
+  - Nombre total d'évaluations
+
+### 🎥 Bibliothèque de Vidéos
+- **Catalogue de techniques vidéo** organisé par catégories :
+  - 🥋 Poomsae (Formes)
+  - ⚔️ Kyorugi (Combat)
+  - 💥 Kyokpa (Casse)
+  - 🛡️ Hosinsul (Self-Défense)
+  - 📚 Théorie
+- **4 niveaux de difficulté** :
+  - 🟢 Débutant
+  - 🔵 Intermédiaire
+  - 🟣 Avancé
+  - 🔴 Expert
+- **Fonctionnalités avancées** :
+  - Recherche par titre, description ou tags
+  - Filtres par catégorie et niveau
+  - Affichage en grille responsive
+  - Lecteur vidéo intégré (modal)
+  - Système de notation (étoiles)
+  - Compteur de vues
+- **Informations par vidéo** :
+  - Titre et description
+  - Durée
+  - Instructeur
+  - Niveau de difficulté
+  - Tags pour recherche
+  - Nombre de vues
+  - Note moyenne
+- **Statistiques globales** :
+  - Nombre total de vidéos
+  - Heures de contenu
+  - Vues totales
+  - Note moyenne
+- **Aperçu vidéo** avec bouton play au survol
+- **Modal détaillé** avec :
+  - Lecteur vidéo
+  - Description complète
+  - Tags
+  - Statistiques
+
+### 🎁 Programme de Parrainage
+- **Système de parrainage complet** pour recrutement de nouveaux membres
+- **Processus en 4 étapes** :
+  1. Partager le code de parrainage
+  2. Inscription du filleul avec le code
+  3. Validation de l'inscription
+  4. Récompense automatique (10 000 FCFA)
+- **3 onglets fonctionnels** :
+  - Vue d'Ensemble : Statistiques et code personnel
+  - Mes Parrainages : Historique complet
+  - Inviter : Formulaire et options de partage
+- **Code de parrainage unique** :
+  - Généré automatiquement (ex: CSA-VOUS-2024)
+  - Copiable en un clic
+  - Partageable via WhatsApp, SMS, Email
+- **Statistiques détaillées** :
+  - Nombre total de parrainages
+  - Parrainages réussis
+  - Récompenses totales gagnées
+  - Taux de conversion (67%)
+- **Suivi des statuts** :
+  - ⏳ En attente
+  - ✓ Accepté
+  - 🎓 Inscrit
+  - 🎁 Récompensé
+- **Récompenses financières** :
+  - 10 000 FCFA par parrainage réussi
+  - Réduction sur prochaine cotisation
+  - Pas de limite de parrainages
+- **Formulaire d'enregistrement** :
+  - Nom du filleul
+  - Téléphone
+  - Email (optionnel)
+- **Avantages mis en avant** :
+  - Récompense immédiate
+  - Pas de limite
+  - Suivi en temps réel
+  - Processus simple
+
 ### 👥 Gestion des Licenciés
 - Fiches détaillées avec calcul automatique IMC et catégorie d'âge
 - Suivi biométrique complet (poids, taille, évolution 12 mois)
@@ -250,6 +404,11 @@ src/
 │   ├── CoachAttendance.tsx            # Assiduité des coachs
 │   ├── ShopManagement.tsx             # Boutique en ligne
 │   ├── CompetitionManagement.tsx      # Gestion des compétitions
+│   ├── WhatsAppIntegration.tsx        # Intégration WhatsApp
+│   ├── InteractiveCalendar.tsx        # Calendrier interactif
+│   ├── FeedbackSystem.tsx             # Système de feedback
+│   ├── VideoLibrary.tsx               # Bibliothèque de vidéos
+│   ├── ReferralProgram.tsx            # Programme de parrainage
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
