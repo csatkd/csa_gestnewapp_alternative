@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen, UserPlus, ShoppingBag } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardCheck, Award, DollarSign, Home, Menu, X, Bell, Package, Download, Search, BarChart3, Database, FileText, Calendar, MessageSquare, Activity, Trophy, Settings, Target, BookOpen, UserPlus, ShoppingBag, Printer } from 'lucide-react';
 import DashboardView from './components/DashboardView';
 import MembersView from './components/MembersView';
 import AttendanceView from './components/AttendanceView';
@@ -30,12 +30,13 @@ import InteractiveCalendar from './components/InteractiveCalendar';
 import FeedbackSystem from './components/FeedbackSystem';
 import VideoLibrary from './components/VideoLibrary';
 import ReferralProgram from './components/ReferralProgram';
+import ReceiptPrinter from './components/ReceiptPrinter';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -55,6 +56,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'feedback', label: 'Feedback', icon: Award },
   { key: 'videos', label: 'Vidéos', icon: BookOpen },
   { key: 'referral', label: 'Parrainage', icon: Users },
+  { key: 'receipts', label: 'Reçus', icon: Printer },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'incidents', label: 'Incidents', icon: Activity },
@@ -157,6 +159,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'feedback': return <FeedbackSystem />;
       case 'videos': return <VideoLibrary />;
       case 'referral': return <ReferralProgram />;
+      case 'receipts': return <ReceiptPrinter />;
       case 'payments': return <PaymentsView />;
       case 'inventory': return <InventoryView />;
       case 'incidents': return <IncidentTracker />;

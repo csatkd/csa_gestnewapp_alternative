@@ -199,6 +199,38 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
   - Tags
   - Statistiques
 
+### 🧾 Impression de Reçus Multi-Format
+- **Système d'impression professionnel** avec support multi-format
+- **5 formats d'impression** disponibles :
+  - 📄 **A4 Standard** : Format officiel pour archivage et documents
+  - 🧾 **Ticket 80mm** : Imprimantes thermiques standard (Epson, Star, etc.)
+  - 🎫 **Ticket 58mm** : Imprimantes thermiques compactes
+  - 🌐 **HTML Web** : Impression via navigateur (toutes imprimantes)
+  - 📡 **ESC/POS Direct** : Impression directe via Bluetooth
+- **Connexion Bluetooth** pour imprimantes thermiques :
+  - Détection automatique des imprimantes
+  - Connexion/déconnexion simple
+  - Support des protocoles ESC/POS
+  - Statut de connexion en temps réel
+- **Fonctionnalités avancées** :
+  - Sélection de paiement avec recherche
+  - Aperçu avant impression
+  - Téléchargement PDF
+  - Impression directe
+  - Gestion des acomptes et soldes
+- **Reçus professionnels** avec :
+  - En-tête officiel CSA
+  - Informations complètes du licencié
+  - Détails du paiement
+  - Historique des acomptes
+  - Codes-barres et numéros de reçu
+  - Pied de page avec mentions légales
+- **Interface intuitive** :
+  - Sélection visuelle des formats
+  - Indicateurs de connexion Bluetooth
+  - Messages d'état et d'erreur
+  - Configuration détaillée des imprimantes
+
 ### 🎁 Programme de Parrainage
 - **Système de parrainage complet** pour recrutement de nouveaux membres
 - **Processus en 4 étapes** :
@@ -409,6 +441,7 @@ src/
 │   ├── FeedbackSystem.tsx             # Système de feedback
 │   ├── VideoLibrary.tsx               # Bibliothèque de vidéos
 │   ├── ReferralProgram.tsx            # Programme de parrainage
+│   ├── ReceiptPrinter.tsx             # Impression de reçus
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
@@ -429,7 +462,8 @@ src/
 ├── utils/
 │   ├── helpers.ts                     # Fonctions utilitaires
 │   ├── storage.ts                     # Gestion localStorage & validation
-│   └── pdfGenerators.ts               # Générateurs PDF officiels
+│   ├── pdfGenerators.ts               # Générateurs PDF officiels
+│   └── receiptGenerator.ts            # Générateurs de reçus multi-format
 ├── data/
 │   └── mockData.ts                    # Données de démonstration
 ├── types.ts                           # Interfaces TypeScript
