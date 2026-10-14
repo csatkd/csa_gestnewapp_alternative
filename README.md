@@ -373,6 +373,47 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Export CSV des paiements
 - Formulaire d'ajout de paiement avec validation
 
+### 📅 Gestion des Mensualités & Trésorerie
+- **Tableau de bord de trésorerie** avec 4 KPIs en temps réel :
+  - 💚 Total encaissé (FCFA)
+  - 💙 Taux de recouvrement (%)
+  - ❤️ Impayés (FCFA + nombre)
+  - 🧡 En attente (FCFA + nombre)
+- **Évolution mensuelle** avec graphique de progression :
+  - Barres de progression colorées par taux de recouvrement
+  - Montants encaissés vs attendus par mois
+  - Taux de recouvrement mensuel en pourcentage
+- **Gestion des paiements mensuels** :
+  - Suivi de 12 mensualités par licencié
+  - Statuts : Payé, Partiel, Impayé, En attente
+  - Montants différenciés par grade (ceinture noire, Dan, etc.)
+  - Échéances au 5 de chaque mois
+- **Système de relances automatiques** :
+  - Relances individuelles via WhatsApp
+  - Relances groupées pour tous les impayés
+  - Compteur de relances par mensualité
+  - Date de dernière relance
+  - Messages personnalisés avec nom et montant
+- **Gestion des impayés** :
+  - Liste des licenciés en retard avec total dû
+  - Nombre de mois en retard par licencié
+  - Bouton de relance rapide
+  - Tri par montant dû décroissant
+- **Filtres avancés** :
+  - Recherche par nom de licencié
+  - Filtre par mois
+  - Filtre par statut (payé, partiel, impayé, en attente)
+- **Export et rapports** :
+  - Export CSV complet des mensualités
+  - Export PDF des relevés de compte
+  - Détails de chaque mensualité avec historique
+- **Interface intuitive** :
+  - Tableau détaillé avec toutes les informations
+  - Modal de détail pour chaque mensualité
+  - Actions rapides (relance WhatsApp, export PDF)
+  - Code couleur par statut
+  - Alertes visuelles pour impayés
+
 ### 📦 Gestion des Stocks
 - Inventaire des équipements de combat et d'entraînement
 - Alertes visuelles pour stocks critiques
@@ -484,6 +525,7 @@ src/
 │   ├── ReferralProgram.tsx            # Programme de parrainage
 │   ├── ReceiptPrinter.tsx             # Impression de reçus
 │   ├── InscriptionManagement.tsx      # Gestion des inscriptions
+│   ├── MonthlyPaymentsView.tsx        # Gestion des mensualités
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks

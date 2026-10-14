@@ -32,12 +32,13 @@ import VideoLibrary from './components/VideoLibrary';
 import ReferralProgram from './components/ReferralProgram';
 import ReceiptPrinter from './components/ReceiptPrinter';
 import InscriptionManagement from './components/InscriptionManagement';
+import MonthlyPaymentsView from './components/MonthlyPaymentsView';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'monthly-payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -60,6 +61,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'receipts', label: 'Reçus', icon: Printer },
   { key: 'inscriptions', label: 'Inscriptions', icon: UserPlus },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
+  { key: 'monthly-payments', label: 'Mensualités', icon: Calendar },
   { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'incidents', label: 'Incidents', icon: Activity },
   { key: 'rewards', label: 'Récompenses', icon: Trophy },
@@ -164,6 +166,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'receipts': return <ReceiptPrinter />;
       case 'inscriptions': return <InscriptionManagement />;
       case 'payments': return <PaymentsView />;
+      case 'monthly-payments': return <MonthlyPaymentsView />;
       case 'inventory': return <InventoryView />;
       case 'incidents': return <IncidentTracker />;
       case 'rewards': return <RewardsProgram />;
