@@ -31,12 +31,13 @@ import FeedbackSystem from './components/FeedbackSystem';
 import VideoLibrary from './components/VideoLibrary';
 import ReferralProgram from './components/ReferralProgram';
 import ReceiptPrinter from './components/ReceiptPrinter';
+import InscriptionManagement from './components/InscriptionManagement';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -57,6 +58,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'videos', label: 'Vidéos', icon: BookOpen },
   { key: 'referral', label: 'Parrainage', icon: Users },
   { key: 'receipts', label: 'Reçus', icon: Printer },
+  { key: 'inscriptions', label: 'Inscriptions', icon: UserPlus },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'inventory', label: 'Stocks', icon: Package },
   { key: 'incidents', label: 'Incidents', icon: Activity },
@@ -160,6 +162,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'videos': return <VideoLibrary />;
       case 'referral': return <ReferralProgram />;
       case 'receipts': return <ReceiptPrinter />;
+      case 'inscriptions': return <InscriptionManagement />;
       case 'payments': return <PaymentsView />;
       case 'inventory': return <InventoryView />;
       case 'incidents': return <IncidentTracker />;

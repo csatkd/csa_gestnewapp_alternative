@@ -231,6 +231,47 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
   - Messages d'état et d'erreur
   - Configuration détaillée des imprimantes
 
+### 📝 Gestion des Inscriptions
+- **Suivi complet des nouvelles inscriptions** avec workflow structuré
+- **4 statuts d'inscription** avec code couleur :
+  - 🟡 **En attente** : Dossier en cours de constitution
+  - 🟠 **Incomplet** : Documents manquants
+  - 🔵 **Complet** : Tous les documents requis reçus
+  - 🟢 **Validé** : Inscription finalisée
+- **Checklist des documents requis** (personnalisable) :
+  - 📋 Formulaire d'inscription
+  - 📸 Photos d'identité (2)
+  - 🏥 Certificat médical
+  - 🆔 Copie pièce d'identité (parent pour mineurs)
+  - 📖 Copie livret de famille (pour mineurs)
+  - ✍️ Autorisation parentale (pour mineurs)
+  - 🛡️ Assurance sportive (optionnel)
+- **Suivi en temps réel** :
+  - Barre de progression des documents
+  - Compteur de documents reçus/total
+  - Date de réception pour chaque document
+  - Distinction documents obligatoires/optionnels
+- **Gestion des frais d'inscription** :
+  - Suivi du paiement des frais
+  - Montants différenciés (mineurs/adultes)
+  - Statut de paiement (payé/en attente)
+- **Statistiques des inscriptions** :
+  - Total des inscriptions
+  - Répartition par statut
+  - Taux de complétion
+  - Nombre de validations
+- **Interface intuitive** :
+  - Recherche par nom
+  - Filtres par statut
+  - Vue détaillée avec modal
+  - Actions rapides (valider, marquer documents)
+  - Progression visuelle
+- **Processus de validation** :
+  - Vérification automatique des documents obligatoires
+  - Confirmation du paiement des frais
+  - Validation manuelle par l'administrateur
+  - Génération automatique du numéro de licence
+
 ### 🎁 Programme de Parrainage
 - **Système de parrainage complet** pour recrutement de nouveaux membres
 - **Processus en 4 étapes** :
@@ -442,6 +483,7 @@ src/
 │   ├── VideoLibrary.tsx               # Bibliothèque de vidéos
 │   ├── ReferralProgram.tsx            # Programme de parrainage
 │   ├── ReceiptPrinter.tsx             # Impression de reçus
+│   ├── InscriptionManagement.tsx      # Gestion des inscriptions
 │   ├── PaymentsView.tsx               # Trésorerie
 │   ├── AddPaymentModal.tsx            # Formulaire d'ajout de paiement
 │   ├── InventoryView.tsx              # Gestion des stocks
