@@ -52,6 +52,18 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 - Vue d'ensemble de l'équipe technique
 - Évaluations et feedback des élèves
 
+### 📋 Assiduité des Coachs
+- Pointage quotidien des entraîneurs (arrivée/départ)
+- Suivi des statuts : présent, en retard, absent, excusé
+- Planning hebdomadaire avec créneaux de cours par coach
+- Calcul automatique du taux d'assiduité mensuel
+- Statistiques individuelles (présences, retards, heures travaillées)
+- Export CSV des données de pointage
+- Filtrage par date, coach et statut
+- Vue d'ensemble des présences du jour
+- Alertes pour absences non justifiées
+- Suivi des heures supplémentaires
+
 ### 🛒 Boutique en Ligne
 - Catalogue de produits (doboks, protections, accessoires, équipements)
 - Gestion des stocks en temps réel avec alertes
@@ -214,6 +226,7 @@ src/
 │   ├── BookingSystem.tsx              # Système de réservation
 │   ├── TrialClasses.tsx               # Gestion des cours d'essai
 │   ├── CoachesManagement.tsx          # Gestion des coachs
+│   ├── CoachAttendance.tsx            # Assiduité des coachs
 │   ├── ShopManagement.tsx             # Boutique en ligne
 │   ├── CompetitionManagement.tsx      # Gestion des compétitions
 │   ├── PaymentsView.tsx               # Trésorerie

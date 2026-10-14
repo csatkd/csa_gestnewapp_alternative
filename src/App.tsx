@@ -24,12 +24,13 @@ import TrialClasses from './components/TrialClasses';
 import CoachesManagement from './components/CoachesManagement';
 import ShopManagement from './components/ShopManagement';
 import CompetitionManagement from './components/CompetitionManagement';
+import CoachAttendance from './components/CoachAttendance';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'shop' | 'competitions';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'grading' | 'payments' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -41,6 +42,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'booking', label: 'Réservations', icon: BookOpen },
   { key: 'trial', label: 'Cours d\'Essai', icon: UserPlus },
   { key: 'coaches', label: 'Coachs', icon: Users },
+  { key: 'coach-attendance', label: 'Assiduité Coachs', icon: ClipboardCheck },
   { key: 'shop', label: 'Boutique', icon: ShoppingBag },
   { key: 'competitions', label: 'Compétitions', icon: Trophy },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
@@ -137,6 +139,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       case 'booking': return <BookingSystem />;
       case 'trial': return <TrialClasses />;
       case 'coaches': return <CoachesManagement />;
+      case 'coach-attendance': return <CoachAttendance />;
       case 'shop': return <ShopManagement />;
       case 'competitions': return <CompetitionManagement />;
       case 'payments': return <PaymentsView />;
