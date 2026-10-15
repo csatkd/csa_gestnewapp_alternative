@@ -36,6 +36,7 @@ import MonthlyPaymentsView from './components/MonthlyPaymentsView';
 import SecretariatAttendanceView from './components/SecretariatAttendanceView';
 import MemberCardManagement from './components/MemberCardManagement';
 import PaymentBookletView from './components/PaymentBookletView';
+import LandingPage from './components/LandingPage';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
@@ -393,6 +394,17 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
 }
 
 export default function App() {
+  const [showLanding, setShowLanding] = useState(true);
+
+  if (showLanding) {
+    return (
+      <LandingPage 
+        onLogin={() => setShowLanding(false)}
+        onEnter={() => setShowLanding(false)}
+      />
+    );
+  }
+
   return (
     <ParentAuthProvider>
       <AppWrapper />

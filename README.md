@@ -2,6 +2,36 @@
 
 Application web professionnelle complète pour la gestion d'une académie de Taekwondo en Côte d'Ivoire, affiliée à la **Fédération Ivoirienne de Taekwondo (FITKD)** et homologuée **World Taekwondo (Kukkiwon)**.
 
+## 🌟 Landing Page Dynamique
+
+### 🎨 Présentation Immersive
+- **Hero Section** avec animations et design moderne
+- **Navigation fixe** avec effet de transparence au scroll
+- **Menu responsive** adapté mobile et desktop
+- **Animations fluides** et transitions élégantes
+
+### 📊 Sections Dynamiques
+- **Statistiques animées** : Compteurs animés (250+ licenciés, 12 coachs, 15 ans, 180+ médailles)
+- **Services** : 4 cartes interactives avec effets hover
+- **À Propos** : Présentation de l'académie avec avantages clés
+- **Témoignages** : Carrousel automatique avec rotation toutes les 5 secondes
+- **Contact** : Informations complètes (téléphone, email, adresse)
+- **Footer** : Liens rapides, affiliations, horaires
+
+### 🎯 Fonctionnalités Interactives
+- **Scroll fluide** entre les sections
+- **Effets de parallaxe** et animations au défilement
+- **Navigation mobile** avec menu hamburger
+- **Appels à l'action** stratégiques
+- **Intégration Espace Parent** : Accès direct depuis la landing page
+
+### 🎨 Design Professionnel
+- **Palette de couleurs** : Slate, Emerald, Blue, Purple, Amber
+- **Typographie** : Hiérarchie claire avec tailles adaptatives
+- **Icônes** : Lucide React pour une cohérence visuelle
+- **Responsive** : Optimisé pour tous les écrans
+- **Accessibilité** : Contrastes élevés et navigation au clavier
+
 ## 📋 Fonctionnalités Principales
 
 ### 🎯 Tableau de Bord Exécutif
@@ -652,6 +682,7 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 ```
 src/
 ├── components/
+│   ├── LandingPage.tsx                # Landing page dynamique
 │   ├── DashboardView.tsx              # Tableau de bord principal
 │   ├── MembersView.tsx                # Gestion des licenciés
 │   ├── MemberCardManagement.tsx       # Gestion des cartes de membre
