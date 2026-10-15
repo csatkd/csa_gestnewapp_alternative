@@ -23,13 +23,16 @@ export default function PaymentBookletView() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const member = mockMembers.find(m => m.id === selectedMemberId);
-  if (!member) return null;
 
   // Charger la photo du membre depuis localStorage
   useEffect(() => {
-    const savedPhoto = localStorage.getItem(`photo_${member.id}`);
-    setMemberPhoto(savedPhoto);
-  }, [member.id]);
+    if (member) {
+      const savedPhoto = localStorage.getItem(`photo_${member.id}`);
+      setMemberPhoto(savedPhoto);
+    }
+  }, [member?.id]);
+
+  if (!member) return null;
 
   // Gérer l'upload de photo
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
