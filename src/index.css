@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* CSA Brand Colors */
+:root {
+  --csa-red: #DC143C;
+  --csa-red-dark: #B91C1C;
+  --csa-black: #0F172A;
+  --csa-gray-dark: #1E293B;
+  --csa-gray: #475569;
+  --csa-gray-light: #64748B;
+  --csa-white: #FFFFFF;
+  --csa-accent: #DC143C;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -7,19 +19,19 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--csa-gray-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: var(--csa-gray);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: var(--csa-gray-light);
 }
 
-/* Custom animations */
+/* CSA Brand Animations */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -38,10 +50,19 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 8px rgba(220, 20, 60, 0);
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(220, 20, 60, 0);
   }
 }
 
@@ -55,6 +76,38 @@
 
 .animate-pulse-glow {
   animation: pulse-glow 2s infinite;
+}
+
+.animate-pulse-red {
+  animation: pulse-red 2s infinite;
+}
+
+/* CSA Utility Classes */
+.csa-gradient {
+  background: linear-gradient(135deg, var(--csa-red) 0%, var(--csa-red-dark) 100%);
+}
+
+.csa-gradient-dark {
+  background: linear-gradient(135deg, var(--csa-black) 0%, var(--csa-gray-dark) 100%);
+}
+
+.csa-text-gradient {
+  background: linear-gradient(135deg, var(--csa-red) 0%, #FF6B6B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.csa-border-red {
+  border-color: var(--csa-red);
+}
+
+.csa-bg-red {
+  background-color: var(--csa-red);
+}
+
+.csa-text-red {
+  color: var(--csa-red);
 }
 
 /* Range input styling */

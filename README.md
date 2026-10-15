@@ -2,6 +2,21 @@
 
 Application web professionnelle complète pour la gestion d'une académie de Taekwondo en Côte d'Ivoire, affiliée à la **Fédération Ivoirienne de Taekwondo (FITKD)** et homologuée **World Taekwondo (Kukkiwon)**.
 
+## 🎨 Identité Visuelle CSA
+
+### Palette de Couleurs Officielle
+- **Rouge Sang** : `#DC143C` - Couleur principale (passion, énergie, martial)
+- **Noir** : `#0F172A` - Fond principal (élégance, force)
+- **Gris** : `#475569`, `#64748B` - Éléments secondaires (professionnalisme)
+- **Blanc** : `#FFFFFF` - Contraste et lisibilité (pureté, clarté)
+
+### Système de Design
+L'application intègre un système de design cohérent avec :
+- Classes utilitaires CSA (`.csa-gradient`, `.csa-text-gradient`, etc.)
+- Animations personnalisées (`.animate-pulse-red`)
+- Dégradés officiels de la marque
+- Cohérence visuelle sur tous les composants
+
 ## 🌟 Landing Page Dynamique
 
 ### 🎨 Présentation Immersive
@@ -670,12 +685,13 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 ## 🛠️ Technologies Utilisées
 
 - **React 18** avec TypeScript
-- **Tailwind CSS** pour le design responsive
+- **Tailwind CSS** pour le design responsive avec couleurs CSA personnalisées
 - **Recharts** pour les graphiques interactifs
 - **jsPDF** + **jspdf-autotable** pour la génération de documents PDF
 - **Lucide React** pour les icônes
 - **LocalStorage** pour la persistance des données
 - **Canvas Confetti** pour les animations de célébration
+- **CSS Custom Properties** pour le système de design CSA
 
 ## 📁 Structure du Projet
 
@@ -759,13 +775,13 @@ src/
 ## 📄 Documents Officiels Générés
 
 1. **Diplômes de grade** (A4 paysage)
-   - Cadre cérémonial or et bordeaux
+   - Cadre cérémonial rouge sang et noir
    - Filigrane 태권도 (Taekwondo en coréen)
    - Notes techniques détaillées
-   - Sceau officiel CSA
+   - Sceau officiel CSA aux couleurs de l'académie
 
 2. **Feuilles d'émargement** (A4 portrait)
-   - En-tête officiel CSA
+   - En-tête officiel CSA avec logo rouge
    - Statistiques de la séance
    - Tableau détaillé des présences
    - Cases de signature
@@ -774,7 +790,18 @@ src/
    - Historique complet des transactions
    - Détail des acomptes
    - Solde restant
-   - Certification officielle
+   - Certification officielle aux couleurs CSA
+
+4. **Cartes de membre** (Format carte de crédit)
+   - Recto : Photo, informations, QR code
+   - Verso : Contact, conditions, validation
+   - Design professionnel rouge et noir
+
+5. **Carnets de paiement** (Format A6 livret)
+   - 4 pages complètes
+   - Photo du licencié
+   - Calendrier des mensualités
+   - Cases pour cachet et signature
 
 ## 🚀 Installation & Démarrage
 

@@ -5,7 +5,7 @@ import { mockMembers, mockPayments, mockCompetitions, mockInventory, attendance3
 import CompetitionCountdown from './CompetitionCountdown';
 import { exportToCSV } from '../utils/helpers';
 
-const COLORS = ['#10b981', '#f59e0b', '#ef4444', '#6366f1'];
+const COLORS = ['#DC143C', '#FFFFFF', '#475569', '#000000'];
 
 export default function DashboardView() {
   const [showMovingAvg, setShowMovingAvg] = useState(false);
@@ -57,46 +57,46 @@ export default function DashboardView() {
     <div className="space-y-6">
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-red-500/30 shadow-lg shadow-red-500/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">Licenciés Actifs</p>
-              <p className="text-3xl font-bold text-white mt-1">{activeMembers}<span className="text-slate-400 text-lg">/{totalMembers}</span></p>
+              <p className="text-gray-400 text-sm">Licenciés Actifs</p>
+              <p className="text-3xl font-bold text-white mt-1">{activeMembers}<span className="text-gray-400 text-lg">/{totalMembers}</span></p>
             </div>
-            <div className="bg-emerald-500/20 p-3 rounded-lg">
-              <Users className="w-6 h-6 text-emerald-400" />
+            <div className="bg-red-500/20 p-3 rounded-lg border border-red-500/30">
+              <Users className="w-6 h-6 text-red-500" />
             </div>
           </div>
-          <div className="mt-3 flex items-center text-emerald-400 text-sm">
+          <div className="mt-3 flex items-center text-red-400 text-sm">
             <TrendingUp className="w-4 h-4 mr-1" />
             <span>+2 ce mois</span>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-gray-700 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">Taux Assiduité</p>
+              <p className="text-gray-400 text-sm">Taux Assiduité</p>
               <p className="text-3xl font-bold text-white mt-1">{avgAttendance}%</p>
             </div>
-            <div className="bg-blue-500/20 p-3 rounded-lg">
-              <Activity className="w-6 h-6 text-blue-400" />
+            <div className="bg-white/10 p-3 rounded-lg border border-white/20">
+              <Activity className="w-6 h-6 text-white" />
             </div>
           </div>
           <div className="mt-3 flex items-center text-sm">
-            <span className="text-amber-400">Seuil FITKD: 75%</span>
+            <span className="text-red-400">Seuil FITKD: 75%</span>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-red-500/30 shadow-lg shadow-red-500/10">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">Recettes Encaissées</p>
+              <p className="text-gray-400 text-sm">Recettes Encaissées</p>
               <p className="text-3xl font-bold text-white mt-1">{(totalRevenue / 1000).toFixed(0)}K</p>
-              <p className="text-slate-500 text-xs">FCFA</p>
+              <p className="text-gray-500 text-xs">FCFA</p>
             </div>
-            <div className="bg-amber-500/20 p-3 rounded-lg">
-              <DollarSign className="w-6 h-6 text-amber-400" />
+            <div className="bg-red-500/20 p-3 rounded-lg border border-red-500/30">
+              <DollarSign className="w-6 h-6 text-red-500" />
             </div>
           </div>
           <div className="mt-3 flex items-center text-sm">
@@ -104,23 +104,23 @@ export default function DashboardView() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-gray-700 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-400 text-sm">Médailles Saison</p>
+              <p className="text-gray-400 text-sm">Médailles Saison</p>
               <p className="text-3xl font-bold text-white mt-1">
-                <span className="text-yellow-400">{mockCompetitions.reduce((s, c) => s + c.medals.gold, 0)}</span>
-                <span className="text-slate-400 text-lg"> / </span>
+                <span className="text-red-500">{mockCompetitions.reduce((s, c) => s + c.medals.gold, 0)}</span>
+                <span className="text-gray-400 text-lg"> / </span>
                 <span className="text-gray-300">{mockCompetitions.reduce((s, c) => s + c.medals.silver, 0)}</span>
-                <span className="text-slate-400 text-lg"> / </span>
-                <span className="text-amber-600">{mockCompetitions.reduce((s, c) => s + c.medals.bronze, 0)}</span>
+                <span className="text-gray-400 text-lg"> / </span>
+                <span className="text-gray-500">{mockCompetitions.reduce((s, c) => s + c.medals.bronze, 0)}</span>
               </p>
             </div>
-            <div className="bg-purple-500/20 p-3 rounded-lg">
-              <Award className="w-6 h-6 text-purple-400" />
+            <div className="bg-red-500/20 p-3 rounded-lg border border-red-500/30">
+              <Award className="w-6 h-6 text-red-500" />
             </div>
           </div>
-          <div className="mt-3 flex items-center text-sm text-slate-400">
+          <div className="mt-3 flex items-center text-sm text-gray-400">
             🥇 Or / 🥈 Argent / 🥉 Bronze
           </div>
         </div>
