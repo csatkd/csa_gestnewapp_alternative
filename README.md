@@ -5,17 +5,18 @@ Application web professionnelle complète pour la gestion d'une académie de Tae
 ## 🎨 Identité Visuelle CSA
 
 ### Palette de Couleurs Officielle
-- **Rouge Sang** : `#DC143C` - Couleur principale (passion, énergie, martial)
+- **Rouge CSA** : `#9f0202` - Couleur principale (passion, énergie, martial)
 - **Noir** : `#0F172A` - Fond principal (élégance, force)
 - **Gris** : `#475569`, `#64748B` - Éléments secondaires (professionnalisme)
 - **Blanc** : `#FFFFFF` - Contraste et lisibilité (pureté, clarté)
 
 ### Système de Design
 L'application intègre un système de design cohérent avec :
-- Classes utilitaires CSA (`.csa-gradient`, `.csa-text-gradient`, etc.)
-- Animations personnalisées (`.animate-pulse-red`)
-- Dégradés officiels de la marque
+- Classes utilitaires CSA (`.csa-gradient`, `.csa-text-gradient`, `.csa-shadow-red`, etc.)
+- Animations personnalisées (`.animate-pulse-red`, `.animate-slide-in-right`, `.animate-scale-in`)
+- Dégradés officiels de la marque avec le rouge #9f0202
 - Cohérence visuelle sur tous les composants
+- Variables CSS personnalisées pour une maintenance facile
 
 ## 🌟 Landing Page Dynamique
 

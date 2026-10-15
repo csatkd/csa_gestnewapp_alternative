@@ -5,7 +5,7 @@ import { mockMembers, mockPayments, mockCompetitions, mockInventory, attendance3
 import CompetitionCountdown from './CompetitionCountdown';
 import { exportToCSV } from '../utils/helpers';
 
-const COLORS = ['#DC143C', '#FFFFFF', '#475569', '#000000'];
+const COLORS = ['#9f0202', '#FFFFFF', '#475569', '#000000'];
 
 export default function DashboardView() {
   const [showMovingAvg, setShowMovingAvg] = useState(false);
@@ -57,17 +57,17 @@ export default function DashboardView() {
     <div className="space-y-6">
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-red-500/30 shadow-lg shadow-red-500/10">
+        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-[#9f0202]/30 shadow-lg shadow-[#9f0202]/10">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-400 text-sm">Licenciés Actifs</p>
               <p className="text-3xl font-bold text-white mt-1">{activeMembers}<span className="text-gray-400 text-lg">/{totalMembers}</span></p>
             </div>
-            <div className="bg-red-500/20 p-3 rounded-lg border border-red-500/30">
-              <Users className="w-6 h-6 text-red-500" />
+            <div className="bg-[#9f0202]/20 p-3 rounded-lg border border-[#9f0202]/30">
+              <Users className="w-6 h-6 text-[#9f0202]" />
             </div>
           </div>
-          <div className="mt-3 flex items-center text-red-400 text-sm">
+          <div className="mt-3 flex items-center text-[#9f0202] text-sm">
             <TrendingUp className="w-4 h-4 mr-1" />
             <span>+2 ce mois</span>
           </div>
@@ -88,19 +88,19 @@ export default function DashboardView() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-red-500/30 shadow-lg shadow-red-500/10">
+        <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-5 border-2 border-[#9f0202]/30 shadow-lg shadow-[#9f0202]/10">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-400 text-sm">Recettes Encaissées</p>
               <p className="text-3xl font-bold text-white mt-1">{(totalRevenue / 1000).toFixed(0)}K</p>
               <p className="text-gray-500 text-xs">FCFA</p>
             </div>
-            <div className="bg-red-500/20 p-3 rounded-lg border border-red-500/30">
-              <DollarSign className="w-6 h-6 text-red-500" />
+            <div className="bg-[#9f0202]/20 p-3 rounded-lg border border-[#9f0202]/30">
+              <DollarSign className="w-6 h-6 text-[#9f0202]" />
             </div>
           </div>
           <div className="mt-3 flex items-center text-sm">
-            <span className="text-red-400">Impayé: {(outstandingAmount / 1000).toFixed(0)}K FCFA</span>
+            <span className="text-[#9f0202]">Impayé: {(outstandingAmount / 1000).toFixed(0)}K FCFA</span>
           </div>
         </div>
 
@@ -109,15 +109,15 @@ export default function DashboardView() {
             <div>
               <p className="text-gray-400 text-sm">Médailles Saison</p>
               <p className="text-3xl font-bold text-white mt-1">
-                <span className="text-red-500">{mockCompetitions.reduce((s, c) => s + c.medals.gold, 0)}</span>
+                <span className="text-[#9f0202]">{mockCompetitions.reduce((s, c) => s + c.medals.gold, 0)}</span>
                 <span className="text-gray-400 text-lg"> / </span>
                 <span className="text-gray-300">{mockCompetitions.reduce((s, c) => s + c.medals.silver, 0)}</span>
                 <span className="text-gray-400 text-lg"> / </span>
                 <span className="text-gray-500">{mockCompetitions.reduce((s, c) => s + c.medals.bronze, 0)}</span>
               </p>
             </div>
-            <div className="bg-red-500/20 p-3 rounded-lg border border-red-500/30">
-              <Award className="w-6 h-6 text-red-500" />
+            <div className="bg-[#9f0202]/20 p-3 rounded-lg border border-[#9f0202]/30">
+              <Award className="w-6 h-6 text-[#9f0202]" />
             </div>
           </div>
           <div className="mt-3 flex items-center text-sm text-gray-400">

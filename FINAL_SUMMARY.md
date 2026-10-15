@@ -5,7 +5,7 @@
 ### Palette de Couleurs Officielle
 L'application intègre désormais les couleurs officielles de la Confidence Sports Academy :
 
-- **Rouge Sang** : `#DC143C` (Couleur principale - passion, énergie, martial)
+- **Rouge CSA** : `#9f0202` (Couleur principale - passion, énergie, martial)
 - **Noir** : `#0F172A` (Fond principal - élégance, force)
 - **Gris** : `#475569`, `#64748B` (Éléments secondaires - professionnalisme)
 - **Blanc** : `#FFFFFF` (Contraste, lisibilité - pureté, clarté)
@@ -13,8 +13,9 @@ L'application intègre désormais les couleurs officielles de la Confidence Spor
 ### Système de Design
 ```css
 :root {
-  --csa-red: #DC143C;
-  --csa-red-dark: #B91C1C;
+  --csa-red: #9f0202;
+  --csa-red-dark: #7a0101;
+  --csa-red-light: #b80303;
   --csa-black: #0F172A;
   --csa-gray-dark: #1E293B;
   --csa-gray: #475569;

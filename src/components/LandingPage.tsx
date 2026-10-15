@@ -134,33 +134,33 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
     <div className="min-h-screen bg-slate-900 text-white overflow-x-hidden">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg border-b border-red-500/30' : 'bg-transparent'
+        isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg border-b border-[#9f0202]/30' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 csa-gradient rounded-xl flex items-center justify-center shadow-lg shadow-red-500/50">
+              <div className="w-12 h-12 csa-gradient rounded-xl flex items-center justify-center shadow-lg shadow-[#9f0202]/50">
                 <span className="text-2xl">🥋</span>
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Confidence Sports</h1>
-                <p className="text-xs text-red-500">Academy - Taekwondo</p>
+                <p className="text-xs text-[#9f0202]">Academy - Taekwondo</p>
               </div>
             </div>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
-              <button onClick={() => scrollToSection('accueil')} className="text-white hover:text-red-500 transition-colors">
+              <button onClick={() => scrollToSection('accueil')} className="text-white hover:text-[#9f0202] transition-colors">
                 Accueil
               </button>
-              <button onClick={() => scrollToSection('services')} className="text-white hover:text-red-500 transition-colors">
+              <button onClick={() => scrollToSection('services')} className="text-white hover:text-[#9f0202] transition-colors">
                 Services
               </button>
-              <button onClick={() => scrollToSection('apropos')} className="text-white hover:text-red-500 transition-colors">
+              <button onClick={() => scrollToSection('apropos')} className="text-white hover:text-[#9f0202] transition-colors">
                 À Propos
               </button>
-              <button onClick={() => scrollToSection('contact')} className="text-white hover:text-red-500 transition-colors">
+              <button onClick={() => scrollToSection('contact')} className="text-white hover:text-[#9f0202] transition-colors">
                 Contact
               </button>
               <button 
@@ -182,17 +182,17 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden bg-black rounded-lg mt-4 p-4 space-y-4 border border-red-500/30">
-              <button onClick={() => scrollToSection('accueil')} className="block w-full text-left text-white hover:text-red-500">
+            <div className="md:hidden bg-black rounded-lg mt-4 p-4 space-y-4 border border-[#9f0202]/30">
+              <button onClick={() => scrollToSection('accueil')} className="block w-full text-left text-white hover:text-[#9f0202]">
                 Accueil
               </button>
-              <button onClick={() => scrollToSection('services')} className="block w-full text-left text-white hover:text-red-500">
+              <button onClick={() => scrollToSection('services')} className="block w-full text-left text-white hover:text-[#9f0202]">
                 Services
               </button>
-              <button onClick={() => scrollToSection('apropos')} className="block w-full text-left text-white hover:text-red-500">
+              <button onClick={() => scrollToSection('apropos')} className="block w-full text-left text-white hover:text-[#9f0202]">
                 À Propos
               </button>
-              <button onClick={() => scrollToSection('contact')} className="block w-full text-left text-white hover:text-red-500">
+              <button onClick={() => scrollToSection('contact')} className="block w-full text-left text-white hover:text-[#9f0202]">
                 Contact
               </button>
               <button 
@@ -219,9 +219,9 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-8">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-full">
-              <Award className="w-4 h-4 text-red-400" />
-              <span className="text-red-400 text-sm font-medium">Affiliée FITKD • Homologuée Kukkiwon</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#9f0202]/20 border border-[#9f0202]/30 rounded-full">
+              <Award className="w-4 h-4 text-[#9f0202]" />
+              <span className="text-[#9f0202] text-sm font-medium">Affiliée FITKD • Homologuée Kukkiwon</span>
             </div>
 
             {/* Titre */}
@@ -260,7 +260,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto pt-8">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-2 text-gray-300">
-                  <CheckCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[#9f0202] flex-shrink-0" />
                   <span className="text-sm">{feature.text}</span>
                 </div>
               ))}
@@ -269,7 +269,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
 
           {/* Scroll Indicator */}
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-8 h-8 text-red-500" />
+            <ChevronDown className="w-8 h-8 text-[#9f0202]" />
           </div>
         </div>
       </section>
@@ -279,7 +279,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl font-bold text-red-500 mb-2 animate-pulse">{stats.members}+</div>
+              <div className="text-5xl font-bold text-[#9f0202] mb-2 animate-pulse">{stats.members}+</div>
               <div className="text-gray-300">Licenciés Actifs</div>
             </div>
             <div className="text-center">
@@ -287,7 +287,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
               <div className="text-gray-300">Coachs Certifiés</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-bold text-red-500 mb-2">{stats.years}</div>
+              <div className="text-5xl font-bold text-[#9f0202] mb-2">{stats.years}</div>
               <div className="text-gray-300">Années d'Expérience</div>
             </div>
             <div className="text-center">
@@ -314,7 +314,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
             {services.map((service, idx) => (
               <div 
                 key={idx}
-                className="bg-black/50 rounded-xl p-6 border-2 border-gray-700 hover:border-red-500 transition-all transform hover:-translate-y-2 group"
+                className="bg-black/50 rounded-xl p-6 border-2 border-gray-700 hover:border-[#9f0202] transition-all transform hover:-translate-y-2 group"
               >
                 <div className="w-16 h-16 rounded-xl csa-gradient flex items-center justify-center mb-4 group-hover:scale-110 transition-transform text-white">
                   {service.icon}
@@ -333,7 +333,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Pourquoi Choisir la <span className="text-red-500">CSA</span> ?
+                Pourquoi Choisir la <span className="text-[#9f0202]">CSA</span> ?
               </h2>
               <p className="text-lg text-gray-300 mb-6">
                 Depuis 2010, la Confidence Sports Academy forme des champions et accompagne 
@@ -341,8 +341,8 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-5 h-5 text-red-500" />
+                  <div className="w-8 h-8 rounded-full bg-[#9f0202]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-5 h-5 text-[#9f0202]" />
                   </div>
                   <div>
                     <h4 className="font-bold text-lg text-white">Excellence Technique</h4>
@@ -350,8 +350,8 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-5 h-5 text-red-500" />
+                  <div className="w-8 h-8 rounded-full bg-[#9f0202]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-5 h-5 text-[#9f0202]" />
                   </div>
                   <div>
                     <h4 className="font-bold text-lg text-white">Infrastructures Modernes</h4>
@@ -359,8 +359,8 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle className="w-5 h-5 text-red-500" />
+                  <div className="w-8 h-8 rounded-full bg-[#9f0202]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-5 h-5 text-[#9f0202]" />
                   </div>
                   <div>
                     <h4 className="font-bold text-lg text-white">Suivi Personnalisé</h4>
@@ -371,7 +371,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
             </div>
 
             <div className="relative">
-              <div className="bg-gradient-to-br from-red-500/20 to-gray-800 rounded-2xl p-8 border-2 border-red-500/30">
+              <div className="bg-gradient-to-br from-[#9f0202]/20 to-gray-800 rounded-2xl p-8 border-2 border-[#9f0202]/30">
                 <div className="text-center">
                   <div className="text-8xl mb-4">🥋</div>
                   <h3 className="text-2xl font-bold mb-2 text-white">Rejoignez l'Excellence</h3>
@@ -402,8 +402,8 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="bg-black/50 rounded-2xl p-8 border-2 border-red-500/30 relative">
-              <div className="text-6xl text-red-500/20 absolute top-4 left-4">"</div>
+            <div className="bg-black/50 rounded-2xl p-8 border-2 border-[#9f0202]/30 relative">
+              <div className="text-6xl text-[#9f0202]/20 absolute top-4 left-4">"</div>
               <div className="relative z-10">
                 <div className="flex items-center gap-1 mb-4 justify-center">
                   {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
@@ -415,7 +415,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
                 </p>
                 <div className="text-center">
                   <p className="font-bold text-lg text-white">{testimonials[currentTestimonial].name}</p>
-                  <p className="text-red-500">{testimonials[currentTestimonial].role}</p>
+                  <p className="text-[#9f0202]">{testimonials[currentTestimonial].role}</p>
                 </div>
               </div>
             </div>
@@ -427,7 +427,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
                   key={idx}
                   onClick={() => setCurrentTestimonial(idx)}
                   className={`w-3 h-3 rounded-full transition-all ${
-                    currentTestimonial === idx ? 'bg-red-500 w-8' : 'bg-gray-600'
+                    currentTestimonial === idx ? 'bg-[#9f0202] w-8' : 'bg-gray-600'
                   }`}
                 />
               ))}
@@ -447,27 +447,27 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-gray-900 rounded-xl p-6 border-2 border-gray-700 text-center hover:border-red-500 transition-all">
-              <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
-                <Phone className="w-8 h-8 text-red-500" />
+            <div className="bg-gray-900 rounded-xl p-6 border-2 border-gray-700 text-center hover:border-[#9f0202] transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#9f0202]/20 flex items-center justify-center mx-auto mb-4">
+                <Phone className="w-8 h-8 text-[#9f0202]" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-white">Téléphone</h3>
               <p className="text-gray-400">+225 27 22 44 55 66</p>
               <p className="text-gray-400">+225 07 12 34 56 78</p>
             </div>
 
-            <div className="bg-gray-900 rounded-xl p-6 border-2 border-gray-700 text-center hover:border-red-500 transition-all">
-              <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-red-500" />
+            <div className="bg-gray-900 rounded-xl p-6 border-2 border-gray-700 text-center hover:border-[#9f0202] transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#9f0202]/20 flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-[#9f0202]" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-white">Email</h3>
               <p className="text-gray-400">contact@csa-taekwondo.ci</p>
               <p className="text-gray-400">info@csa-taekwondo.ci</p>
             </div>
 
-            <div className="bg-gray-900 rounded-xl p-6 border-2 border-gray-700 text-center hover:border-red-500 transition-all">
-              <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-8 h-8 text-red-500" />
+            <div className="bg-gray-900 rounded-xl p-6 border-2 border-gray-700 text-center hover:border-[#9f0202] transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#9f0202]/20 flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8 text-[#9f0202]" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-white">Adresse</h3>
               <p className="text-gray-400">Cocody, Abidjan</p>
@@ -494,7 +494,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
       </section>
 
       {/* Footer */}
-      <footer className="bg-black border-t-2 border-red-500 py-12">
+      <footer className="bg-black border-t-2 border-[#9f0202] py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -504,7 +504,7 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
                 </div>
                 <div>
                   <h3 className="font-bold text-white">CSA Taekwondo</h3>
-                  <p className="text-xs text-red-500">Excellence Martiale</p>
+                  <p className="text-xs text-[#9f0202]">Excellence Martiale</p>
                 </div>
               </div>
               <p className="text-gray-400 text-sm">
@@ -515,10 +515,10 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
             <div>
               <h4 className="font-bold mb-4 text-white">Liens Rapides</h4>
               <ul className="space-y-2 text-gray-400 text-sm">
-                <li><button onClick={() => scrollToSection('accueil')} className="hover:text-red-500 transition-colors">Accueil</button></li>
-                <li><button onClick={() => scrollToSection('services')} className="hover:text-red-500 transition-colors">Services</button></li>
-                <li><button onClick={() => scrollToSection('apropos')} className="hover:text-red-500 transition-colors">À Propos</button></li>
-                <li><button onClick={() => scrollToSection('contact')} className="hover:text-red-500 transition-colors">Contact</button></li>
+                <li><button onClick={() => scrollToSection('accueil')} className="hover:text-[#9f0202] transition-colors">Accueil</button></li>
+                <li><button onClick={() => scrollToSection('services')} className="hover:text-[#9f0202] transition-colors">Services</button></li>
+                <li><button onClick={() => scrollToSection('apropos')} className="hover:text-[#9f0202] transition-colors">À Propos</button></li>
+                <li><button onClick={() => scrollToSection('contact')} className="hover:text-[#9f0202] transition-colors">Contact</button></li>
               </ul>
             </div>
 

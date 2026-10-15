@@ -2,14 +2,15 @@
 
 /* CSA Brand Colors */
 :root {
-  --csa-red: #DC143C;
-  --csa-red-dark: #B91C1C;
+  --csa-red: #9f0202;
+  --csa-red-dark: #7a0101;
+  --csa-red-light: #b80303;
   --csa-black: #0F172A;
   --csa-gray-dark: #1E293B;
   --csa-gray: #475569;
   --csa-gray-light: #64748B;
   --csa-white: #FFFFFF;
-  --csa-accent: #DC143C;
+  --csa-accent: #9f0202;
 }
 
 /* Custom scrollbar */
@@ -50,19 +51,41 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.4);
+    box-shadow: 0 0 0 0 rgba(159, 2, 2, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(220, 20, 60, 0);
+    box-shadow: 0 0 0 8px rgba(159, 2, 2, 0);
   }
 }
 
 @keyframes pulse-red {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.7);
+    box-shadow: 0 0 0 0 rgba(159, 2, 2, 0.7);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(220, 20, 60, 0);
+    box-shadow: 0 0 0 10px rgba(159, 2, 2, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -70,8 +93,16 @@
   animation: slideIn 0.3s ease-out;
 }
 
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
 .animate-fade-in {
   animation: fadeIn 0.2s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
 }
 
 .animate-pulse-glow {
@@ -91,8 +122,12 @@
   background: linear-gradient(135deg, var(--csa-black) 0%, var(--csa-gray-dark) 100%);
 }
 
+.csa-gradient-light {
+  background: linear-gradient(135deg, var(--csa-red-light) 0%, var(--csa-red) 100%);
+}
+
 .csa-text-gradient {
-  background: linear-gradient(135deg, var(--csa-red) 0%, #FF6B6B 100%);
+  background: linear-gradient(135deg, var(--csa-red) 0%, var(--csa-red-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -108,6 +143,15 @@
 
 .csa-text-red {
   color: var(--csa-red);
+}
+
+.csa-shadow-red {
+  box-shadow: 0 10px 15px -3px rgba(159, 2, 2, 0.3), 0 4px 6px -2px rgba(159, 2, 2, 0.15);
+}
+
+.csa-hover-red:hover {
+  background-color: var(--csa-red-dark);
+  box-shadow: 0 10px 15px -3px rgba(159, 2, 2, 0.3);
 }
 
 /* Range input styling */

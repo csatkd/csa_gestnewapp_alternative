@@ -133,26 +133,27 @@ const scrollToSection = (id: string) => {
 
 ### Palette de Couleurs
 
-**Couleurs principales :**
-- **Slate** : `#0f172a` à `#1e293b` (backgrounds)
-- **Emerald** : `#10b981` à `#059669` (accent principal)
-- **Blue** : `#3b82f6` à `#2563eb` (accent secondaire)
-- **Purple** : `#a855f7` à `#9333ea` (accent tertiaire)
-- **Amber** : `#f59e0b` à `#d97706` (accent quaternaire)
+**Couleurs principales CSA :**
+- **Rouge CSA** : `#9f0202` (couleur principale - passion, énergie, martial)
+- **Rouge Dark** : `#7a0101` (variations sombres)
+- **Rouge Light** : `#b80303` (variations claires)
+- **Noir** : `#0F172A` (fond principal)
+- **Gris** : `#475569`, `#64748B` (éléments secondaires)
+- **Blanc** : `#FFFFFF` (contraste et lisibilité)
 
 **Dégradés :**
 ```css
 /* Hero background */
-bg-gradient-to-br from-slate-900 via-emerald-900/20 to-slate-900
+bg-gradient-to-br from-black via-gray-900 to-black
 
 /* Boutons CTA */
-bg-gradient-to-r from-emerald-400 to-blue-500
+csa-gradient (rouge #9f0202 vers rouge foncé #7a0101)
 
 /* Cartes services */
-from-blue-500 to-blue-600
-from-purple-500 to-purple-600
-from-emerald-500 to-emerald-600
-from-amber-500 to-amber-600
+from-red-500 to-red-700 (rouge CSA)
+from-gray-700 to-black (noir et gris)
+from-red-600 to-red-800 (variations de rouge)
+from-gray-600 to-gray-800 (variations de gris)
 ```
 
 ### Typographie
