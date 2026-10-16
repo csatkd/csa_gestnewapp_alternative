@@ -396,11 +396,15 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
 export default function App() {
   const [showLanding, setShowLanding] = useState(true);
 
+  // Always call hooks before any conditional returns
+  const handleLogin = () => setShowLanding(false);
+  const handleEnter = () => setShowLanding(false);
+
   if (showLanding) {
     return (
       <LandingPage 
-        onLogin={() => setShowLanding(false)}
-        onEnter={() => setShowLanding(false)}
+        onLogin={handleLogin}
+        onEnter={handleEnter}
       />
     );
   }
