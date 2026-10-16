@@ -37,6 +37,9 @@ import SecretariatAttendanceView from './components/SecretariatAttendanceView';
 import MemberCardManagement from './components/MemberCardManagement';
 import PaymentBookletView from './components/PaymentBookletView';
 import LandingPage from './components/LandingPage';
+import { AuthProvider, useAuth } from './components/AuthContext';
+import LoginSelection from './components/LoginSelection';
+import StaffLogin from './components/StaffLogin';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
@@ -80,7 +83,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'parents', label: 'Portail Famille', icon: Home },
 ];
 
-function AppContent({ currentView, setCurrentView }: { currentView: ViewType; setCurrentView: (view: ViewType) => void }) {
+function AppContent({ currentView, setCurrentView, user }: { currentView: ViewType; setCurrentView: (view: ViewType) => void; user?: any }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -89,6 +92,7 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
   const [searchResults, setSearchResults] = useState<{ type: string; label: string; sublabel: string; action: ViewType }[]>([]);
   const { toasts, addToast, removeToast } = useToast();
   const { isAuthenticated } = useParentAuth();
+  const { logout: logoutStaff } = useAuth();
 
   // Update time every second
   useEffect(() => {
@@ -247,16 +251,32 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
             <div className="bg-slate-700/30 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <span className="text-emerald-400 text-xs font-bold">DT</span>
+                  <span className="text-emerald-400 text-xs font-bold">
+                    {user?.avatar || '👤'}
+                  </span>
                 </div>
-                <div>
-                  <p className="text-white text-xs font-medium">Directeur Technique</p>
-                  <p className="text-slate-500 text-[10px]">Administrateur</p>
+                <div className="flex-1">
+                  <p className="text-white text-xs font-medium">{user?.name || 'Directeur Technique'}</p>
+                  <p className="text-slate-500 text-[10px]">
+                    {user?.role === 'admin' ? 'Administrateur' : 
+                     user?.role === 'coach' ? 'Coach' : 
+                     user?.role === 'treasurer' ? 'Trésorier' : 'Administrateur'}
+                  </p>
                 </div>
               </div>
-              <div className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="text-slate-500 text-[10px]">En ligne</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span className="text-slate-500 text-[10px]">En ligne</span>
+                </div>
+                {user && (
+                  <button
+                    onClick={logoutStaff}
+                    className="text-slate-500 hover:text-red-400 text-[10px] transition-colors"
+                  >
+                    Déconnexion
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -395,10 +415,15 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
 
 export default function App() {
   const [showLanding, setShowLanding] = useState(true);
+  const [loginMode, setLoginMode] = useState<'selection' | 'parent' | 'staff' | null>(null);
 
   // Always call hooks before any conditional returns
-  const handleLogin = () => setShowLanding(false);
+  const handleLogin = () => setLoginMode('selection');
   const handleEnter = () => setShowLanding(false);
+
+  const handleSelectParent = () => setLoginMode('parent');
+  const handleSelectStaff = () => setLoginMode('staff');
+  const handleBackToSelection = () => setLoginMode('selection');
 
   if (showLanding) {
     return (
@@ -409,20 +434,80 @@ export default function App() {
     );
   }
 
+  if (loginMode === 'selection') {
+    return (
+      <LoginSelection 
+        onSelectParent={handleSelectParent}
+        onSelectStaff={handleSelectStaff}
+      />
+    );
+  }
+
+  if (loginMode === 'parent') {
+    return (
+      <ParentAuthProvider>
+        <div className="relative">
+          <button
+            onClick={handleBackToSelection}
+            className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+          >
+            ← Retour
+          </button>
+          <ParentLogin />
+        </div>
+      </ParentAuthProvider>
+    );
+  }
+
+  if (loginMode === 'staff') {
+    return (
+      <AuthProvider>
+        <div className="relative">
+          <button
+            onClick={handleBackToSelection}
+            className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+          >
+            ← Retour
+          </button>
+          <StaffLoginWrapper onBack={handleBackToSelection} />
+        </div>
+      </AuthProvider>
+    );
+  }
+
   return (
-    <ParentAuthProvider>
-      <AppWrapper />
-    </ParentAuthProvider>
+    <AuthProvider>
+      <ParentAuthProvider>
+        <AppWrapper />
+      </ParentAuthProvider>
+    </AuthProvider>
   );
 }
 
+function StaffLoginWrapper({ onBack }: { onBack: () => void }) {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    onBack();
+    return null;
+  }
+
+  return <StaffLogin />;
+}
+
 function AppWrapper() {
-  const { isAuthenticated } = useParentAuth();
+  const { isAuthenticated: isParentAuthenticated } = useParentAuth();
+  const { isAuthenticated: isStaffAuthenticated, user } = useAuth();
   const [currentView, setCurrentView] = useState<ViewType>('dashboard');
 
   // If viewing parents portal and not authenticated, show login
-  if (currentView === 'parents' && !isAuthenticated) {
+  if (currentView === 'parents' && !isParentAuthenticated) {
     return <ParentLogin />;
+  }
+
+  // If staff is authenticated, show staff dashboard
+  if (isStaffAuthenticated && user) {
+    return <AppContent currentView={currentView} setCurrentView={setCurrentView} user={user} />;
   }
 
   return <AppContent currentView={currentView} setCurrentView={setCurrentView} />;
