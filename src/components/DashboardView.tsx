@@ -5,7 +5,7 @@ import { mockMembers, mockPayments, mockCompetitions, mockInventory, attendance3
 import CompetitionCountdown from './CompetitionCountdown';
 import { exportToCSV } from '../utils/helpers';
 
-const COLORS = ['#9f0202', '#1a1a1a', '#6a6a6a', '#d0d0d0'];
+const COLORS = ['#10b981', '#f59e0b', '#ef4444', '#6366f1'];
 
 export default function DashboardView() {
   const [showMovingAvg, setShowMovingAvg] = useState(false);
@@ -56,71 +56,71 @@ export default function DashboardView() {
   return (
     <div className="space-y-6">
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center">
-              <Users className="w-6 h-6 text-[#9f0202]" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-slate-400 text-sm">Licenciés Actifs</p>
+              <p className="text-3xl font-bold text-white mt-1">{activeMembers}<span className="text-slate-400 text-lg">/{totalMembers}</span></p>
+            </div>
+            <div className="bg-emerald-500/20 p-3 rounded-lg">
+              <Users className="w-6 h-6 text-emerald-400" />
             </div>
           </div>
-          <div>
-            <p className="text-gray-500 text-sm font-medium mb-1">Licenciés Actifs</p>
-            <p className="text-3xl font-bold text-gray-900">{activeMembers}<span className="text-gray-400 text-lg font-normal">/{totalMembers}</span></p>
-          </div>
-          <div className="mt-3 flex items-center text-green-600 text-sm font-medium">
+          <div className="mt-3 flex items-center text-emerald-400 text-sm">
             <TrendingUp className="w-4 h-4 mr-1" />
             <span>+2 ce mois</span>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center">
-              <Activity className="w-6 h-6 text-gray-700" />
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-slate-400 text-sm">Taux Assiduité</p>
+              <p className="text-3xl font-bold text-white mt-1">{avgAttendance}%</p>
+            </div>
+            <div className="bg-blue-500/20 p-3 rounded-lg">
+              <Activity className="w-6 h-6 text-blue-400" />
             </div>
           </div>
-          <div>
-            <p className="text-gray-500 text-sm font-medium mb-1">Taux Assiduité</p>
-            <p className="text-3xl font-bold text-gray-900">{avgAttendance}%</p>
-          </div>
-          <div className="mt-3 flex items-center text-sm text-gray-600">
-            <span>Seuil FITKD: 75%</span>
+          <div className="mt-3 flex items-center text-sm">
+            <span className="text-amber-400">Seuil FITKD: 75%</span>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-[#9f0202]" />
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-slate-400 text-sm">Recettes Encaissées</p>
+              <p className="text-3xl font-bold text-white mt-1">{(totalRevenue / 1000).toFixed(0)}K</p>
+              <p className="text-slate-500 text-xs">FCFA</p>
+            </div>
+            <div className="bg-amber-500/20 p-3 rounded-lg">
+              <DollarSign className="w-6 h-6 text-amber-400" />
             </div>
           </div>
-          <div>
-            <p className="text-gray-500 text-sm font-medium mb-1">Recettes Encaissées</p>
-            <p className="text-3xl font-bold text-gray-900">{(totalRevenue / 1000).toFixed(0)}K</p>
-            <p className="text-gray-500 text-xs">FCFA</p>
-          </div>
-          <div className="mt-3 flex items-center text-sm text-[#9f0202] font-medium">
-            <span>Impayé: {(outstandingAmount / 1000).toFixed(0)}K FCFA</span>
+          <div className="mt-3 flex items-center text-sm">
+            <span className="text-red-400">Impayé: {(outstandingAmount / 1000).toFixed(0)}K FCFA</span>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center">
-              <Award className="w-6 h-6 text-gray-700" />
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border border-slate-700 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-slate-400 text-sm">Médailles Saison</p>
+              <p className="text-3xl font-bold text-white mt-1">
+                <span className="text-yellow-400">{mockCompetitions.reduce((s, c) => s + c.medals.gold, 0)}</span>
+                <span className="text-slate-400 text-lg"> / </span>
+                <span className="text-gray-300">{mockCompetitions.reduce((s, c) => s + c.medals.silver, 0)}</span>
+                <span className="text-slate-400 text-lg"> / </span>
+                <span className="text-amber-600">{mockCompetitions.reduce((s, c) => s + c.medals.bronze, 0)}</span>
+              </p>
+            </div>
+            <div className="bg-purple-500/20 p-3 rounded-lg">
+              <Award className="w-6 h-6 text-purple-400" />
             </div>
           </div>
-          <div>
-            <p className="text-gray-500 text-sm font-medium mb-1">Médailles Saison</p>
-            <p className="text-3xl font-bold text-gray-900">
-              <span className="text-[#9f0202]">{mockCompetitions.reduce((s, c) => s + c.medals.gold, 0)}</span>
-              <span className="text-gray-400 text-lg font-normal"> / </span>
-              <span className="text-gray-600">{mockCompetitions.reduce((s, c) => s + c.medals.silver, 0)}</span>
-              <span className="text-gray-400 text-lg font-normal"> / </span>
-              <span className="text-gray-500">{mockCompetitions.reduce((s, c) => s + c.medals.bronze, 0)}</span>
-            </p>
-          </div>
-          <div className="mt-3 flex items-center text-sm text-gray-600">
+          <div className="mt-3 flex items-center text-sm text-slate-400">
             🥇 Or / 🥈 Argent / 🥉 Bronze
           </div>
         </div>
@@ -132,23 +132,32 @@ export default function DashboardView() {
         <div className="lg:col-span-2 bg-slate-800/50 rounded-xl p-5 border border-slate-700">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-white font-semibold text-lg">Taux d'Assiduité - 30 Jours</h3>
-            <button
-              onClick={() => setShowMovingAvg(!showMovingAvg)}
-              className={`px-3 py-1 rounded-lg text-sm ${showMovingAvg ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}
-            >
-              Moy. Mobile 7j
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowMovingAvg(!showMovingAvg)}
+                className={`px-3 py-1 rounded-lg text-sm ${showMovingAvg ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}
+              >
+                Moy. Mobile 7j
+              </button>
+              <button
+                onClick={exportAttendanceCSV}
+                className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-slate-400 rounded-lg text-sm flex items-center gap-1"
+              >
+                <Download className="w-4 h-4" />
+                CSV
+              </button>
+            </div>
           </div>
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={showMovingAvg ? movingAvg : attendance30DaysData}>
               <defs>
                 <linearGradient id="colorRate" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
                 </linearGradient>
                 <linearGradient id="colorAvg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
@@ -192,26 +201,13 @@ export default function DashboardView() {
 
       {/* Bottom Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Upcoming Competitions with Live Countdown */}
+        {/* Upcoming Competitions */}
         <div className="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-amber-400" />
-              <h3 className="text-white font-semibold">Compétitions à Venir</h3>
-            </div>
-            <button
-              onClick={() => exportToCSV(mockCompetitions.map(c => ({
-                nom: c.name, date: c.date, lieu: c.location, type: c.type,
-                athletes: c.registeredAthletes.length,
-                or: c.medals.gold, argent: c.medals.silver, bronze: c.medals.bronze
-              })), 'competitions')}
-              className="text-slate-400 hover:text-emerald-400 transition-colors"
-              title="Exporter en CSV"
-            >
-              <Download className="w-4 h-4" />
-            </button>
+          <div className="flex items-center gap-2 mb-4">
+            <Calendar className="w-5 h-5 text-amber-400" />
+            <h3 className="text-white font-semibold">Compétitions à Venir</h3>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {mockCompetitions.slice(0, 2).map(comp => (
               <CompetitionCountdown key={comp.id} competition={comp} />
             ))}
