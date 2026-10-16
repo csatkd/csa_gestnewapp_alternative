@@ -76,10 +76,10 @@ export default function MembersView() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white">Gestion des Licenciés</h2>
-          <p className="text-slate-400 text-sm">{filteredMembers.length} membre(s) affiché(s)</p>
+          <h2 className="text-2xl font-bold text-gray-900">Gestion des Licenciés</h2>
+          <p className="text-gray-500 text-sm">{filteredMembers.length} membre(s) affiché(s)</p>
         </div>
-        <button className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-colors">
+        <button className="flex items-center gap-2 bg-[#9f0202] hover:bg-[#7a0101] text-white px-4 py-2 rounded-md font-medium transition-colors">
           <UserPlus className="w-4 h-4" />
           Nouveau Licencié
         </button>
@@ -87,22 +87,22 @@ export default function MembersView() {
 
       <div className="flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
             type="text"
             placeholder="Rechercher par nom ou licence..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#9f0202] focus:ring-2 focus:ring-[#9f0202]/10"
           />
         </div>
         <div className="flex gap-2">
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <select
               value={filterBelt}
               onChange={(e) => setFilterBelt(e.target.value)}
-              className="pl-10 pr-8 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white appearance-none focus:outline-none focus:border-emerald-500"
+              className="pl-10 pr-8 py-2 bg-white border border-gray-300 rounded-md text-gray-900 appearance-none focus:outline-none focus:border-[#9f0202] focus:ring-2 focus:ring-[#9f0202]/10"
             >
               <option value="all">Toutes ceintures</option>
               {Object.entries(beltLabels).map(([key, label]) => (
@@ -113,7 +113,7 @@ export default function MembersView() {
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white appearance-none focus:outline-none focus:border-emerald-500"
+            className="px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-900 appearance-none focus:outline-none focus:border-[#9f0202] focus:ring-2 focus:ring-[#9f0202]/10"
           >
             <option value="all">Toutes catégories</option>
             <option value="Poussins">Poussins</option>
@@ -136,39 +136,39 @@ export default function MembersView() {
             <div
               key={member.id}
               onClick={() => setSelectedMember(member)}
-              className="bg-slate-800/70 rounded-xl p-4 border border-slate-700 hover:border-emerald-500/50 cursor-pointer transition-all hover:shadow-lg hover:shadow-emerald-500/5 group"
+              className="bg-white rounded-lg p-4 border border-gray-200 hover:border-[#9f0202] cursor-pointer transition-all hover:shadow-md group"
             >
               <div className="flex items-start gap-3">
                 <div className={`w-12 h-12 rounded-full ${beltColors[member.beltColor]} flex items-center justify-center text-lg font-bold border-2 ${member.beltColor === 'white' ? 'text-gray-800' : 'text-white'}`}>
                   {member.firstName[0]}{member.lastName[0]}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold truncate group-hover:text-emerald-400 transition-colors">
+                  <h3 className="text-gray-900 font-semibold truncate group-hover:text-[#9f0202] transition-colors">
                     {member.firstName} {member.lastName}
                   </h3>
-                  <p className="text-slate-400 text-xs">{member.licenseNumber}</p>
+                  <p className="text-gray-500 text-xs">{member.licenseNumber}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <div className={`w-6 h-2 rounded-full ${beltColors[member.beltColor]} border ${member.beltColor === 'white' ? 'border-gray-400' : 'border-transparent'}`}></div>
-                    <span className="text-slate-500 text-xs">
+                    <span className="text-gray-600 text-xs">
                       {beltLabels[member.beltColor]} {member.dan ? `${member.dan}ème Dan` : ''}
                     </span>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#9f0202] transition-colors" />
               </div>
 
               <div className="mt-3 grid grid-cols-3 gap-2">
-                <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-                  <p className="text-slate-500 text-xs">Catégorie</p>
-                  <p className="text-white text-xs font-medium">{getAgeCategory(member.dateOfBirth)}</p>
+                <div className="bg-gray-50 rounded-md p-2 text-center">
+                  <p className="text-gray-500 text-xs">Catégorie</p>
+                  <p className="text-gray-900 text-xs font-medium">{getAgeCategory(member.dateOfBirth)}</p>
                 </div>
-                <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-                  <p className="text-slate-500 text-xs">Assiduité</p>
-                  <p className={`text-xs font-medium ${avgAttendance >= 80 ? 'text-emerald-400' : 'text-amber-400'}`}>{avgAttendance}%</p>
+                <div className="bg-gray-50 rounded-md p-2 text-center">
+                  <p className="text-gray-500 text-xs">Assiduité</p>
+                  <p className={`text-xs font-medium ${avgAttendance >= 80 ? 'text-green-600' : 'text-amber-600'}`}>{avgAttendance}%</p>
                 </div>
-                <div className="bg-slate-700/50 rounded-lg p-2 text-center">
-                  <p className="text-slate-500 text-xs">Certif. Méd.</p>
-                  <p className={`text-xs font-medium ${medicalDays > 30 ? 'text-emerald-400' : 'text-red-400'}`}>
+                <div className="bg-gray-50 rounded-md p-2 text-center">
+                  <p className="text-gray-500 text-xs">Certif. Méd.</p>
+                  <p className={`text-xs font-medium ${medicalDays > 30 ? 'text-green-600' : 'text-red-600'}`}>
                     {medicalDays > 0 ? `${medicalDays}j` : 'Expiré'}
                   </p>
                 </div>
@@ -180,20 +180,20 @@ export default function MembersView() {
 
       {/* Member Detail Modal */}
       {selectedMember && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedMember(null)}>
-          <div className="bg-slate-800 rounded-2xl border border-slate-700 max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="p-6 border-b border-slate-700">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedMember(null)}>
+          <div className="bg-white rounded-lg border border-gray-200 max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="p-6 border-b border-gray-200">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-16 h-16 rounded-full ${beltColors[selectedMember.beltColor]} flex items-center justify-center text-2xl font-bold border-3 ${selectedMember.beltColor === 'white' ? 'text-gray-800' : 'text-white'}`}>
+                  <div className={`w-16 h-16 rounded-full ${beltColors[selectedMember.beltColor]} flex items-center justify-center text-2xl font-bold border-2 ${selectedMember.beltColor === 'white' ? 'text-gray-800' : 'text-white'}`}>
                     {selectedMember.firstName[0]}{selectedMember.lastName[0]}
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">{selectedMember.firstName} {selectedMember.lastName}</h2>
-                    <p className="text-slate-400">{selectedMember.licenseNumber} • {getAgeCategory(selectedMember.dateOfBirth)}</p>
+                    <h2 className="text-xl font-bold text-gray-900">{selectedMember.firstName} {selectedMember.lastName}</h2>
+                    <p className="text-gray-500">{selectedMember.licenseNumber} • {getAgeCategory(selectedMember.dateOfBirth)}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <div className={`w-8 h-3 rounded-full ${beltColors[selectedMember.beltColor]} border ${selectedMember.beltColor === 'white' ? 'border-gray-400' : 'border-transparent'}`}></div>
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-gray-600 text-sm">
                         {beltLabels[selectedMember.beltColor]} {selectedMember.dan ? `${selectedMember.dan}ème Dan` : ''}
                       </span>
                     </div>

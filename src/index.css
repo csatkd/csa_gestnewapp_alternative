@@ -1,16 +1,23 @@
 @import "tailwindcss";
+@import "./styles/design-system.css";
 
-/* CSA Brand Colors */
+/* CSA Brand Colors - Palette Officielle */
 :root {
   --csa-red: #9f0202;
   --csa-red-dark: #7a0101;
   --csa-red-light: #b80303;
-  --csa-black: #0F172A;
-  --csa-gray-dark: #1E293B;
-  --csa-gray: #475569;
-  --csa-gray-light: #64748B;
-  --csa-white: #FFFFFF;
-  --csa-accent: #9f0202;
+  --csa-black: #0a0a0a;
+  --csa-gray-900: #1a1a1a;
+  --csa-gray-800: #2a2a2a;
+  --csa-gray-700: #3a3a3a;
+  --csa-gray-600: #4a4a4a;
+  --csa-gray-500: #6a6a6a;
+  --csa-gray-400: #8a8a8a;
+  --csa-gray-300: #aaaaaa;
+  --csa-gray-200: #d0d0d0;
+  --csa-gray-100: #e8e8e8;
+  --csa-gray-50: #f5f5f5;
+  --csa-white: #ffffff;
 }
 
 /* Custom scrollbar */

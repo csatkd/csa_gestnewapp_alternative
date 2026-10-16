@@ -193,23 +193,23 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
     <ErrorBoundary>
     <div className="min-h-screen bg-slate-900 flex">
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-800 border-r border-slate-700 transform transition-transform duration-300 lg:translate-x-0 lg:static ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 lg:translate-x-0 lg:static ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="p-5 border-b border-[#9f0202]/30">
+          <div className="p-5 border-b border-gray-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 csa-gradient rounded-lg flex items-center justify-center shadow-lg shadow-[#9f0202]/30">
-                <span className="text-white font-bold text-lg">🥋</span>
+              <div className="w-10 h-10 bg-[#9f0202] rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">C</span>
               </div>
               <div>
-                <h1 className="text-white font-bold text-sm">Confidence Sports</h1>
-                <p className="text-[#9f0202] text-xs">Academy — Taekwondo</p>
+                <h1 className="text-gray-900 font-semibold text-sm">Confidence Sports</h1>
+                <p className="text-gray-500 text-xs">Academy — Taekwondo</p>
               </div>
             </div>
             <div className="mt-3 flex items-center gap-2 flex-wrap">
-              <span className="px-2 py-0.5 bg-[#9f0202]/20 text-[#9f0202] rounded text-xs font-medium">FITKD</span>
-              <span className="px-2 py-0.5 bg-white/10 text-white rounded text-xs font-medium">Kukkiwon</span>
-              <span className="px-2 py-0.5 bg-gray-700 text-gray-300 rounded text-xs font-medium">WT</span>
+              <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs font-medium">FITKD</span>
+              <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs font-medium">Kukkiwon</span>
+              <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs font-medium">WT</span>
             </div>
           </div>
 
@@ -219,10 +219,10 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
               <button
                 key={item.key}
                 onClick={() => { setCurrentView(item.key); setSidebarOpen(false); }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
                   currentView === item.key
-                    ? 'bg-[#9f0202]/15 text-[#9f0202] border border-[#9f0202]/30 shadow-lg shadow-[#9f0202]/10'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                    ? 'bg-[#9f0202]/10 text-[#9f0202]'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
                 <item.icon className="w-5 h-5" />
@@ -232,10 +232,10 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
           </nav>
 
           {/* Quick Actions */}
-          <div className="p-3 border-t border-gray-700">
+          <div className="p-3 border-t border-gray-200">
             <button
               onClick={handleExportCSV}
-              className="w-full flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-[#9f0202]/10 hover:border-[#9f0202]/30 border border-transparent transition-all"
+              className="w-full flex items-center gap-2 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-[#9f0202] hover:bg-gray-100 transition-colors"
             >
               <Download className="w-4 h-4" />
               Exporter CSV
@@ -243,19 +243,19 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-[#9f0202]/30">
-            <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+          <div className="p-4 border-t border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-8 h-8 rounded-full bg-[#9f0202]/20 flex items-center justify-center border border-[#9f0202]/30">
-                  <span className="text-[#9f0202] text-xs font-bold">DT</span>
+                <div className="w-8 h-8 rounded-full bg-[#9f0202]/10 flex items-center justify-center">
+                  <span className="text-[#9f0202] text-xs font-semibold">DT</span>
                 </div>
                 <div>
-                  <p className="text-white text-xs font-medium">Directeur Technique</p>
+                  <p className="text-gray-900 text-xs font-medium">Directeur Technique</p>
                   <p className="text-gray-500 text-[10px]">Administrateur</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-[#9f0202] animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-green-500"></span>
                 <span className="text-gray-500 text-[10px]">En ligne</span>
               </div>
             </div>
@@ -269,19 +269,19 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
       )}
 
       {/* Main Content */}
-      <main className="flex-1 min-h-screen">
+      <main className="flex-1 min-h-screen bg-gray-50">
         {/* Top Bar */}
-        <header className="sticky top-0 z-30 bg-black/90 backdrop-blur-lg border-b-2 border-[#9f0202]/30 px-4 lg:px-6 py-3">
+        <header className="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 lg:px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-[#9f0202]/10 transition-colors"
+                className="lg:hidden p-2 text-gray-600 hover:text-gray-900 rounded-md hover:bg-gray-100 transition-colors"
               >
                 {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
               <div>
-                <h2 className="text-white font-semibold text-lg">
+                <h2 className="text-gray-900 font-semibold text-lg">
                   {navItems.find(n => n.key === currentView)?.label}
                 </h2>
                 <p className="text-gray-500 text-xs hidden sm:block">
@@ -294,11 +294,11 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
               <div className="relative hidden md:block">
                 <button
                   onClick={() => setShowSearch(!showSearch)}
-                  className="flex items-center gap-2 bg-gray-800 rounded-lg px-3 py-1.5 border border-gray-700 hover:border-[#9f0202]/50 transition-colors"
+                  className="flex items-center gap-2 bg-gray-50 rounded-md px-3 py-1.5 border border-gray-200 hover:border-gray-300 transition-colors"
                 >
-                  <Search className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-400 text-xs">Rechercher...</span>
-                  <kbd className="text-gray-500 text-[10px] bg-gray-700 px-1.5 py-0.5 rounded">⌘K</kbd>
+                  <Search className="w-4 h-4 text-gray-500" />
+                  <span className="text-gray-600 text-xs">Rechercher...</span>
+                  <kbd className="text-gray-500 text-[10px] bg-gray-100 px-1.5 py-0.5 rounded">⌘K</kbd>
                 </button>
 
                 {showSearch && (
@@ -344,9 +344,9 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
               </div>
 
               {/* Live Clock */}
-              <div className="hidden lg:flex items-center gap-2 bg-gray-800 rounded-lg px-3 py-1.5 border border-gray-700">
-                <span className="w-2 h-2 rounded-full bg-[#9f0202] animate-pulse"></span>
-                <span className="text-gray-400 text-xs font-mono">
+              <div className="hidden lg:flex items-center gap-2 bg-gray-50 rounded-md px-3 py-1.5 border border-gray-200">
+                <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                <span className="text-gray-700 text-xs font-mono">
                   {currentTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </span>
               </div>
@@ -354,16 +354,16 @@ function AppContent({ currentView, setCurrentView }: { currentView: ViewType; se
               {/* Notifications Bell */}
               <button
                 onClick={() => setShowNotifications(true)}
-                className="relative p-2 text-gray-400 hover:text-white rounded-lg hover:bg-[#9f0202]/10 transition-colors"
+                className="relative p-2 text-gray-600 hover:text-gray-900 rounded-md hover:bg-gray-100 transition-colors"
               >
                 <Bell className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-[#9f0202] rounded-full animate-pulse-red"></span>
+                <span className="absolute top-1 right-1 w-2 h-2 bg-[#9f0202] rounded-full"></span>
               </button>
 
               {/* Date */}
               <div className="text-right hidden sm:block">
-                <p className="text-white text-xs font-medium">{currentTime.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })}</p>
-                <p className="text-[#9f0202] text-[10px]">Saison 2024-2025</p>
+                <p className="text-gray-900 text-xs font-medium">{currentTime.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })}</p>
+                <p className="text-gray-500 text-[10px]">Saison 2024-2025</p>
               </div>
             </div>
           </div>
