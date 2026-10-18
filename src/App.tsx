@@ -40,15 +40,25 @@ import LandingPage from './components/LandingPage';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import LoginSelection from './components/LoginSelection';
 import StaffLogin from './components/StaffLogin';
+import UserManagement from './components/UserManagement';
+import { ThemeProvider, useTheme } from './components/ThemeContext';
+import { AdvancedNotificationsPanel, useAdvancedNotifications } from './components/AdvancedNotifications';
+import RoleDashboard from './components/RoleDashboard';
+import { useFavorites, FavoritesBar } from './components/FavoritesSystem';
+import Breadcrumbs from './components/Breadcrumbs';
+import GlobalSearch from './components/GlobalSearch';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
 import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData';
+import { hasPermission, getAccessibleViews } from './utils/permissions';
+import { Sun, Moon, Star } from 'lucide-react';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'booklet' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'cards';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'booklet' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'cards' | 'user-management';
 
-const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[] = [
+const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard; roles?: string[] }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
+  { key: 'user-management', label: 'Utilisateurs', icon: Users, roles: ['admin'] },
   { key: 'members', label: 'Licenciés', icon: Users },
   { key: 'cards', label: 'Cartes de Membre', icon: CreditCard },
   { key: 'attendance', label: 'Assiduité', icon: ClipboardCheck },
@@ -79,7 +89,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard }[]
   { key: 'stats', label: 'Statistiques', icon: BarChart3 },
   { key: 'report', label: 'Rapports', icon: FileText },
   { key: 'data', label: 'Données', icon: Database },
-  { key: 'settings', label: 'Paramètres', icon: Settings },
+  { key: 'settings', label: 'Paramètres', icon: Settings, roles: ['admin'] },
   { key: 'parents', label: 'Portail Famille', icon: Home },
 ];
 
@@ -93,6 +103,19 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
   const { toasts, addToast, removeToast } = useToast();
   const { isAuthenticated } = useParentAuth();
   const { logout: logoutStaff } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const { notifications, unreadCount, addNotification, markAsRead, markAllAsRead, removeNotification, clearAll } = useAdvancedNotifications();
+  const { favorites, toggleFavorite, isFavorite, removeFavorite } = useFavorites();
+
+  // Filter navigation items based on user role
+  const filteredNavItems = user?.role 
+    ? navItems.filter(item => !item.roles || item.roles.includes(user.role))
+    : navItems.filter(item => !item.roles);
+
+  // Handle view change with animation
+  const handleViewChange = (view: ViewType) => {
+    setCurrentView(view);
+  };
 
   // Update time every second
   useEffect(() => {
@@ -157,7 +180,12 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
 
   const renderView = () => {
     switch (currentView) {
-      case 'dashboard': return <DashboardView />;
+      case 'dashboard': 
+        // Show role-specific dashboard if user is logged in
+        if (user?.role && user.role !== 'parent') {
+          return <RoleDashboard role={user.role} />;
+        }
+        return <DashboardView />;
       case 'members': return <MembersView />;
       case 'cards': return <MemberCardManagement />;
       case 'attendance': return <AttendanceView />;
@@ -189,6 +217,7 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
       case 'report': return <PerformanceReport />;
       case 'data': return <DataManagement />;
       case 'settings': return <AcademySettings />;
+      case 'user-management': return <UserManagement />;
       case 'parents': return <ParentPortalView />;
     }
   };
@@ -219,7 +248,7 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
 
           {/* Navigation */}
           <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-            {navItems.map(item => (
+            {filteredNavItems.map(item => (
               <button
                 key={item.key}
                 onClick={() => { setCurrentView(item.key); setSidebarOpen(false); }}
@@ -320,47 +349,6 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
                   <span className="text-slate-400 text-xs">Rechercher...</span>
                   <kbd className="text-slate-500 text-[10px] bg-slate-700 px-1.5 py-0.5 rounded">⌘K</kbd>
                 </button>
-
-                {showSearch && (
-                  <div className="absolute top-full mt-2 right-0 w-96 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden">
-                    <div className="p-3 border-b border-slate-700">
-                      <input
-                        type="text"
-                        autoFocus
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Rechercher un licencié, paiement, grade..."
-                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500"
-                      />
-                    </div>
-                    {searchResults.length > 0 && (
-                      <div className="max-h-80 overflow-y-auto">
-                        {searchResults.map((result, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => {
-                              setCurrentView(result.action);
-                              setShowSearch(false);
-                              setSearchQuery('');
-                            }}
-                            className="w-full text-left px-4 py-3 hover:bg-slate-700/50 transition-colors border-b border-slate-700/50"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="px-1.5 py-0.5 bg-slate-700 rounded text-[10px] text-slate-400">{result.type}</span>
-                              <span className="text-white text-sm">{result.label}</span>
-                            </div>
-                            <p className="text-slate-500 text-xs mt-0.5 ml-0.5">{result.sublabel}</p>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                    {searchQuery.length >= 2 && searchResults.length === 0 && (
-                      <div className="p-4 text-center text-slate-500 text-sm">
-                        Aucun résultat pour "{searchQuery}"
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
 
               {/* Live Clock */}
@@ -371,13 +359,24 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
                 </span>
               </div>
 
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+
               {/* Notifications Bell */}
               <button
                 onClick={() => setShowNotifications(true)}
                 className="relative p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
               >
                 <Bell className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                {unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                )}
               </button>
 
               {/* Date */}
@@ -391,20 +390,76 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
 
         {/* Page Content */}
         <div className="p-4 lg:p-6">
-          {renderView()}
+          {/* Favorites Bar */}
+          <FavoritesBar 
+            favorites={favorites}
+            onSelect={(view) => handleViewChange(view as ViewType)}
+            onRemove={removeFavorite}
+          />
+          
+          {/* Breadcrumbs */}
+          <Breadcrumbs 
+            items={[
+              { label: 'Accueil', onClick: () => handleViewChange('dashboard') },
+              { label: filteredNavItems.find(item => item.key === currentView)?.label || '' }
+            ]}
+          />
+
+          {/* Favorite Toggle Button */}
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={() => {
+                const currentItem = filteredNavItems.find(item => item.key === currentView);
+                if (currentItem) {
+                  toggleFavorite({
+                    label: currentItem.label,
+                    icon: '⭐',
+                    view: currentItem.key
+                  });
+                }
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                isFavorite(currentView)
+                  ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                  : 'bg-slate-800 text-slate-400 border border-slate-700 hover:border-amber-500/30 hover:text-amber-400'
+              }`}
+            >
+              <Star className={`w-4 h-4 ${isFavorite(currentView) ? 'fill-amber-400' : ''}`} />
+              <span className="text-sm">{isFavorite(currentView) ? 'Dans les favoris' : 'Ajouter aux favoris'}</span>
+            </button>
+          </div>
+
+          {/* Main Content with Animation */}
+          <div className="animate-fade-in">
+            {renderView()}
+          </div>
         </div>
       </main>
 
       {/* Notifications Panel */}
-      {showNotifications && <NotificationsPanel onClose={() => setShowNotifications(false)} />}
+      {showNotifications && (
+        <AdvancedNotificationsPanel
+          notifications={notifications}
+          onClose={() => setShowNotifications(false)}
+          onMarkAsRead={markAsRead}
+          onMarkAllAsRead={markAllAsRead}
+          onRemove={removeNotification}
+          onClearAll={clearAll}
+        />
+      )}
 
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} removeToast={removeToast} />
 
       {/* Global Search Overlay */}
-      {showSearch && (
-        <div className="fixed inset-0 bg-black/30 z-40 md:hidden" onClick={() => setShowSearch(false)}></div>
-      )}
+      <GlobalSearch
+        isOpen={showSearch}
+        onClose={() => setShowSearch(false)}
+        onSelect={(action) => {
+          setCurrentView(action as ViewType);
+          setShowSearch(false);
+        }}
+      />
 
       {/* Keyboard shortcut listener */}
       <KeyboardShortcut onOpenSearch={() => setShowSearch(true)} />
@@ -427,60 +482,70 @@ export default function App() {
 
   if (showLanding) {
     return (
-      <LandingPage 
-        onLogin={handleLogin}
-        onEnter={handleEnter}
-      />
+      <ThemeProvider>
+        <LandingPage 
+          onLogin={handleLogin}
+          onEnter={handleEnter}
+        />
+      </ThemeProvider>
     );
   }
 
   if (loginMode === 'selection') {
     return (
-      <LoginSelection 
-        onSelectParent={handleSelectParent}
-        onSelectStaff={handleSelectStaff}
-      />
+      <ThemeProvider>
+        <LoginSelection 
+          onSelectParent={handleSelectParent}
+          onSelectStaff={handleSelectStaff}
+        />
+      </ThemeProvider>
     );
   }
 
   if (loginMode === 'parent') {
     return (
-      <ParentAuthProvider>
-        <div className="relative">
-          <button
-            onClick={handleBackToSelection}
-            className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
-          >
-            ← Retour
-          </button>
-          <ParentLogin />
-        </div>
-      </ParentAuthProvider>
+      <ThemeProvider>
+        <ParentAuthProvider>
+          <div className="relative">
+            <button
+              onClick={handleBackToSelection}
+              className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+            >
+              ← Retour
+            </button>
+            <ParentLogin />
+          </div>
+        </ParentAuthProvider>
+      </ThemeProvider>
     );
   }
 
   if (loginMode === 'staff') {
     return (
-      <AuthProvider>
-        <div className="relative">
-          <button
-            onClick={handleBackToSelection}
-            className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
-          >
-            ← Retour
-          </button>
-          <StaffLoginWrapper onBack={handleBackToSelection} />
-        </div>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <div className="relative">
+            <button
+              onClick={handleBackToSelection}
+              className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+            >
+              ← Retour
+            </button>
+            <StaffLoginWrapper onBack={handleBackToSelection} />
+          </div>
+        </AuthProvider>
+      </ThemeProvider>
     );
   }
 
   return (
-    <AuthProvider>
-      <ParentAuthProvider>
-        <AppWrapper />
-      </ParentAuthProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <ParentAuthProvider>
+          <AppWrapper />
+        </ParentAuthProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
