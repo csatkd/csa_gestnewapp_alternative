@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { 
   Award, Users, Calendar, TrendingUp, Phone, Mail, MapPin, 
   ChevronDown, Play, Star, CheckCircle, ArrowRight, Menu, X,
-  Shield, Target, Zap, Globe, Clock, DollarSign
+  Shield, Target, Zap, Globe, Clock, DollarSign, UserPlus
 } from 'lucide-react';
 
 export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void; onEnter: () => void }) {
@@ -252,6 +252,13 @@ export default function LandingPage({ onLogin, onEnter }: { onLogin: () => void;
               >
                 <Play className="w-5 h-5" />
                 Découvrir nos Services
+              </button>
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('showPreInscription'))}
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-blue-500/50 flex items-center justify-center gap-2"
+              >
+                <UserPlus className="w-5 h-5" />
+                Préinscription en Ligne
               </button>
             </div>
 

@@ -47,6 +47,9 @@ import RoleDashboard from './components/RoleDashboard';
 import { useFavorites, FavoritesBar } from './components/FavoritesSystem';
 import Breadcrumbs from './components/Breadcrumbs';
 import GlobalSearch from './components/GlobalSearch';
+import PreInscriptionForm from './components/PreInscriptionForm';
+import PreInscriptionManagement from './components/PreInscriptionManagement';
+import PreInscriptionSuccess from './components/PreInscriptionSuccess';
 import { ToastContainer, useToast } from './components/Toast';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { exportToCSV } from './utils/helpers';
@@ -54,7 +57,7 @@ import { mockMembers, attendance30DaysData, mockPayments } from './data/mockData
 import { hasPermission, getAccessibleViews } from './utils/permissions';
 import { Sun, Moon, Star } from 'lucide-react';
 
-type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'booklet' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'cards' | 'user-management';
+type ViewType = 'dashboard' | 'members' | 'attendance' | 'secretariat' | 'grading' | 'payments' | 'monthly-payments' | 'booklet' | 'parents' | 'inventory' | 'stats' | 'data' | 'report' | 'schedule' | 'communication' | 'incidents' | 'rewards' | 'progress' | 'settings' | 'booking' | 'trial' | 'coaches' | 'coach-attendance' | 'shop' | 'competitions' | 'whatsapp' | 'calendar' | 'feedback' | 'videos' | 'referral' | 'receipts' | 'inscriptions' | 'pre-inscriptions' | 'cards' | 'user-management';
 
 const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard; roles?: string[] }[] = [
   { key: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
@@ -79,6 +82,7 @@ const navItems: { key: ViewType; label: string; icon: typeof LayoutDashboard; ro
   { key: 'referral', label: 'Parrainage', icon: Users },
   { key: 'receipts', label: 'Reçus', icon: Printer },
   { key: 'inscriptions', label: 'Inscriptions', icon: UserPlus },
+  { key: 'pre-inscriptions', label: 'Préinscriptions', icon: UserPlus, roles: ['admin'] },
   { key: 'payments', label: 'Trésorerie', icon: DollarSign },
   { key: 'monthly-payments', label: 'Mensualités', icon: Calendar },
   { key: 'booklet', label: 'Carnet de Paiement', icon: BookOpen },
@@ -206,6 +210,7 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
       case 'referral': return <ReferralProgram />;
       case 'receipts': return <ReceiptPrinter />;
       case 'inscriptions': return <InscriptionManagement />;
+      case 'pre-inscriptions': return <PreInscriptionManagement />;
       case 'payments': return <PaymentsView />;
       case 'monthly-payments': return <MonthlyPaymentsView />;
       case 'booklet': return <PaymentBookletView />;
@@ -471,6 +476,19 @@ function AppContent({ currentView, setCurrentView, user }: { currentView: ViewTy
 export default function App() {
   const [showLanding, setShowLanding] = useState(true);
   const [loginMode, setLoginMode] = useState<'selection' | 'parent' | 'staff' | null>(null);
+  const [showPreInscription, setShowPreInscription] = useState(false);
+  const [preInscriptionSuccess, setPreInscriptionSuccess] = useState<{
+    id: string;
+    firstName: string;
+    lastName: string;
+  } | null>(null);
+
+  // Listen for pre-inscription event from landing page
+  useEffect(() => {
+    const handlePreInscription = () => setShowPreInscription(true);
+    window.addEventListener('showPreInscription', handlePreInscription);
+    return () => window.removeEventListener('showPreInscription', handlePreInscription);
+  }, []);
 
   // Always call hooks before any conditional returns
   const handleLogin = () => setLoginMode('selection');
@@ -479,6 +497,55 @@ export default function App() {
   const handleSelectParent = () => setLoginMode('parent');
   const handleSelectStaff = () => setLoginMode('staff');
   const handleBackToSelection = () => setLoginMode('selection');
+
+  if (preInscriptionSuccess) {
+    return (
+      <ThemeProvider>
+        <PreInscriptionSuccess
+          preInscriptionId={preInscriptionSuccess.id}
+          firstName={preInscriptionSuccess.firstName}
+          lastName={preInscriptionSuccess.lastName}
+          onClose={() => {
+            setPreInscriptionSuccess(null);
+            setShowLanding(true);
+          }}
+        />
+      </ThemeProvider>
+    );
+  }
+
+  if (showPreInscription) {
+    return (
+      <ThemeProvider>
+        <div className="relative">
+          <button
+            onClick={() => setShowPreInscription(false)}
+            className="absolute top-4 left-4 z-50 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors"
+          >
+            ← Retour
+          </button>
+          <PreInscriptionForm
+            onSubmit={(data) => {
+              // Generate unique ID
+              const preInscriptionId = `PRE-${Date.now().toString().slice(-6)}`;
+              
+              // Here you would typically save to backend
+              console.log('Pre-inscription submitted:', { id: preInscriptionId, ...data });
+              
+              // Show success page
+              setPreInscriptionSuccess({
+                id: preInscriptionId,
+                firstName: data.firstName,
+                lastName: data.lastName
+              });
+              setShowPreInscription(false);
+            }}
+            onCancel={() => setShowPreInscription(false)}
+          />
+        </div>
+      </ThemeProvider>
+    );
+  }
 
   if (showLanding) {
     return (
