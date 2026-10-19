@@ -32,10 +32,10 @@ export default function PaymentBookletView() {
     }
   }, [member?.id]);
 
-  if (!member) return null;
-
   // Gérer l'upload de photo
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!member) return;
+    
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -51,10 +51,14 @@ export default function PaymentBookletView() {
 
   // Supprimer la photo
   const handlePhotoDelete = () => {
+    if (!member) return;
+    
     setMemberPhoto(null);
     localStorage.removeItem(`photo_${member.id}`);
     setShowPhotoModal(false);
   };
+
+  if (!member) return null;
 
   // Générer les données de paiement simulées
   const generatePayments = (): MonthlyPayment[] => {
